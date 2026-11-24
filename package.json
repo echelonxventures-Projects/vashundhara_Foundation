@@ -38,23 +38,8 @@
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0"
   },
-  "packageManager": "pnpm@9.1.0",
+  "packageManager": "pnpm@10.18.0",
   "engines": {
     "node": ">=22.0.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "postcss": "^8.5.33",
-      "js-yaml": "^4.3.2",
-      "lodash": "^4.18.0"
-    },
-    "onlyBuiltDependencies": [
-      "@prisma/client",
-      "@prisma/engines",
-      "prisma",
-      "esbuild",
-      "@swc/core",
-      "sharp"
-    ]
   }
 }

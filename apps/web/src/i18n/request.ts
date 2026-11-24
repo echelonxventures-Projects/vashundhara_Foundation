@@ -9,7 +9,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
   const en = await load('en');
   let messages = locale === 'en' ? en : withFallback(en, await load(locale));
   // An NGO's own wording wins.
-  const own = await serverApi<Record<string, string>>(`translations/public?locale=${locale}`, 60);
+  const own = await serverApi<Record<string, string>>(`translations/public?locale=${locale}`);
   if (own && Object.keys(own).length) {
     const tree: Messages = {};
     for (const [k, v] of Object.entries(own)) {

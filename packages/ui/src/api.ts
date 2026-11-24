@@ -32,7 +32,7 @@ export const put = <T = any>(path: string, body: unknown = {}) => api<T>(path, {
 export const del = <T = any>(path: string) => api<T>(path, { method: 'DELETE' });
 
 export function saveText(filename: string, text: string, type = 'text/csv;charset=utf-8') {
-  const url = URL.createObjectURL(new Blob([type.startsWith('text/csv') ? `﻿${text}` : text], { type }));
+  const url = URL.createObjectURL(new Blob([type.startsWith('text/csv') ? `\uFEFF${text}` : text], { type }));
   const a = Object.assign(document.createElement('a'), { href: url, download: filename });
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);

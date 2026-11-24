@@ -9,7 +9,7 @@ import { F, R, STAFF } from './staff-config';
 
 const rupees = (m: unknown) => formatMinor(Number(m ?? 0));
 const dig = (o: any, p: string) => p.split('.').reduce((x, k) => x?.[k], o);
-const cell = (key: string) => (r: any): ReactNode => {
+function cellValue(key: string, r: any): ReactNode {
   const v = dig(r, key);
   if (key.endsWith('Minor')) return v === undefined || v === null ? '-' : rupees(v);
   if (key === 'pipelineStages') return v?.map((s: any) => s.name).join(' → ');
@@ -20,7 +20,8 @@ const cell = (key: string) => (r: any): ReactNode => {
   if (typeof v === 'string' && /^[A-Z][A-Z0-9_]+$/.test(v)) return <Badge value={v} />;
   const s = String(v);
   return s.length > 90 ? `${s.slice(0, 90)}…` : s;
-};
+}
+const cell = (key: string) => (r: any) => cellValue(key, r);
 
 const SPECIAL: { href: string; title: string; group: string; perm: Permission }[] = [
   { href: 'donations', title: 'Donations', group: 'Fundraising', perm: 'donations:read' }, { href: 'finance', title: 'Finance', group: 'Fundraising', perm: 'finance:read' }, { href: 'monitoring', title: 'Monitoring', group: 'Programmes', perm: 'programmes:read' },

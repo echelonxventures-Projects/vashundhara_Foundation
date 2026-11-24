@@ -1,504 +1,64 @@
 {
+  "nav": {
+    "campaigns": "ଅଭିଯାନ",
+    "events": "କାର୍ଯ୍ୟକ୍ରମ",
+    "learn": "ଶିଖନ୍ତୁ",
+    "library": "ପାଠାଗାର",
+    "volunteer": "ସ୍ୱେଚ୍ଛାସେବା",
+    "contact": "ଯୋଗାଯୋଗ",
+    "donate": "ଦାନ କରନ୍ତୁ",
+    "login": "ସାଇନ୍ ଇନ୍",
+    "account": "ମୋ ଖାତା",
+    "logout": "ସାଇନ୍ ଆଉଟ୍",
+    "about": "ଆମ ବିଷୟରେ",
+    "privacy": "ଗୋପନୀୟତା",
+    "terms": "ସର୍ତ୍ତାବଳୀ",
+    "refunds": "ଅର୍ଥ ଫେରସ୍ତ"
+  },
   "common": {
-    "appName": "Vashundhara Foundation",
-    "tagline": "World's First NGO Platform",
-    "loading": "Loading...",
-    "error": "An error occurred",
-    "retry": "Retry",
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "edit": "Edit",
-    "view": "View",
-    "create": "Create",
-    "update": "Update",
-    "search": "Search",
-    "filter": "Filter",
-    "export": "Export",
-    "import": "Import",
-    "yes": "Yes",
-    "no": "No",
-    "confirm": "Confirm",
-    "back": "Back",
-    "next": "Next",
-    "previous": "Previous",
-    "close": "Close",
-    "open": "Open",
-    "submit": "Submit",
-    "reset": "Reset",
-    "clear": "Clear",
-    "apply": "Apply",
-    "done": "Done",
-    "continue": "Continue",
-    "skip": "Skip",
-    "finish": "Finish"
+    "home": "ମୁଖ୍ୟ ପୃଷ୍ଠା",
+    "search": "ଖୋଜନ୍ତୁ",
+    "menu": "ମେନୁ",
+    "language": "ଭାଷା",
+    "save": "ସଂରକ୍ଷଣ କରନ୍ତୁ",
+    "send": "ପଠାନ୍ତୁ",
+    "loading": "ଲୋଡ୍ ହେଉଛି",
+    "name": "ପୂରା ନାମ",
+    "firstName": "ନାମ",
+    "lastName": "ସାଙ୍ଗିଆ",
+    "email": "ଇମେଲ୍",
+    "phone": "ଫୋନ୍",
+    "password": "ପାସୱାର୍ଡ",
+    "address": "ଠିକଣା",
+    "message": "ବାର୍ତ୍ତା"
+  },
+  "home": {
+    "donateNow": "ଏବେ ଦାନ କରନ୍ତୁ",
+    "joinCta": "ସ୍ୱେଚ୍ଛାସେବୀ ହୁଅନ୍ତୁ",
+    "helpCta": "ସହାୟତା ପାଇଁ ଆବେଦନ କରନ୍ତୁ"
+  },
+  "donate": {
+    "title": "ଦାନ କରନ୍ତୁ",
+    "once": "ଥରେ",
+    "monthly": "ପ୍ରତି ମାସ",
+    "yearly": "ପ୍ରତି ବର୍ଷ",
+    "details": "ଆପଣଙ୍କ ବିବରଣୀ",
+    "citizen": "ମୁଁ ଭାରତୀୟ ନାଗରିକ",
+    "want80g": "ମୋତେ 80G କର ରସିଦ ଦରକାର",
+    "thanks": "ଧନ୍ୟବାଦ!"
   },
   "auth": {
-    "login": {
-      "title": "Welcome back",
-      "subtitle": "Sign in to your account",
-      "fields": {
-        "email": {
-          "label": "Email address",
-          "placeholder": "you@example.com"
-        },
-        "password": {
-          "label": "Password",
-          "placeholder": "Enter your password",
-          "forgot": "Forgot password?",
-          "show": "Show password",
-          "hide": "Hide password"
-        }
-      },
-      "buttons": {
-        "submit": "Sign in",
-        "loading": "Signing in..."
-      },
-      "rememberMe": "Remember me",
-      "noAccount": "Don't have an account?",
-      "registerLink": "Sign up",
-      "errors": {
-        "emailRequired": "Email is required",
-        "invalidEmail": "Invalid email address",
-        "passwordRequired": "Password is required",
-        "passwordTooShort": "Password must be at least 8 characters",
-        "generic": "Something went wrong. Please try again."
-      },
-      "success": {
-        "title": "Welcome back!",
-        "description": "You have been signed in successfully."
-      },
-      "demo": {
-        "title": "Demo credentials",
-        "email": "Email",
-        "password": "Password"
-      }
-    },
-    "register": {
-      "title": "Create your account",
-      "subtitle": "Join thousands of NGOs worldwide",
-      "fields": {
-        "firstName": {
-          "label": "First name",
-          "placeholder": "John"
-        },
-        "lastName": {
-          "label": "Last name",
-          "placeholder": "Doe"
-        },
-        "email": {
-          "label": "Email address",
-          "placeholder": "you@example.com"
-        },
-        "password": {
-          "label": "Password",
-          "placeholder": "Create a password",
-          "show": "Show password",
-          "hide": "Hide password"
-        },
-        "confirmPassword": {
-          "label": "Confirm password",
-          "placeholder": "Confirm your password"
-        },
-        "tenantSlug": {
-          "label": "Organization slug (optional)",
-          "placeholder": "my-ngo",
-          "hint": "Your organization's unique URL: my-ngo.vashundharafoundation.org"
-        },
-        "agreeTerms": {
-          "text": "I agree to the Terms of Service and Privacy Policy"
-        }
-      },
-      "buttons": {
-        "submit": "Create account",
-        "loading": "Creating account..."
-      },
-      "passwordRequirements": {
-        "length": "At least 8 characters",
-        "uppercase": "One uppercase letter",
-        "lowercase": "One lowercase letter",
-        "number": "One number",
-        "special": "One special character"
-      },
-      "passwordStrength": {
-        "enter": "Enter a password",
-        "weak": "Weak",
-        "fair": "Fair",
-        "good": "Good",
-        "strong": "Strong"
-      },
-      "errors": {
-        "firstNameRequired": "First name is required",
-        "firstNameTooShort": "First name must be at least 2 characters",
-        "lastNameRequired": "Last name is required",
-        "lastNameTooShort": "Last name must be at least 2 characters",
-        "emailRequired": "Email is required",
-        "invalidEmail": "Invalid email address",
-        "passwordRequired": "Password is required",
-        "passwordTooShort": "Password must be at least 8 characters",
-        "passwordUppercase": "Password must contain an uppercase letter",
-        "passwordLowercase": "Password must contain a lowercase letter",
-        "passwordNumber": "Password must contain a number",
-        "passwordSpecial": "Password must contain a special character",
-        "confirmPasswordRequired": "Please confirm your password",
-        "passwordsMismatch": "Passwords do not match",
-        "invalidTenantSlug": "Slug can only contain lowercase letters, numbers, and hyphens",
-        "termsRequired": "You must agree to the terms",
-        "generic": "Something went wrong. Please try again."
-      },
-      "success": {
-        "title": "Account created!",
-        "description": "Welcome to Vashundhara Foundation."
-      },
-      "hasAccount": "Already have an account?",
-      "loginLink": "Sign in"
-    }
+    "login": "ସାଇନ୍ ଇନ୍",
+    "register": "ଖାତା ଖୋଲନ୍ତୁ",
+    "forgot": "ପାସୱାର୍ଡ ଭୁଲିଗଲେ?"
   },
-  "header": {
-    "brand": {
-      "home": "Go to homepage"
-    },
-    "nav": {
-      "dashboard": "Dashboard",
-      "donations": "Donations",
-      "campaigns": "Campaigns",
-      "donors": "Donors",
-      "reports": "Reports",
-      "subscriptions": "Subscriptions",
-      "settings": "Settings"
-    },
-    "language": {
-      "select": "Select language"
-    },
-    "theme": {
-      "light": "Light mode",
-      "dark": "Dark mode"
-    },
-    "user": {
-      "profile": "Profile",
-      "settings": "Settings",
-      "tenantSettings": "Organization settings",
-      "logout": "Log out"
-    }
+  "contact": {
+    "title": "ଆମ ସହ ଯୋଗାଯୋଗ କରନ୍ତୁ"
   },
-  "footer": {
-    "brand": {
-      "home": "Go to homepage",
-      "description": "Empowering NGOs worldwide with technology that scales."
-    },
-    "links": {
-      "product": "Product",
-      "company": "Company",
-      "resources": "Resources",
-      "legal": "Legal"
-    },
-    "copyright": {
-      "rightsReserved": "All rights reserved."
-    },
-    "trustedBy": "Trusted by organizations worldwide"
+  "events": {
+    "register": "ପଞ୍ଜୀକରଣ କରନ୍ତୁ"
   },
-  "sidebar": {
-    "sections": {
-      "main": "Main",
-      "admin": "Administration"
-    },
-    "nav": {
-      "dashboard": "Dashboard",
-      "donations": "Donations",
-      "campaigns": "Campaigns",
-      "donors": "Donors",
-      "reports": "Reports",
-      "subscriptions": "Subscriptions",
-      "users": "Users",
-      "roles": "Roles & Permissions",
-      "settings": "Settings",
-      "featureFlags": "Feature Flags",
-      "webhooks": "Webhooks",
-      "auditLogs": "Audit Logs",
-      "apiKeys": "API Keys",
-      "database": "Database"
-    },
-    "expand": "Expand sidebar",
-    "collapse": "Collapse sidebar",
-    "openMenu": "Open menu",
-    "closeMenu": "Close menu"
-  },
-  "hero": {
-    "badge": "New: Multi-currency donations now live!",
-    "titlePart1": "The platform that grows",
-    "titlePart2": "with your mission",
-    "description": "Multi-tenant, multi-lingual, multi-currency. Built for NGOs that dream big and operate globally.",
-    "cta": {
-      "primary": "Start free trial",
-      "secondary": "Watch demo"
-    },
-    "features": {
-      "multiTenant": "Multi-tenant",
-      "multiLingual": "13 languages",
-      "multiCurrency": "10 currencies",
-      "secure": "Bank-grade security",
-      "collaborative": "Team collaboration",
-      "compliant": "GDPR compliant"
-    },
-    "preview": {
-      "totalRaised": "Total raised",
-      "activeDonors": "Active donors",
-      "activeCampaigns": "Active campaigns",
-      "completed": "Completed",
-      "inProgress": "In progress"
-    }
-  },
-  "stats": {
-    "totalRaised": "Total raised",
-    "acrossPlatform": "Across platform",
-    "activeDonors": "Active donors",
-    "worldwide": "Worldwide",
-    "campaigns": "Campaigns",
-    "activeCampaigns": "Active campaigns",
-    "uptime": "Uptime",
-    "guaranteed": "Guaranteed",
-    "languages": "Languages",
-    "supported": "Supported",
-    "avgGrowth": "Avg. growth",
-    "yearOverYear": "Year over year"
-  },
-  "features": {
-    "title": "Everything you need to scale your impact",
-    "description": "From donation management to global compliance, we've built the tools NGOs need most.",
-    "categories": {
-      "multiTenancy": "Multi-tenancy",
-      "i18n": "Internationalization",
-      "multiCurrency": "Multi-currency",
-      "security": "Security & Compliance",
-      "extensibility": "Extensibility",
-      "analytics": "Analytics & Insights"
-    },
-    "items": {
-      "isolatedData": {
-        "title": "Isolated data",
-        "description": "Each organization gets complete data isolation with schema-per-tenant architecture."
-      },
-      "customDomains": {
-        "title": "Custom domains",
-        "description": "Use your own domain (ngo.org) with automatic SSL and CDN."
-      },
-      "whiteLabel": {
-        "title": "White-label branding",
-        "description": "Full customization of colors, logos, and UI without code changes."
-      },
-      "sso": {
-        "title": "Single sign-on",
-        "description": "SAML, OIDC, and social login integration for enterprise teams."
-      },
-      "13Locales": {
-        "title": "13 languages",
-        "description": "English, Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, Kannada, Malayalam, Odia, Punjabi, Assamese, Urdu."
-      },
-      "rtlSupport": {
-        "title": "RTL support",
-        "description": "Full right-to-left layout support for Urdu and Arabic languages."
-      },
-      "dynamicTranslations": {
-        "title": "Dynamic translations",
-        "description": "Manage all translations in the database, update instantly without deployments."
-      },
-      "localeDetection": {
-        "title": "Auto locale detection",
-        "description": "Automatic language detection from browser, IP, or user preferences."
-      },
-      "10Currencies": {
-        "title": "10 currencies",
-        "description": "USD, INR, EUR, GBP, JPY, CAD, AUD, SGD, AED, SAR with live rates."
-      },
-      "liveRates": {
-        "title": "Live exchange rates",
-        "description": "Real-time rates from multiple providers with 24-hour caching."
-      },
-      "localizedFormatting": {
-        "title": "Localized formatting",
-        "description": "Currency symbols, decimals, and number formats per locale."
-      },
-      "multiCurrencyDonations": {
-        "title": "Multi-currency donations",
-        "description": "Donors give in their currency, you receive in yours."
-      },
-      "rbac": {
-        "title": "Role-based access",
-        "description": "Granular permissions with system and tenant-scoped roles."
-      },
-      "auditLogs": {
-        "title": "Complete audit trail",
-        "description": "Every action logged with correlation IDs for compliance."
-      },
-      "mfa": {
-        "title": "Multi-factor auth",
-        "description": "TOTP, SMS, and WebAuthn/Passkey support."
-      },
-      "gdpr": {
-        "title": "GDPR ready",
-        "description": "Data export, deletion, and consent management built-in."
-      },
-      "featureFlags": {
-        "title": "Feature flags",
-        "description": "Roll out features gradually with targeting rules and percentages."
-      },
-      "webhooks": {
-        "title": "Webhooks",
-        "description": "Real-time event notifications with retry logic and signatures."
-      },
-      "apiKeys": {
-        "title": "API keys",
-        "description": "Scoped API keys for integrations with granular permissions."
-      },
-      "plugins": {
-        "title": "Plugin system",
-        "description": "Extend functionality with custom plugins and integrations."
-      },
-      "realtimeDashboards": {
-        "title": "Real-time dashboards",
-        "description": "Live metrics with WebSocket updates and customizable widgets."
-      },
-      "customReports": {
-        "title": "Custom reports",
-        "description": "Build reports with drag-and-drop, schedule and export."
-      },
-      "exportData": {
-        "title": "Data export",
-        "description": "Export to CSV, Excel, PDF with full data portability."
-      },
-      "notifications": {
-        "title": "Multi-channel notifications",
-        "description": "Email, SMS, push, in-app, and webhook notifications."
-      }
-    }
-  },
-  "testimonials": {
-    "title": "Trusted by NGOs worldwide",
-    "description": "See what organizations are saying about their experience with Vashundhara Foundation.",
-    "previous": "Previous testimonial",
-    "next": "Next testimonial",
-    "goToSlide": "Go to slide {slide}"
-  },
-  "cta": {
-    "badge": "Start free, no credit card required",
-    "title": "Ready to scale your impact?",
-    "description": "Join 1,200+ organizations raising funds in 13 languages across 10 currencies.",
-    "cta": {
-      "primary": "Start free trial",
-      "secondary": "Schedule demo"
-    },
-    "benefits": {
-      "freeTrial": "14-day free trial",
-      "freeTrialDesc": "Full access to all features",
-      "secure": "Bank-grade security",
-      "secureDesc": "SOC 2, GDPR, PCI DSS compliant",
-      "multiTenant": "Multi-tenant ready",
-      "multiTenantDesc": "Run multiple organizations",
-      "i18n": "13 languages included",
-      "i18nDesc": "RTL support for Urdu",
-      "multiCurrency": "10 currencies",
-      "multiCurrencyDesc": "Live exchange rates",
-      "cancelAnytime": "Cancel anytime",
-      "cancelAnytimeDesc": "No long-term contracts"
-    },
-    "trustedBy": "Trusted by"
-  },
-  "dashboard": {
-    "title": "Dashboard",
-    "subtitle": "Overview of your organization's performance",
-    "periods": {
-      "thisMonth": "This month",
-      "thisQuarter": "This quarter",
-      "thisYear": "This year"
-    },
-    "stats": {
-      "totalRaised": "Total raised",
-      "activeDonors": "Active donors",
-      "activeCampaigns": "Active campaigns",
-      "donationsThisMonth": "Donations this month"
-    },
-    "charts": {
-      "donationsOverTime": "Donations over time",
-      "donationsBySource": "Donations by source"
-    },
-    "sources": {
-      "online": "Online",
-      "offline": "Offline",
-      "recurring": "Recurring"
-    },
-    "recentDonations": {
-      "title": "Recent donations",
-      "columns": {
-        "donor": "Donor",
-        "amount": "Amount",
-        "campaign": "Campaign",
-        "date": "Date",
-        "status": "Status"
-      },
-      "status": {
-        "completed": "Completed",
-        "pending": "Pending",
-        "failed": "Failed"
-      }
-    },
-    "topCampaigns": {
-      "title": "Top campaigns",
-      "donors": "donors"
-    },
-    "quickActions": {
-      "title": "Quick actions",
-      "newDonation": "New donation",
-      "newCampaign": "New campaign",
-      "sendReceipt": "Send receipt",
-      "exportReport": "Export report"
-    },
-    "pagination": {
-      "showing": "Showing {start} to {end} of {total} entries",
-      "previous": "Previous",
-      "next": "Next"
-    }
-  },
-  "donations": {
-    "title": "Donations",
-    "subtitle": "Manage and track all donations",
-    "newDonation": "New donation",
-    "filters": {
-      "searchPlaceholder": "Search donations...",
-      "status": "Status",
-      "allStatus": "All statuses",
-      "method": "Method",
-      "allMethods": "All methods",
-      "export": "Export"
-    },
-    "columns": {
-      "donor": "Donor",
-      "amount": "Amount",
-      "campaign": "Campaign",
-      "method": "Method",
-      "date": "Date",
-      "status": "Status",
-      "receipt": "Receipt",
-      "actions": "Actions"
-    },
-    "status": {
-      "completed": "Completed",
-      "pending": "Pending",
-      "failed": "Failed",
-      "refunded": "Refunded"
-    },
-    "receipt": {
-      "sent": "Sent",
-      "pending": "Pending"
-    },
-    "actions": {
-      "view": "View",
-      "edit": "Edit",
-      "delete": "Delete"
-    },
-    "pagination": {
-      "showing": "Showing {start} to {end} of {total} entries",
-      "previous": "Previous",
-      "next": "Next"
-    }
+  "volunteer": {
+    "join": "ଯୋଗ ଦିଅନ୍ତୁ"
   }
 }

@@ -9,7 +9,7 @@ export const proxyHeaders = (host: string, ip: string): Record<string, string> =
 export const clientIp = (h: Headers) => h.get('x-real-ip') ?? h.get('x-forwarded-for')?.split(',').pop()?.trim() ?? '127.0.0.1';
 
 /** Public data for server rendering. Returns null when missing or when the API is down. */
-export const serverApi = cache(async <T>(path: string, _revalidate = 30): Promise<T | null> => {
+export const serverApi = cache(async <T>(path: string): Promise<T | null> => {
   const h = await headers();
   const host = h.get('host') ?? 'localhost';
   try {
