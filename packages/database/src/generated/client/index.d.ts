@@ -118,6 +118,36 @@ export type WebhookDelivery = $Result.DefaultSelection<Prisma.$WebhookDeliveryPa
  * 
  */
 export type File = $Result.DefaultSelection<Prisma.$FilePayload>
+/**
+ * Model Contact
+ * 
+ */
+export type Contact = $Result.DefaultSelection<Prisma.$ContactPayload>
+/**
+ * Model Organization
+ * 
+ */
+export type Organization = $Result.DefaultSelection<Prisma.$OrganizationPayload>
+/**
+ * Model Pipeline
+ * 
+ */
+export type Pipeline = $Result.DefaultSelection<Prisma.$PipelinePayload>
+/**
+ * Model PipelineStage
+ * 
+ */
+export type PipelineStage = $Result.DefaultSelection<Prisma.$PipelineStagePayload>
+/**
+ * Model Deal
+ * 
+ */
+export type Deal = $Result.DefaultSelection<Prisma.$DealPayload>
+/**
+ * Model CrmActivity
+ * 
+ */
+export type CrmActivity = $Result.DefaultSelection<Prisma.$CrmActivityPayload>
 
 /**
  * Enums
@@ -284,6 +314,41 @@ export const WebhookStatus: {
 
 export type WebhookStatus = (typeof WebhookStatus)[keyof typeof WebhookStatus]
 
+
+export const ContactStatus: {
+  NEW: 'NEW',
+  CONTACTED: 'CONTACTED',
+  QUALIFIED: 'QUALIFIED',
+  UNQUALIFIED: 'UNQUALIFIED',
+  CONVERTED: 'CONVERTED'
+};
+
+export type ContactStatus = (typeof ContactStatus)[keyof typeof ContactStatus]
+
+
+export const OrganizationSize: {
+  STARTUP: 'STARTUP',
+  SMALL: 'SMALL',
+  MEDIUM: 'MEDIUM',
+  LARGE: 'LARGE',
+  ENTERPRISE: 'ENTERPRISE'
+};
+
+export type OrganizationSize = (typeof OrganizationSize)[keyof typeof OrganizationSize]
+
+
+export const CrmActivityType: {
+  CALL: 'CALL',
+  EMAIL: 'EMAIL',
+  MEETING: 'MEETING',
+  NOTE: 'NOTE',
+  TASK: 'TASK',
+  WHATSAPP: 'WHATSAPP',
+  LINKEDIN: 'LINKEDIN'
+};
+
+export type CrmActivityType = (typeof CrmActivityType)[keyof typeof CrmActivityType]
+
 }
 
 export type TenantStatus = $Enums.TenantStatus
@@ -333,6 +398,18 @@ export const WebhookEvent: typeof $Enums.WebhookEvent
 export type WebhookStatus = $Enums.WebhookStatus
 
 export const WebhookStatus: typeof $Enums.WebhookStatus
+
+export type ContactStatus = $Enums.ContactStatus
+
+export const ContactStatus: typeof $Enums.ContactStatus
+
+export type OrganizationSize = $Enums.OrganizationSize
+
+export const OrganizationSize: typeof $Enums.OrganizationSize
+
+export type CrmActivityType = $Enums.CrmActivityType
+
+export const CrmActivityType: typeof $Enums.CrmActivityType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -666,6 +743,66 @@ export class PrismaClient<
     * ```
     */
   get file(): Prisma.FileDelegate<ExtArgs>;
+
+  /**
+   * `prisma.contact`: Exposes CRUD operations for the **Contact** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Contacts
+    * const contacts = await prisma.contact.findMany()
+    * ```
+    */
+  get contact(): Prisma.ContactDelegate<ExtArgs>;
+
+  /**
+   * `prisma.organization`: Exposes CRUD operations for the **Organization** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Organizations
+    * const organizations = await prisma.organization.findMany()
+    * ```
+    */
+  get organization(): Prisma.OrganizationDelegate<ExtArgs>;
+
+  /**
+   * `prisma.pipeline`: Exposes CRUD operations for the **Pipeline** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Pipelines
+    * const pipelines = await prisma.pipeline.findMany()
+    * ```
+    */
+  get pipeline(): Prisma.PipelineDelegate<ExtArgs>;
+
+  /**
+   * `prisma.pipelineStage`: Exposes CRUD operations for the **PipelineStage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PipelineStages
+    * const pipelineStages = await prisma.pipelineStage.findMany()
+    * ```
+    */
+  get pipelineStage(): Prisma.PipelineStageDelegate<ExtArgs>;
+
+  /**
+   * `prisma.deal`: Exposes CRUD operations for the **Deal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Deals
+    * const deals = await prisma.deal.findMany()
+    * ```
+    */
+  get deal(): Prisma.DealDelegate<ExtArgs>;
+
+  /**
+   * `prisma.crmActivity`: Exposes CRUD operations for the **CrmActivity** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CrmActivities
+    * const crmActivities = await prisma.crmActivity.findMany()
+    * ```
+    */
+  get crmActivity(): Prisma.CrmActivityDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -1127,7 +1264,13 @@ export namespace Prisma {
     Notification: 'Notification',
     Webhook: 'Webhook',
     WebhookDelivery: 'WebhookDelivery',
-    File: 'File'
+    File: 'File',
+    Contact: 'Contact',
+    Organization: 'Organization',
+    Pipeline: 'Pipeline',
+    PipelineStage: 'PipelineStage',
+    Deal: 'Deal',
+    CrmActivity: 'CrmActivity'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -1143,7 +1286,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "tenant" | "user" | "session" | "apiKey" | "role" | "permission" | "rolePermission" | "userRole" | "systemConfig" | "tenantConfig" | "featureFlag" | "locale" | "translation" | "currency" | "exchangeRate" | "auditLog" | "notificationTemplate" | "notification" | "webhook" | "webhookDelivery" | "file"
+      modelProps: "tenant" | "user" | "session" | "apiKey" | "role" | "permission" | "rolePermission" | "userRole" | "systemConfig" | "tenantConfig" | "featureFlag" | "locale" | "translation" | "currency" | "exchangeRate" | "auditLog" | "notificationTemplate" | "notification" | "webhook" | "webhookDelivery" | "file" | "contact" | "organization" | "pipeline" | "pipelineStage" | "deal" | "crmActivity"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2617,6 +2760,426 @@ export namespace Prisma {
           }
         }
       }
+      Contact: {
+        payload: Prisma.$ContactPayload<ExtArgs>
+        fields: Prisma.ContactFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ContactFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ContactFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>
+          }
+          findFirst: {
+            args: Prisma.ContactFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ContactFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>
+          }
+          findMany: {
+            args: Prisma.ContactFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>[]
+          }
+          create: {
+            args: Prisma.ContactCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>
+          }
+          createMany: {
+            args: Prisma.ContactCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ContactCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>[]
+          }
+          delete: {
+            args: Prisma.ContactDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>
+          }
+          update: {
+            args: Prisma.ContactUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>
+          }
+          deleteMany: {
+            args: Prisma.ContactDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ContactUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ContactUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactPayload>
+          }
+          aggregate: {
+            args: Prisma.ContactAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateContact>
+          }
+          groupBy: {
+            args: Prisma.ContactGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ContactGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ContactCountArgs<ExtArgs>
+            result: $Utils.Optional<ContactCountAggregateOutputType> | number
+          }
+        }
+      }
+      Organization: {
+        payload: Prisma.$OrganizationPayload<ExtArgs>
+        fields: Prisma.OrganizationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OrganizationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OrganizationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          findFirst: {
+            args: Prisma.OrganizationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OrganizationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          findMany: {
+            args: Prisma.OrganizationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>[]
+          }
+          create: {
+            args: Prisma.OrganizationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          createMany: {
+            args: Prisma.OrganizationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OrganizationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>[]
+          }
+          delete: {
+            args: Prisma.OrganizationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          update: {
+            args: Prisma.OrganizationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          deleteMany: {
+            args: Prisma.OrganizationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OrganizationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OrganizationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OrganizationPayload>
+          }
+          aggregate: {
+            args: Prisma.OrganizationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOrganization>
+          }
+          groupBy: {
+            args: Prisma.OrganizationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OrganizationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OrganizationCountArgs<ExtArgs>
+            result: $Utils.Optional<OrganizationCountAggregateOutputType> | number
+          }
+        }
+      }
+      Pipeline: {
+        payload: Prisma.$PipelinePayload<ExtArgs>
+        fields: Prisma.PipelineFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PipelineFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PipelineFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>
+          }
+          findFirst: {
+            args: Prisma.PipelineFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PipelineFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>
+          }
+          findMany: {
+            args: Prisma.PipelineFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>[]
+          }
+          create: {
+            args: Prisma.PipelineCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>
+          }
+          createMany: {
+            args: Prisma.PipelineCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PipelineCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>[]
+          }
+          delete: {
+            args: Prisma.PipelineDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>
+          }
+          update: {
+            args: Prisma.PipelineUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>
+          }
+          deleteMany: {
+            args: Prisma.PipelineDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PipelineUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PipelineUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelinePayload>
+          }
+          aggregate: {
+            args: Prisma.PipelineAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePipeline>
+          }
+          groupBy: {
+            args: Prisma.PipelineGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PipelineGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PipelineCountArgs<ExtArgs>
+            result: $Utils.Optional<PipelineCountAggregateOutputType> | number
+          }
+        }
+      }
+      PipelineStage: {
+        payload: Prisma.$PipelineStagePayload<ExtArgs>
+        fields: Prisma.PipelineStageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PipelineStageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelineStagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PipelineStageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelineStagePayload>
+          }
+          findFirst: {
+            args: Prisma.PipelineStageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelineStagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PipelineStageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelineStagePayload>
+          }
+          findMany: {
+            args: Prisma.PipelineStageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelineStagePayload>[]
+          }
+          create: {
+            args: Prisma.PipelineStageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelineStagePayload>
+          }
+          createMany: {
+            args: Prisma.PipelineStageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PipelineStageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelineStagePayload>[]
+          }
+          delete: {
+            args: Prisma.PipelineStageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelineStagePayload>
+          }
+          update: {
+            args: Prisma.PipelineStageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelineStagePayload>
+          }
+          deleteMany: {
+            args: Prisma.PipelineStageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PipelineStageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PipelineStageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PipelineStagePayload>
+          }
+          aggregate: {
+            args: Prisma.PipelineStageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePipelineStage>
+          }
+          groupBy: {
+            args: Prisma.PipelineStageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PipelineStageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PipelineStageCountArgs<ExtArgs>
+            result: $Utils.Optional<PipelineStageCountAggregateOutputType> | number
+          }
+        }
+      }
+      Deal: {
+        payload: Prisma.$DealPayload<ExtArgs>
+        fields: Prisma.DealFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DealFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DealFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>
+          }
+          findFirst: {
+            args: Prisma.DealFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DealFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>
+          }
+          findMany: {
+            args: Prisma.DealFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>[]
+          }
+          create: {
+            args: Prisma.DealCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>
+          }
+          createMany: {
+            args: Prisma.DealCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DealCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>[]
+          }
+          delete: {
+            args: Prisma.DealDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>
+          }
+          update: {
+            args: Prisma.DealUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>
+          }
+          deleteMany: {
+            args: Prisma.DealDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DealUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.DealUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DealPayload>
+          }
+          aggregate: {
+            args: Prisma.DealAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDeal>
+          }
+          groupBy: {
+            args: Prisma.DealGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DealGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DealCountArgs<ExtArgs>
+            result: $Utils.Optional<DealCountAggregateOutputType> | number
+          }
+        }
+      }
+      CrmActivity: {
+        payload: Prisma.$CrmActivityPayload<ExtArgs>
+        fields: Prisma.CrmActivityFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CrmActivityFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrmActivityPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CrmActivityFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrmActivityPayload>
+          }
+          findFirst: {
+            args: Prisma.CrmActivityFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrmActivityPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CrmActivityFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrmActivityPayload>
+          }
+          findMany: {
+            args: Prisma.CrmActivityFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrmActivityPayload>[]
+          }
+          create: {
+            args: Prisma.CrmActivityCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrmActivityPayload>
+          }
+          createMany: {
+            args: Prisma.CrmActivityCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CrmActivityCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrmActivityPayload>[]
+          }
+          delete: {
+            args: Prisma.CrmActivityDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrmActivityPayload>
+          }
+          update: {
+            args: Prisma.CrmActivityUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrmActivityPayload>
+          }
+          deleteMany: {
+            args: Prisma.CrmActivityDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CrmActivityUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.CrmActivityUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CrmActivityPayload>
+          }
+          aggregate: {
+            args: Prisma.CrmActivityAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCrmActivity>
+          }
+          groupBy: {
+            args: Prisma.CrmActivityGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CrmActivityGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CrmActivityCountArgs<ExtArgs>
+            result: $Utils.Optional<CrmActivityCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2790,6 +3353,11 @@ export namespace Prisma {
     translations: number
     users: number
     webhooks: number
+    contacts: number
+    organizations: number
+    pipelines: number
+    deals: number
+    crmActivities: number
   }
 
   export type TenantCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2805,6 +3373,11 @@ export namespace Prisma {
     translations?: boolean | TenantCountOutputTypeCountTranslationsArgs
     users?: boolean | TenantCountOutputTypeCountUsersArgs
     webhooks?: boolean | TenantCountOutputTypeCountWebhooksArgs
+    contacts?: boolean | TenantCountOutputTypeCountContactsArgs
+    organizations?: boolean | TenantCountOutputTypeCountOrganizationsArgs
+    pipelines?: boolean | TenantCountOutputTypeCountPipelinesArgs
+    deals?: boolean | TenantCountOutputTypeCountDealsArgs
+    crmActivities?: boolean | TenantCountOutputTypeCountCrmActivitiesArgs
   }
 
   // Custom InputTypes
@@ -2902,6 +3475,41 @@ export namespace Prisma {
     where?: WebhookWhereInput
   }
 
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountOrganizationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrganizationWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountPipelinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PipelineWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountDealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealWhereInput
+  }
+
+  /**
+   * TenantCountOutputType without action
+   */
+  export type TenantCountOutputTypeCountCrmActivitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CrmActivityWhereInput
+  }
+
 
   /**
    * Count Type UserCountOutputType
@@ -2914,6 +3522,7 @@ export namespace Prisma {
     sessions: number
     userRoles: number
     uploadedFiles: number
+    assignedDeals: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2923,6 +3532,7 @@ export namespace Prisma {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     userRoles?: boolean | UserCountOutputTypeCountUserRolesArgs
     uploadedFiles?: boolean | UserCountOutputTypeCountUploadedFilesArgs
+    assignedDeals?: boolean | UserCountOutputTypeCountAssignedDealsArgs
   }
 
   // Custom InputTypes
@@ -2976,6 +3586,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountUploadedFilesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: FileWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAssignedDealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealWhereInput
   }
 
 
@@ -3180,6 +3797,197 @@ export namespace Prisma {
    */
   export type WebhookCountOutputTypeCountDeliveriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: WebhookDeliveryWhereInput
+  }
+
+
+  /**
+   * Count Type ContactCountOutputType
+   */
+
+  export type ContactCountOutputType = {
+    deals: number
+    activities: number
+  }
+
+  export type ContactCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deals?: boolean | ContactCountOutputTypeCountDealsArgs
+    activities?: boolean | ContactCountOutputTypeCountActivitiesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ContactCountOutputType without action
+   */
+  export type ContactCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactCountOutputType
+     */
+    select?: ContactCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ContactCountOutputType without action
+   */
+  export type ContactCountOutputTypeCountDealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealWhereInput
+  }
+
+  /**
+   * ContactCountOutputType without action
+   */
+  export type ContactCountOutputTypeCountActivitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CrmActivityWhereInput
+  }
+
+
+  /**
+   * Count Type OrganizationCountOutputType
+   */
+
+  export type OrganizationCountOutputType = {
+    contacts: number
+    deals: number
+    activities: number
+  }
+
+  export type OrganizationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    contacts?: boolean | OrganizationCountOutputTypeCountContactsArgs
+    deals?: boolean | OrganizationCountOutputTypeCountDealsArgs
+    activities?: boolean | OrganizationCountOutputTypeCountActivitiesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OrganizationCountOutputType
+     */
+    select?: OrganizationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountContactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountDealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealWhereInput
+  }
+
+  /**
+   * OrganizationCountOutputType without action
+   */
+  export type OrganizationCountOutputTypeCountActivitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CrmActivityWhereInput
+  }
+
+
+  /**
+   * Count Type PipelineCountOutputType
+   */
+
+  export type PipelineCountOutputType = {
+    pipelineStages: number
+    deals: number
+  }
+
+  export type PipelineCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pipelineStages?: boolean | PipelineCountOutputTypeCountPipelineStagesArgs
+    deals?: boolean | PipelineCountOutputTypeCountDealsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PipelineCountOutputType without action
+   */
+  export type PipelineCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineCountOutputType
+     */
+    select?: PipelineCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PipelineCountOutputType without action
+   */
+  export type PipelineCountOutputTypeCountPipelineStagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PipelineStageWhereInput
+  }
+
+  /**
+   * PipelineCountOutputType without action
+   */
+  export type PipelineCountOutputTypeCountDealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealWhereInput
+  }
+
+
+  /**
+   * Count Type PipelineStageCountOutputType
+   */
+
+  export type PipelineStageCountOutputType = {
+    deals: number
+  }
+
+  export type PipelineStageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deals?: boolean | PipelineStageCountOutputTypeCountDealsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PipelineStageCountOutputType without action
+   */
+  export type PipelineStageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineStageCountOutputType
+     */
+    select?: PipelineStageCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PipelineStageCountOutputType without action
+   */
+  export type PipelineStageCountOutputTypeCountDealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealWhereInput
+  }
+
+
+  /**
+   * Count Type DealCountOutputType
+   */
+
+  export type DealCountOutputType = {
+    activities: number
+  }
+
+  export type DealCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    activities?: boolean | DealCountOutputTypeCountActivitiesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DealCountOutputType without action
+   */
+  export type DealCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DealCountOutputType
+     */
+    select?: DealCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DealCountOutputType without action
+   */
+  export type DealCountOutputTypeCountActivitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CrmActivityWhereInput
   }
 
 
@@ -3459,6 +4267,11 @@ export namespace Prisma {
     translations?: boolean | Tenant$translationsArgs<ExtArgs>
     users?: boolean | Tenant$usersArgs<ExtArgs>
     webhooks?: boolean | Tenant$webhooksArgs<ExtArgs>
+    contacts?: boolean | Tenant$contactsArgs<ExtArgs>
+    organizations?: boolean | Tenant$organizationsArgs<ExtArgs>
+    pipelines?: boolean | Tenant$pipelinesArgs<ExtArgs>
+    deals?: boolean | Tenant$dealsArgs<ExtArgs>
+    crmActivities?: boolean | Tenant$crmActivitiesArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
@@ -3519,6 +4332,11 @@ export namespace Prisma {
     translations?: boolean | Tenant$translationsArgs<ExtArgs>
     users?: boolean | Tenant$usersArgs<ExtArgs>
     webhooks?: boolean | Tenant$webhooksArgs<ExtArgs>
+    contacts?: boolean | Tenant$contactsArgs<ExtArgs>
+    organizations?: boolean | Tenant$organizationsArgs<ExtArgs>
+    pipelines?: boolean | Tenant$pipelinesArgs<ExtArgs>
+    deals?: boolean | Tenant$dealsArgs<ExtArgs>
+    crmActivities?: boolean | Tenant$crmActivitiesArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3538,6 +4356,11 @@ export namespace Prisma {
       translations: Prisma.$TranslationPayload<ExtArgs>[]
       users: Prisma.$UserPayload<ExtArgs>[]
       webhooks: Prisma.$WebhookPayload<ExtArgs>[]
+      contacts: Prisma.$ContactPayload<ExtArgs>[]
+      organizations: Prisma.$OrganizationPayload<ExtArgs>[]
+      pipelines: Prisma.$PipelinePayload<ExtArgs>[]
+      deals: Prisma.$DealPayload<ExtArgs>[]
+      crmActivities: Prisma.$CrmActivityPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3935,6 +4758,11 @@ export namespace Prisma {
     translations<T extends Tenant$translationsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$translationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TranslationPayload<ExtArgs>, T, "findMany"> | Null>
     users<T extends Tenant$usersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany"> | Null>
     webhooks<T extends Tenant$webhooksArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$webhooksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebhookPayload<ExtArgs>, T, "findMany"> | Null>
+    contacts<T extends Tenant$contactsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findMany"> | Null>
+    organizations<T extends Tenant$organizationsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$organizationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findMany"> | Null>
+    pipelines<T extends Tenant$pipelinesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$pipelinesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findMany"> | Null>
+    deals<T extends Tenant$dealsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$dealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany"> | Null>
+    crmActivities<T extends Tenant$crmActivitiesArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$crmActivitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4537,6 +5365,106 @@ export namespace Prisma {
   }
 
   /**
+   * Tenant.contacts
+   */
+  export type Tenant$contactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    where?: ContactWhereInput
+    orderBy?: ContactOrderByWithRelationInput | ContactOrderByWithRelationInput[]
+    cursor?: ContactWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContactScalarFieldEnum | ContactScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.organizations
+   */
+  export type Tenant$organizationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    where?: OrganizationWhereInput
+    orderBy?: OrganizationOrderByWithRelationInput | OrganizationOrderByWithRelationInput[]
+    cursor?: OrganizationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OrganizationScalarFieldEnum | OrganizationScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.pipelines
+   */
+  export type Tenant$pipelinesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    where?: PipelineWhereInput
+    orderBy?: PipelineOrderByWithRelationInput | PipelineOrderByWithRelationInput[]
+    cursor?: PipelineWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PipelineScalarFieldEnum | PipelineScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.deals
+   */
+  export type Tenant$dealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    cursor?: DealWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * Tenant.crmActivities
+   */
+  export type Tenant$crmActivitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityInclude<ExtArgs> | null
+    where?: CrmActivityWhereInput
+    orderBy?: CrmActivityOrderByWithRelationInput | CrmActivityOrderByWithRelationInput[]
+    cursor?: CrmActivityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CrmActivityScalarFieldEnum | CrmActivityScalarFieldEnum[]
+  }
+
+  /**
    * Tenant without action
    */
   export type TenantDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4830,6 +5758,7 @@ export namespace Prisma {
     userRoles?: boolean | User$userRolesArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     uploadedFiles?: boolean | User$uploadedFilesArgs<ExtArgs>
+    assignedDeals?: boolean | User$assignedDealsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4886,6 +5815,7 @@ export namespace Prisma {
     userRoles?: boolean | User$userRolesArgs<ExtArgs>
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     uploadedFiles?: boolean | User$uploadedFilesArgs<ExtArgs>
+    assignedDeals?: boolean | User$assignedDealsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4902,6 +5832,7 @@ export namespace Prisma {
       userRoles: Prisma.$UserRolePayload<ExtArgs>[]
       tenant: Prisma.$TenantPayload<ExtArgs>
       uploadedFiles: Prisma.$FilePayload<ExtArgs>[]
+      assignedDeals: Prisma.$DealPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5294,6 +6225,7 @@ export namespace Prisma {
     userRoles<T extends User$userRolesArgs<ExtArgs> = {}>(args?: Subset<T, User$userRolesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "findMany"> | Null>
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     uploadedFiles<T extends User$uploadedFilesArgs<ExtArgs> = {}>(args?: Subset<T, User$uploadedFilesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany"> | Null>
+    assignedDeals<T extends User$assignedDealsArgs<ExtArgs> = {}>(args?: Subset<T, User$assignedDealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5777,6 +6709,26 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: FileScalarFieldEnum | FileScalarFieldEnum[]
+  }
+
+  /**
+   * User.assignedDeals
+   */
+  export type User$assignedDealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    cursor?: DealWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
   }
 
   /**
@@ -25591,6 +26543,6923 @@ export namespace Prisma {
 
 
   /**
+   * Model Contact
+   */
+
+  export type AggregateContact = {
+    _count: ContactCountAggregateOutputType | null
+    _avg: ContactAvgAggregateOutputType | null
+    _sum: ContactSumAggregateOutputType | null
+    _min: ContactMinAggregateOutputType | null
+    _max: ContactMaxAggregateOutputType | null
+  }
+
+  export type ContactAvgAggregateOutputType = {
+    leadScore: number | null
+  }
+
+  export type ContactSumAggregateOutputType = {
+    leadScore: number | null
+  }
+
+  export type ContactMinAggregateOutputType = {
+    id: string | null
+    firstName: string | null
+    lastName: string | null
+    email: string | null
+    phone: string | null
+    mobile: string | null
+    whatsapp: string | null
+    jobTitle: string | null
+    department: string | null
+    source: string | null
+    status: $Enums.ContactStatus | null
+    leadScore: number | null
+    notes: string | null
+    lastContactedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
+    tenantId: string | null
+    organizationId: string | null
+  }
+
+  export type ContactMaxAggregateOutputType = {
+    id: string | null
+    firstName: string | null
+    lastName: string | null
+    email: string | null
+    phone: string | null
+    mobile: string | null
+    whatsapp: string | null
+    jobTitle: string | null
+    department: string | null
+    source: string | null
+    status: $Enums.ContactStatus | null
+    leadScore: number | null
+    notes: string | null
+    lastContactedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
+    tenantId: string | null
+    organizationId: string | null
+  }
+
+  export type ContactCountAggregateOutputType = {
+    id: number
+    firstName: number
+    lastName: number
+    email: number
+    phone: number
+    mobile: number
+    whatsapp: number
+    jobTitle: number
+    department: number
+    source: number
+    status: number
+    leadScore: number
+    tags: number
+    notes: number
+    address: number
+    socialLinks: number
+    metadata: number
+    lastContactedAt: number
+    createdAt: number
+    updatedAt: number
+    deletedAt: number
+    tenantId: number
+    organizationId: number
+    _all: number
+  }
+
+
+  export type ContactAvgAggregateInputType = {
+    leadScore?: true
+  }
+
+  export type ContactSumAggregateInputType = {
+    leadScore?: true
+  }
+
+  export type ContactMinAggregateInputType = {
+    id?: true
+    firstName?: true
+    lastName?: true
+    email?: true
+    phone?: true
+    mobile?: true
+    whatsapp?: true
+    jobTitle?: true
+    department?: true
+    source?: true
+    status?: true
+    leadScore?: true
+    notes?: true
+    lastContactedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+    organizationId?: true
+  }
+
+  export type ContactMaxAggregateInputType = {
+    id?: true
+    firstName?: true
+    lastName?: true
+    email?: true
+    phone?: true
+    mobile?: true
+    whatsapp?: true
+    jobTitle?: true
+    department?: true
+    source?: true
+    status?: true
+    leadScore?: true
+    notes?: true
+    lastContactedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+    organizationId?: true
+  }
+
+  export type ContactCountAggregateInputType = {
+    id?: true
+    firstName?: true
+    lastName?: true
+    email?: true
+    phone?: true
+    mobile?: true
+    whatsapp?: true
+    jobTitle?: true
+    department?: true
+    source?: true
+    status?: true
+    leadScore?: true
+    tags?: true
+    notes?: true
+    address?: true
+    socialLinks?: true
+    metadata?: true
+    lastContactedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+    organizationId?: true
+    _all?: true
+  }
+
+  export type ContactAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Contact to aggregate.
+     */
+    where?: ContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contacts to fetch.
+     */
+    orderBy?: ContactOrderByWithRelationInput | ContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Contacts
+    **/
+    _count?: true | ContactCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ContactAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ContactSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContactMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContactMaxAggregateInputType
+  }
+
+  export type GetContactAggregateType<T extends ContactAggregateArgs> = {
+        [P in keyof T & keyof AggregateContact]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContact[P]>
+      : GetScalarType<T[P], AggregateContact[P]>
+  }
+
+
+
+
+  export type ContactGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactWhereInput
+    orderBy?: ContactOrderByWithAggregationInput | ContactOrderByWithAggregationInput[]
+    by: ContactScalarFieldEnum[] | ContactScalarFieldEnum
+    having?: ContactScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContactCountAggregateInputType | true
+    _avg?: ContactAvgAggregateInputType
+    _sum?: ContactSumAggregateInputType
+    _min?: ContactMinAggregateInputType
+    _max?: ContactMaxAggregateInputType
+  }
+
+  export type ContactGroupByOutputType = {
+    id: string
+    firstName: string
+    lastName: string
+    email: string | null
+    phone: string | null
+    mobile: string | null
+    whatsapp: string | null
+    jobTitle: string | null
+    department: string | null
+    source: string | null
+    status: $Enums.ContactStatus
+    leadScore: number
+    tags: string[]
+    notes: string | null
+    address: JsonValue | null
+    socialLinks: JsonValue | null
+    metadata: JsonValue | null
+    lastContactedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    deletedAt: Date | null
+    tenantId: string
+    organizationId: string | null
+    _count: ContactCountAggregateOutputType | null
+    _avg: ContactAvgAggregateOutputType | null
+    _sum: ContactSumAggregateOutputType | null
+    _min: ContactMinAggregateOutputType | null
+    _max: ContactMaxAggregateOutputType | null
+  }
+
+  type GetContactGroupByPayload<T extends ContactGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ContactGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContactGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContactGroupByOutputType[P]>
+            : GetScalarType<T[P], ContactGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContactSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    email?: boolean
+    phone?: boolean
+    mobile?: boolean
+    whatsapp?: boolean
+    jobTitle?: boolean
+    department?: boolean
+    source?: boolean
+    status?: boolean
+    leadScore?: boolean
+    tags?: boolean
+    notes?: boolean
+    address?: boolean
+    socialLinks?: boolean
+    metadata?: boolean
+    lastContactedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+    organizationId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    organization?: boolean | Contact$organizationArgs<ExtArgs>
+    deals?: boolean | Contact$dealsArgs<ExtArgs>
+    activities?: boolean | Contact$activitiesArgs<ExtArgs>
+    _count?: boolean | ContactCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["contact"]>
+
+  export type ContactSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    email?: boolean
+    phone?: boolean
+    mobile?: boolean
+    whatsapp?: boolean
+    jobTitle?: boolean
+    department?: boolean
+    source?: boolean
+    status?: boolean
+    leadScore?: boolean
+    tags?: boolean
+    notes?: boolean
+    address?: boolean
+    socialLinks?: boolean
+    metadata?: boolean
+    lastContactedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+    organizationId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    organization?: boolean | Contact$organizationArgs<ExtArgs>
+  }, ExtArgs["result"]["contact"]>
+
+  export type ContactSelectScalar = {
+    id?: boolean
+    firstName?: boolean
+    lastName?: boolean
+    email?: boolean
+    phone?: boolean
+    mobile?: boolean
+    whatsapp?: boolean
+    jobTitle?: boolean
+    department?: boolean
+    source?: boolean
+    status?: boolean
+    leadScore?: boolean
+    tags?: boolean
+    notes?: boolean
+    address?: boolean
+    socialLinks?: boolean
+    metadata?: boolean
+    lastContactedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+    organizationId?: boolean
+  }
+
+  export type ContactInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    organization?: boolean | Contact$organizationArgs<ExtArgs>
+    deals?: boolean | Contact$dealsArgs<ExtArgs>
+    activities?: boolean | Contact$activitiesArgs<ExtArgs>
+    _count?: boolean | ContactCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ContactIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    organization?: boolean | Contact$organizationArgs<ExtArgs>
+  }
+
+  export type $ContactPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Contact"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      organization: Prisma.$OrganizationPayload<ExtArgs> | null
+      deals: Prisma.$DealPayload<ExtArgs>[]
+      activities: Prisma.$CrmActivityPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      firstName: string
+      lastName: string
+      email: string | null
+      phone: string | null
+      mobile: string | null
+      whatsapp: string | null
+      jobTitle: string | null
+      department: string | null
+      source: string | null
+      status: $Enums.ContactStatus
+      leadScore: number
+      tags: string[]
+      notes: string | null
+      address: Prisma.JsonValue | null
+      socialLinks: Prisma.JsonValue | null
+      metadata: Prisma.JsonValue | null
+      lastContactedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+      deletedAt: Date | null
+      tenantId: string
+      organizationId: string | null
+    }, ExtArgs["result"]["contact"]>
+    composites: {}
+  }
+
+  type ContactGetPayload<S extends boolean | null | undefined | ContactDefaultArgs> = $Result.GetResult<Prisma.$ContactPayload, S>
+
+  type ContactCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ContactFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ContactCountAggregateInputType | true
+    }
+
+  export interface ContactDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Contact'], meta: { name: 'Contact' } }
+    /**
+     * Find zero or one Contact that matches the filter.
+     * @param {ContactFindUniqueArgs} args - Arguments to find a Contact
+     * @example
+     * // Get one Contact
+     * const contact = await prisma.contact.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ContactFindUniqueArgs>(args: SelectSubset<T, ContactFindUniqueArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Contact that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ContactFindUniqueOrThrowArgs} args - Arguments to find a Contact
+     * @example
+     * // Get one Contact
+     * const contact = await prisma.contact.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ContactFindUniqueOrThrowArgs>(args: SelectSubset<T, ContactFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Contact that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactFindFirstArgs} args - Arguments to find a Contact
+     * @example
+     * // Get one Contact
+     * const contact = await prisma.contact.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ContactFindFirstArgs>(args?: SelectSubset<T, ContactFindFirstArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Contact that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactFindFirstOrThrowArgs} args - Arguments to find a Contact
+     * @example
+     * // Get one Contact
+     * const contact = await prisma.contact.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ContactFindFirstOrThrowArgs>(args?: SelectSubset<T, ContactFindFirstOrThrowArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Contacts that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Contacts
+     * const contacts = await prisma.contact.findMany()
+     * 
+     * // Get first 10 Contacts
+     * const contacts = await prisma.contact.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const contactWithIdOnly = await prisma.contact.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ContactFindManyArgs>(args?: SelectSubset<T, ContactFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Contact.
+     * @param {ContactCreateArgs} args - Arguments to create a Contact.
+     * @example
+     * // Create one Contact
+     * const Contact = await prisma.contact.create({
+     *   data: {
+     *     // ... data to create a Contact
+     *   }
+     * })
+     * 
+     */
+    create<T extends ContactCreateArgs>(args: SelectSubset<T, ContactCreateArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Contacts.
+     * @param {ContactCreateManyArgs} args - Arguments to create many Contacts.
+     * @example
+     * // Create many Contacts
+     * const contact = await prisma.contact.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ContactCreateManyArgs>(args?: SelectSubset<T, ContactCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Contacts and returns the data saved in the database.
+     * @param {ContactCreateManyAndReturnArgs} args - Arguments to create many Contacts.
+     * @example
+     * // Create many Contacts
+     * const contact = await prisma.contact.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Contacts and only return the `id`
+     * const contactWithIdOnly = await prisma.contact.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ContactCreateManyAndReturnArgs>(args?: SelectSubset<T, ContactCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Contact.
+     * @param {ContactDeleteArgs} args - Arguments to delete one Contact.
+     * @example
+     * // Delete one Contact
+     * const Contact = await prisma.contact.delete({
+     *   where: {
+     *     // ... filter to delete one Contact
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ContactDeleteArgs>(args: SelectSubset<T, ContactDeleteArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Contact.
+     * @param {ContactUpdateArgs} args - Arguments to update one Contact.
+     * @example
+     * // Update one Contact
+     * const contact = await prisma.contact.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ContactUpdateArgs>(args: SelectSubset<T, ContactUpdateArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Contacts.
+     * @param {ContactDeleteManyArgs} args - Arguments to filter Contacts to delete.
+     * @example
+     * // Delete a few Contacts
+     * const { count } = await prisma.contact.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ContactDeleteManyArgs>(args?: SelectSubset<T, ContactDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Contacts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Contacts
+     * const contact = await prisma.contact.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ContactUpdateManyArgs>(args: SelectSubset<T, ContactUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Contact.
+     * @param {ContactUpsertArgs} args - Arguments to update or create a Contact.
+     * @example
+     * // Update or create a Contact
+     * const contact = await prisma.contact.upsert({
+     *   create: {
+     *     // ... data to create a Contact
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Contact we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ContactUpsertArgs>(args: SelectSubset<T, ContactUpsertArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Contacts.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactCountArgs} args - Arguments to filter Contacts to count.
+     * @example
+     * // Count the number of Contacts
+     * const count = await prisma.contact.count({
+     *   where: {
+     *     // ... the filter for the Contacts we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContactCountArgs>(
+      args?: Subset<T, ContactCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContactCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Contact.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContactAggregateArgs>(args: Subset<T, ContactAggregateArgs>): Prisma.PrismaPromise<GetContactAggregateType<T>>
+
+    /**
+     * Group by Contact.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContactGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContactGroupByArgs['orderBy'] }
+        : { orderBy?: ContactGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContactGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContactGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Contact model
+   */
+  readonly fields: ContactFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Contact.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ContactClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    organization<T extends Contact$organizationArgs<ExtArgs> = {}>(args?: Subset<T, Contact$organizationArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    deals<T extends Contact$dealsArgs<ExtArgs> = {}>(args?: Subset<T, Contact$dealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany"> | Null>
+    activities<T extends Contact$activitiesArgs<ExtArgs> = {}>(args?: Subset<T, Contact$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Contact model
+   */ 
+  interface ContactFieldRefs {
+    readonly id: FieldRef<"Contact", 'String'>
+    readonly firstName: FieldRef<"Contact", 'String'>
+    readonly lastName: FieldRef<"Contact", 'String'>
+    readonly email: FieldRef<"Contact", 'String'>
+    readonly phone: FieldRef<"Contact", 'String'>
+    readonly mobile: FieldRef<"Contact", 'String'>
+    readonly whatsapp: FieldRef<"Contact", 'String'>
+    readonly jobTitle: FieldRef<"Contact", 'String'>
+    readonly department: FieldRef<"Contact", 'String'>
+    readonly source: FieldRef<"Contact", 'String'>
+    readonly status: FieldRef<"Contact", 'ContactStatus'>
+    readonly leadScore: FieldRef<"Contact", 'Int'>
+    readonly tags: FieldRef<"Contact", 'String[]'>
+    readonly notes: FieldRef<"Contact", 'String'>
+    readonly address: FieldRef<"Contact", 'Json'>
+    readonly socialLinks: FieldRef<"Contact", 'Json'>
+    readonly metadata: FieldRef<"Contact", 'Json'>
+    readonly lastContactedAt: FieldRef<"Contact", 'DateTime'>
+    readonly createdAt: FieldRef<"Contact", 'DateTime'>
+    readonly updatedAt: FieldRef<"Contact", 'DateTime'>
+    readonly deletedAt: FieldRef<"Contact", 'DateTime'>
+    readonly tenantId: FieldRef<"Contact", 'String'>
+    readonly organizationId: FieldRef<"Contact", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Contact findUnique
+   */
+  export type ContactFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * Filter, which Contact to fetch.
+     */
+    where: ContactWhereUniqueInput
+  }
+
+  /**
+   * Contact findUniqueOrThrow
+   */
+  export type ContactFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * Filter, which Contact to fetch.
+     */
+    where: ContactWhereUniqueInput
+  }
+
+  /**
+   * Contact findFirst
+   */
+  export type ContactFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * Filter, which Contact to fetch.
+     */
+    where?: ContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contacts to fetch.
+     */
+    orderBy?: ContactOrderByWithRelationInput | ContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Contacts.
+     */
+    cursor?: ContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Contacts.
+     */
+    distinct?: ContactScalarFieldEnum | ContactScalarFieldEnum[]
+  }
+
+  /**
+   * Contact findFirstOrThrow
+   */
+  export type ContactFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * Filter, which Contact to fetch.
+     */
+    where?: ContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contacts to fetch.
+     */
+    orderBy?: ContactOrderByWithRelationInput | ContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Contacts.
+     */
+    cursor?: ContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contacts.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Contacts.
+     */
+    distinct?: ContactScalarFieldEnum | ContactScalarFieldEnum[]
+  }
+
+  /**
+   * Contact findMany
+   */
+  export type ContactFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * Filter, which Contacts to fetch.
+     */
+    where?: ContactWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Contacts to fetch.
+     */
+    orderBy?: ContactOrderByWithRelationInput | ContactOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Contacts.
+     */
+    cursor?: ContactWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Contacts from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Contacts.
+     */
+    skip?: number
+    distinct?: ContactScalarFieldEnum | ContactScalarFieldEnum[]
+  }
+
+  /**
+   * Contact create
+   */
+  export type ContactCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Contact.
+     */
+    data: XOR<ContactCreateInput, ContactUncheckedCreateInput>
+  }
+
+  /**
+   * Contact createMany
+   */
+  export type ContactCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Contacts.
+     */
+    data: ContactCreateManyInput | ContactCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Contact createManyAndReturn
+   */
+  export type ContactCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Contacts.
+     */
+    data: ContactCreateManyInput | ContactCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Contact update
+   */
+  export type ContactUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Contact.
+     */
+    data: XOR<ContactUpdateInput, ContactUncheckedUpdateInput>
+    /**
+     * Choose, which Contact to update.
+     */
+    where: ContactWhereUniqueInput
+  }
+
+  /**
+   * Contact updateMany
+   */
+  export type ContactUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Contacts.
+     */
+    data: XOR<ContactUpdateManyMutationInput, ContactUncheckedUpdateManyInput>
+    /**
+     * Filter which Contacts to update
+     */
+    where?: ContactWhereInput
+  }
+
+  /**
+   * Contact upsert
+   */
+  export type ContactUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Contact to update in case it exists.
+     */
+    where: ContactWhereUniqueInput
+    /**
+     * In case the Contact found by the `where` argument doesn't exist, create a new Contact with this data.
+     */
+    create: XOR<ContactCreateInput, ContactUncheckedCreateInput>
+    /**
+     * In case the Contact was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ContactUpdateInput, ContactUncheckedUpdateInput>
+  }
+
+  /**
+   * Contact delete
+   */
+  export type ContactDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    /**
+     * Filter which Contact to delete.
+     */
+    where: ContactWhereUniqueInput
+  }
+
+  /**
+   * Contact deleteMany
+   */
+  export type ContactDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Contacts to delete
+     */
+    where?: ContactWhereInput
+  }
+
+  /**
+   * Contact.organization
+   */
+  export type Contact$organizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    where?: OrganizationWhereInput
+  }
+
+  /**
+   * Contact.deals
+   */
+  export type Contact$dealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    cursor?: DealWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * Contact.activities
+   */
+  export type Contact$activitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityInclude<ExtArgs> | null
+    where?: CrmActivityWhereInput
+    orderBy?: CrmActivityOrderByWithRelationInput | CrmActivityOrderByWithRelationInput[]
+    cursor?: CrmActivityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CrmActivityScalarFieldEnum | CrmActivityScalarFieldEnum[]
+  }
+
+  /**
+   * Contact without action
+   */
+  export type ContactDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Organization
+   */
+
+  export type AggregateOrganization = {
+    _count: OrganizationCountAggregateOutputType | null
+    _avg: OrganizationAvgAggregateOutputType | null
+    _sum: OrganizationSumAggregateOutputType | null
+    _min: OrganizationMinAggregateOutputType | null
+    _max: OrganizationMaxAggregateOutputType | null
+  }
+
+  export type OrganizationAvgAggregateOutputType = {
+    revenue: Decimal | null
+  }
+
+  export type OrganizationSumAggregateOutputType = {
+    revenue: Decimal | null
+  }
+
+  export type OrganizationMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    legalName: string | null
+    website: string | null
+    industry: string | null
+    size: $Enums.OrganizationSize | null
+    revenue: Decimal | null
+    description: string | null
+    logoUrl: string | null
+    phone: string | null
+    email: string | null
+    gstNumber: string | null
+    panNumber: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
+    tenantId: string | null
+  }
+
+  export type OrganizationMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    legalName: string | null
+    website: string | null
+    industry: string | null
+    size: $Enums.OrganizationSize | null
+    revenue: Decimal | null
+    description: string | null
+    logoUrl: string | null
+    phone: string | null
+    email: string | null
+    gstNumber: string | null
+    panNumber: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
+    tenantId: string | null
+  }
+
+  export type OrganizationCountAggregateOutputType = {
+    id: number
+    name: number
+    legalName: number
+    website: number
+    industry: number
+    size: number
+    revenue: number
+    description: number
+    logoUrl: number
+    address: number
+    phone: number
+    email: number
+    gstNumber: number
+    panNumber: number
+    tags: number
+    metadata: number
+    createdAt: number
+    updatedAt: number
+    deletedAt: number
+    tenantId: number
+    _all: number
+  }
+
+
+  export type OrganizationAvgAggregateInputType = {
+    revenue?: true
+  }
+
+  export type OrganizationSumAggregateInputType = {
+    revenue?: true
+  }
+
+  export type OrganizationMinAggregateInputType = {
+    id?: true
+    name?: true
+    legalName?: true
+    website?: true
+    industry?: true
+    size?: true
+    revenue?: true
+    description?: true
+    logoUrl?: true
+    phone?: true
+    email?: true
+    gstNumber?: true
+    panNumber?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+  }
+
+  export type OrganizationMaxAggregateInputType = {
+    id?: true
+    name?: true
+    legalName?: true
+    website?: true
+    industry?: true
+    size?: true
+    revenue?: true
+    description?: true
+    logoUrl?: true
+    phone?: true
+    email?: true
+    gstNumber?: true
+    panNumber?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+  }
+
+  export type OrganizationCountAggregateInputType = {
+    id?: true
+    name?: true
+    legalName?: true
+    website?: true
+    industry?: true
+    size?: true
+    revenue?: true
+    description?: true
+    logoUrl?: true
+    address?: true
+    phone?: true
+    email?: true
+    gstNumber?: true
+    panNumber?: true
+    tags?: true
+    metadata?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+    _all?: true
+  }
+
+  export type OrganizationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Organization to aggregate.
+     */
+    where?: OrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Organizations to fetch.
+     */
+    orderBy?: OrganizationOrderByWithRelationInput | OrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Organizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Organizations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Organizations
+    **/
+    _count?: true | OrganizationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OrganizationAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OrganizationSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OrganizationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OrganizationMaxAggregateInputType
+  }
+
+  export type GetOrganizationAggregateType<T extends OrganizationAggregateArgs> = {
+        [P in keyof T & keyof AggregateOrganization]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOrganization[P]>
+      : GetScalarType<T[P], AggregateOrganization[P]>
+  }
+
+
+
+
+  export type OrganizationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OrganizationWhereInput
+    orderBy?: OrganizationOrderByWithAggregationInput | OrganizationOrderByWithAggregationInput[]
+    by: OrganizationScalarFieldEnum[] | OrganizationScalarFieldEnum
+    having?: OrganizationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OrganizationCountAggregateInputType | true
+    _avg?: OrganizationAvgAggregateInputType
+    _sum?: OrganizationSumAggregateInputType
+    _min?: OrganizationMinAggregateInputType
+    _max?: OrganizationMaxAggregateInputType
+  }
+
+  export type OrganizationGroupByOutputType = {
+    id: string
+    name: string
+    legalName: string | null
+    website: string | null
+    industry: string | null
+    size: $Enums.OrganizationSize | null
+    revenue: Decimal | null
+    description: string | null
+    logoUrl: string | null
+    address: JsonValue | null
+    phone: string | null
+    email: string | null
+    gstNumber: string | null
+    panNumber: string | null
+    tags: string[]
+    metadata: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    deletedAt: Date | null
+    tenantId: string
+    _count: OrganizationCountAggregateOutputType | null
+    _avg: OrganizationAvgAggregateOutputType | null
+    _sum: OrganizationSumAggregateOutputType | null
+    _min: OrganizationMinAggregateOutputType | null
+    _max: OrganizationMaxAggregateOutputType | null
+  }
+
+  type GetOrganizationGroupByPayload<T extends OrganizationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OrganizationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OrganizationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OrganizationGroupByOutputType[P]>
+            : GetScalarType<T[P], OrganizationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OrganizationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    legalName?: boolean
+    website?: boolean
+    industry?: boolean
+    size?: boolean
+    revenue?: boolean
+    description?: boolean
+    logoUrl?: boolean
+    address?: boolean
+    phone?: boolean
+    email?: boolean
+    gstNumber?: boolean
+    panNumber?: boolean
+    tags?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    contacts?: boolean | Organization$contactsArgs<ExtArgs>
+    deals?: boolean | Organization$dealsArgs<ExtArgs>
+    activities?: boolean | Organization$activitiesArgs<ExtArgs>
+    _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["organization"]>
+
+  export type OrganizationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    legalName?: boolean
+    website?: boolean
+    industry?: boolean
+    size?: boolean
+    revenue?: boolean
+    description?: boolean
+    logoUrl?: boolean
+    address?: boolean
+    phone?: boolean
+    email?: boolean
+    gstNumber?: boolean
+    panNumber?: boolean
+    tags?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["organization"]>
+
+  export type OrganizationSelectScalar = {
+    id?: boolean
+    name?: boolean
+    legalName?: boolean
+    website?: boolean
+    industry?: boolean
+    size?: boolean
+    revenue?: boolean
+    description?: boolean
+    logoUrl?: boolean
+    address?: boolean
+    phone?: boolean
+    email?: boolean
+    gstNumber?: boolean
+    panNumber?: boolean
+    tags?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+  }
+
+  export type OrganizationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    contacts?: boolean | Organization$contactsArgs<ExtArgs>
+    deals?: boolean | Organization$dealsArgs<ExtArgs>
+    activities?: boolean | Organization$activitiesArgs<ExtArgs>
+    _count?: boolean | OrganizationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $OrganizationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Organization"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      contacts: Prisma.$ContactPayload<ExtArgs>[]
+      deals: Prisma.$DealPayload<ExtArgs>[]
+      activities: Prisma.$CrmActivityPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      legalName: string | null
+      website: string | null
+      industry: string | null
+      size: $Enums.OrganizationSize | null
+      revenue: Prisma.Decimal | null
+      description: string | null
+      logoUrl: string | null
+      address: Prisma.JsonValue | null
+      phone: string | null
+      email: string | null
+      gstNumber: string | null
+      panNumber: string | null
+      tags: string[]
+      metadata: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+      deletedAt: Date | null
+      tenantId: string
+    }, ExtArgs["result"]["organization"]>
+    composites: {}
+  }
+
+  type OrganizationGetPayload<S extends boolean | null | undefined | OrganizationDefaultArgs> = $Result.GetResult<Prisma.$OrganizationPayload, S>
+
+  type OrganizationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OrganizationFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OrganizationCountAggregateInputType | true
+    }
+
+  export interface OrganizationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Organization'], meta: { name: 'Organization' } }
+    /**
+     * Find zero or one Organization that matches the filter.
+     * @param {OrganizationFindUniqueArgs} args - Arguments to find a Organization
+     * @example
+     * // Get one Organization
+     * const organization = await prisma.organization.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OrganizationFindUniqueArgs>(args: SelectSubset<T, OrganizationFindUniqueArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Organization that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OrganizationFindUniqueOrThrowArgs} args - Arguments to find a Organization
+     * @example
+     * // Get one Organization
+     * const organization = await prisma.organization.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OrganizationFindUniqueOrThrowArgs>(args: SelectSubset<T, OrganizationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Organization that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationFindFirstArgs} args - Arguments to find a Organization
+     * @example
+     * // Get one Organization
+     * const organization = await prisma.organization.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OrganizationFindFirstArgs>(args?: SelectSubset<T, OrganizationFindFirstArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Organization that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationFindFirstOrThrowArgs} args - Arguments to find a Organization
+     * @example
+     * // Get one Organization
+     * const organization = await prisma.organization.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OrganizationFindFirstOrThrowArgs>(args?: SelectSubset<T, OrganizationFindFirstOrThrowArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Organizations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Organizations
+     * const organizations = await prisma.organization.findMany()
+     * 
+     * // Get first 10 Organizations
+     * const organizations = await prisma.organization.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const organizationWithIdOnly = await prisma.organization.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OrganizationFindManyArgs>(args?: SelectSubset<T, OrganizationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Organization.
+     * @param {OrganizationCreateArgs} args - Arguments to create a Organization.
+     * @example
+     * // Create one Organization
+     * const Organization = await prisma.organization.create({
+     *   data: {
+     *     // ... data to create a Organization
+     *   }
+     * })
+     * 
+     */
+    create<T extends OrganizationCreateArgs>(args: SelectSubset<T, OrganizationCreateArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Organizations.
+     * @param {OrganizationCreateManyArgs} args - Arguments to create many Organizations.
+     * @example
+     * // Create many Organizations
+     * const organization = await prisma.organization.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OrganizationCreateManyArgs>(args?: SelectSubset<T, OrganizationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Organizations and returns the data saved in the database.
+     * @param {OrganizationCreateManyAndReturnArgs} args - Arguments to create many Organizations.
+     * @example
+     * // Create many Organizations
+     * const organization = await prisma.organization.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Organizations and only return the `id`
+     * const organizationWithIdOnly = await prisma.organization.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OrganizationCreateManyAndReturnArgs>(args?: SelectSubset<T, OrganizationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Organization.
+     * @param {OrganizationDeleteArgs} args - Arguments to delete one Organization.
+     * @example
+     * // Delete one Organization
+     * const Organization = await prisma.organization.delete({
+     *   where: {
+     *     // ... filter to delete one Organization
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OrganizationDeleteArgs>(args: SelectSubset<T, OrganizationDeleteArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Organization.
+     * @param {OrganizationUpdateArgs} args - Arguments to update one Organization.
+     * @example
+     * // Update one Organization
+     * const organization = await prisma.organization.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OrganizationUpdateArgs>(args: SelectSubset<T, OrganizationUpdateArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Organizations.
+     * @param {OrganizationDeleteManyArgs} args - Arguments to filter Organizations to delete.
+     * @example
+     * // Delete a few Organizations
+     * const { count } = await prisma.organization.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OrganizationDeleteManyArgs>(args?: SelectSubset<T, OrganizationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Organizations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Organizations
+     * const organization = await prisma.organization.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OrganizationUpdateManyArgs>(args: SelectSubset<T, OrganizationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Organization.
+     * @param {OrganizationUpsertArgs} args - Arguments to update or create a Organization.
+     * @example
+     * // Update or create a Organization
+     * const organization = await prisma.organization.upsert({
+     *   create: {
+     *     // ... data to create a Organization
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Organization we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OrganizationUpsertArgs>(args: SelectSubset<T, OrganizationUpsertArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Organizations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationCountArgs} args - Arguments to filter Organizations to count.
+     * @example
+     * // Count the number of Organizations
+     * const count = await prisma.organization.count({
+     *   where: {
+     *     // ... the filter for the Organizations we want to count
+     *   }
+     * })
+    **/
+    count<T extends OrganizationCountArgs>(
+      args?: Subset<T, OrganizationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OrganizationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Organization.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OrganizationAggregateArgs>(args: Subset<T, OrganizationAggregateArgs>): Prisma.PrismaPromise<GetOrganizationAggregateType<T>>
+
+    /**
+     * Group by Organization.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OrganizationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OrganizationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OrganizationGroupByArgs['orderBy'] }
+        : { orderBy?: OrganizationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OrganizationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOrganizationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Organization model
+   */
+  readonly fields: OrganizationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Organization.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    contacts<T extends Organization$contactsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findMany"> | Null>
+    deals<T extends Organization$dealsArgs<ExtArgs> = {}>(args?: Subset<T, Organization$dealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany"> | Null>
+    activities<T extends Organization$activitiesArgs<ExtArgs> = {}>(args?: Subset<T, Organization$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Organization model
+   */ 
+  interface OrganizationFieldRefs {
+    readonly id: FieldRef<"Organization", 'String'>
+    readonly name: FieldRef<"Organization", 'String'>
+    readonly legalName: FieldRef<"Organization", 'String'>
+    readonly website: FieldRef<"Organization", 'String'>
+    readonly industry: FieldRef<"Organization", 'String'>
+    readonly size: FieldRef<"Organization", 'OrganizationSize'>
+    readonly revenue: FieldRef<"Organization", 'Decimal'>
+    readonly description: FieldRef<"Organization", 'String'>
+    readonly logoUrl: FieldRef<"Organization", 'String'>
+    readonly address: FieldRef<"Organization", 'Json'>
+    readonly phone: FieldRef<"Organization", 'String'>
+    readonly email: FieldRef<"Organization", 'String'>
+    readonly gstNumber: FieldRef<"Organization", 'String'>
+    readonly panNumber: FieldRef<"Organization", 'String'>
+    readonly tags: FieldRef<"Organization", 'String[]'>
+    readonly metadata: FieldRef<"Organization", 'Json'>
+    readonly createdAt: FieldRef<"Organization", 'DateTime'>
+    readonly updatedAt: FieldRef<"Organization", 'DateTime'>
+    readonly deletedAt: FieldRef<"Organization", 'DateTime'>
+    readonly tenantId: FieldRef<"Organization", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Organization findUnique
+   */
+  export type OrganizationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organization to fetch.
+     */
+    where: OrganizationWhereUniqueInput
+  }
+
+  /**
+   * Organization findUniqueOrThrow
+   */
+  export type OrganizationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organization to fetch.
+     */
+    where: OrganizationWhereUniqueInput
+  }
+
+  /**
+   * Organization findFirst
+   */
+  export type OrganizationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organization to fetch.
+     */
+    where?: OrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Organizations to fetch.
+     */
+    orderBy?: OrganizationOrderByWithRelationInput | OrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Organizations.
+     */
+    cursor?: OrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Organizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Organizations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Organizations.
+     */
+    distinct?: OrganizationScalarFieldEnum | OrganizationScalarFieldEnum[]
+  }
+
+  /**
+   * Organization findFirstOrThrow
+   */
+  export type OrganizationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organization to fetch.
+     */
+    where?: OrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Organizations to fetch.
+     */
+    orderBy?: OrganizationOrderByWithRelationInput | OrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Organizations.
+     */
+    cursor?: OrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Organizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Organizations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Organizations.
+     */
+    distinct?: OrganizationScalarFieldEnum | OrganizationScalarFieldEnum[]
+  }
+
+  /**
+   * Organization findMany
+   */
+  export type OrganizationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter, which Organizations to fetch.
+     */
+    where?: OrganizationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Organizations to fetch.
+     */
+    orderBy?: OrganizationOrderByWithRelationInput | OrganizationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Organizations.
+     */
+    cursor?: OrganizationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Organizations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Organizations.
+     */
+    skip?: number
+    distinct?: OrganizationScalarFieldEnum | OrganizationScalarFieldEnum[]
+  }
+
+  /**
+   * Organization create
+   */
+  export type OrganizationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Organization.
+     */
+    data: XOR<OrganizationCreateInput, OrganizationUncheckedCreateInput>
+  }
+
+  /**
+   * Organization createMany
+   */
+  export type OrganizationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Organizations.
+     */
+    data: OrganizationCreateManyInput | OrganizationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Organization createManyAndReturn
+   */
+  export type OrganizationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Organizations.
+     */
+    data: OrganizationCreateManyInput | OrganizationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Organization update
+   */
+  export type OrganizationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Organization.
+     */
+    data: XOR<OrganizationUpdateInput, OrganizationUncheckedUpdateInput>
+    /**
+     * Choose, which Organization to update.
+     */
+    where: OrganizationWhereUniqueInput
+  }
+
+  /**
+   * Organization updateMany
+   */
+  export type OrganizationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Organizations.
+     */
+    data: XOR<OrganizationUpdateManyMutationInput, OrganizationUncheckedUpdateManyInput>
+    /**
+     * Filter which Organizations to update
+     */
+    where?: OrganizationWhereInput
+  }
+
+  /**
+   * Organization upsert
+   */
+  export type OrganizationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Organization to update in case it exists.
+     */
+    where: OrganizationWhereUniqueInput
+    /**
+     * In case the Organization found by the `where` argument doesn't exist, create a new Organization with this data.
+     */
+    create: XOR<OrganizationCreateInput, OrganizationUncheckedCreateInput>
+    /**
+     * In case the Organization was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OrganizationUpdateInput, OrganizationUncheckedUpdateInput>
+  }
+
+  /**
+   * Organization delete
+   */
+  export type OrganizationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    /**
+     * Filter which Organization to delete.
+     */
+    where: OrganizationWhereUniqueInput
+  }
+
+  /**
+   * Organization deleteMany
+   */
+  export type OrganizationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Organizations to delete
+     */
+    where?: OrganizationWhereInput
+  }
+
+  /**
+   * Organization.contacts
+   */
+  export type Organization$contactsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    where?: ContactWhereInput
+    orderBy?: ContactOrderByWithRelationInput | ContactOrderByWithRelationInput[]
+    cursor?: ContactWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ContactScalarFieldEnum | ContactScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.deals
+   */
+  export type Organization$dealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    cursor?: DealWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * Organization.activities
+   */
+  export type Organization$activitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityInclude<ExtArgs> | null
+    where?: CrmActivityWhereInput
+    orderBy?: CrmActivityOrderByWithRelationInput | CrmActivityOrderByWithRelationInput[]
+    cursor?: CrmActivityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CrmActivityScalarFieldEnum | CrmActivityScalarFieldEnum[]
+  }
+
+  /**
+   * Organization without action
+   */
+  export type OrganizationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Pipeline
+   */
+
+  export type AggregatePipeline = {
+    _count: PipelineCountAggregateOutputType | null
+    _min: PipelineMinAggregateOutputType | null
+    _max: PipelineMaxAggregateOutputType | null
+  }
+
+  export type PipelineMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    isDefault: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
+    tenantId: string | null
+  }
+
+  export type PipelineMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    isDefault: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
+    tenantId: string | null
+  }
+
+  export type PipelineCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    isDefault: number
+    stages: number
+    metadata: number
+    createdAt: number
+    updatedAt: number
+    deletedAt: number
+    tenantId: number
+    _all: number
+  }
+
+
+  export type PipelineMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isDefault?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+  }
+
+  export type PipelineMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isDefault?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+  }
+
+  export type PipelineCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    isDefault?: true
+    stages?: true
+    metadata?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+    _all?: true
+  }
+
+  export type PipelineAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Pipeline to aggregate.
+     */
+    where?: PipelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pipelines to fetch.
+     */
+    orderBy?: PipelineOrderByWithRelationInput | PipelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PipelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pipelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pipelines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Pipelines
+    **/
+    _count?: true | PipelineCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PipelineMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PipelineMaxAggregateInputType
+  }
+
+  export type GetPipelineAggregateType<T extends PipelineAggregateArgs> = {
+        [P in keyof T & keyof AggregatePipeline]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePipeline[P]>
+      : GetScalarType<T[P], AggregatePipeline[P]>
+  }
+
+
+
+
+  export type PipelineGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PipelineWhereInput
+    orderBy?: PipelineOrderByWithAggregationInput | PipelineOrderByWithAggregationInput[]
+    by: PipelineScalarFieldEnum[] | PipelineScalarFieldEnum
+    having?: PipelineScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PipelineCountAggregateInputType | true
+    _min?: PipelineMinAggregateInputType
+    _max?: PipelineMaxAggregateInputType
+  }
+
+  export type PipelineGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    isDefault: boolean
+    stages: JsonValue
+    metadata: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    deletedAt: Date | null
+    tenantId: string
+    _count: PipelineCountAggregateOutputType | null
+    _min: PipelineMinAggregateOutputType | null
+    _max: PipelineMaxAggregateOutputType | null
+  }
+
+  type GetPipelineGroupByPayload<T extends PipelineGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PipelineGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PipelineGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PipelineGroupByOutputType[P]>
+            : GetScalarType<T[P], PipelineGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PipelineSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isDefault?: boolean
+    stages?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    pipelineStages?: boolean | Pipeline$pipelineStagesArgs<ExtArgs>
+    deals?: boolean | Pipeline$dealsArgs<ExtArgs>
+    _count?: boolean | PipelineCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pipeline"]>
+
+  export type PipelineSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isDefault?: boolean
+    stages?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pipeline"]>
+
+  export type PipelineSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    isDefault?: boolean
+    stages?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+  }
+
+  export type PipelineInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    pipelineStages?: boolean | Pipeline$pipelineStagesArgs<ExtArgs>
+    deals?: boolean | Pipeline$dealsArgs<ExtArgs>
+    _count?: boolean | PipelineCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PipelineIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+  }
+
+  export type $PipelinePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Pipeline"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      pipelineStages: Prisma.$PipelineStagePayload<ExtArgs>[]
+      deals: Prisma.$DealPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      isDefault: boolean
+      stages: Prisma.JsonValue
+      metadata: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+      deletedAt: Date | null
+      tenantId: string
+    }, ExtArgs["result"]["pipeline"]>
+    composites: {}
+  }
+
+  type PipelineGetPayload<S extends boolean | null | undefined | PipelineDefaultArgs> = $Result.GetResult<Prisma.$PipelinePayload, S>
+
+  type PipelineCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PipelineFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PipelineCountAggregateInputType | true
+    }
+
+  export interface PipelineDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Pipeline'], meta: { name: 'Pipeline' } }
+    /**
+     * Find zero or one Pipeline that matches the filter.
+     * @param {PipelineFindUniqueArgs} args - Arguments to find a Pipeline
+     * @example
+     * // Get one Pipeline
+     * const pipeline = await prisma.pipeline.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PipelineFindUniqueArgs>(args: SelectSubset<T, PipelineFindUniqueArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Pipeline that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PipelineFindUniqueOrThrowArgs} args - Arguments to find a Pipeline
+     * @example
+     * // Get one Pipeline
+     * const pipeline = await prisma.pipeline.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PipelineFindUniqueOrThrowArgs>(args: SelectSubset<T, PipelineFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Pipeline that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineFindFirstArgs} args - Arguments to find a Pipeline
+     * @example
+     * // Get one Pipeline
+     * const pipeline = await prisma.pipeline.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PipelineFindFirstArgs>(args?: SelectSubset<T, PipelineFindFirstArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Pipeline that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineFindFirstOrThrowArgs} args - Arguments to find a Pipeline
+     * @example
+     * // Get one Pipeline
+     * const pipeline = await prisma.pipeline.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PipelineFindFirstOrThrowArgs>(args?: SelectSubset<T, PipelineFindFirstOrThrowArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Pipelines that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Pipelines
+     * const pipelines = await prisma.pipeline.findMany()
+     * 
+     * // Get first 10 Pipelines
+     * const pipelines = await prisma.pipeline.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pipelineWithIdOnly = await prisma.pipeline.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PipelineFindManyArgs>(args?: SelectSubset<T, PipelineFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Pipeline.
+     * @param {PipelineCreateArgs} args - Arguments to create a Pipeline.
+     * @example
+     * // Create one Pipeline
+     * const Pipeline = await prisma.pipeline.create({
+     *   data: {
+     *     // ... data to create a Pipeline
+     *   }
+     * })
+     * 
+     */
+    create<T extends PipelineCreateArgs>(args: SelectSubset<T, PipelineCreateArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Pipelines.
+     * @param {PipelineCreateManyArgs} args - Arguments to create many Pipelines.
+     * @example
+     * // Create many Pipelines
+     * const pipeline = await prisma.pipeline.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PipelineCreateManyArgs>(args?: SelectSubset<T, PipelineCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Pipelines and returns the data saved in the database.
+     * @param {PipelineCreateManyAndReturnArgs} args - Arguments to create many Pipelines.
+     * @example
+     * // Create many Pipelines
+     * const pipeline = await prisma.pipeline.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Pipelines and only return the `id`
+     * const pipelineWithIdOnly = await prisma.pipeline.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PipelineCreateManyAndReturnArgs>(args?: SelectSubset<T, PipelineCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Pipeline.
+     * @param {PipelineDeleteArgs} args - Arguments to delete one Pipeline.
+     * @example
+     * // Delete one Pipeline
+     * const Pipeline = await prisma.pipeline.delete({
+     *   where: {
+     *     // ... filter to delete one Pipeline
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PipelineDeleteArgs>(args: SelectSubset<T, PipelineDeleteArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Pipeline.
+     * @param {PipelineUpdateArgs} args - Arguments to update one Pipeline.
+     * @example
+     * // Update one Pipeline
+     * const pipeline = await prisma.pipeline.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PipelineUpdateArgs>(args: SelectSubset<T, PipelineUpdateArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Pipelines.
+     * @param {PipelineDeleteManyArgs} args - Arguments to filter Pipelines to delete.
+     * @example
+     * // Delete a few Pipelines
+     * const { count } = await prisma.pipeline.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PipelineDeleteManyArgs>(args?: SelectSubset<T, PipelineDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Pipelines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Pipelines
+     * const pipeline = await prisma.pipeline.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PipelineUpdateManyArgs>(args: SelectSubset<T, PipelineUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Pipeline.
+     * @param {PipelineUpsertArgs} args - Arguments to update or create a Pipeline.
+     * @example
+     * // Update or create a Pipeline
+     * const pipeline = await prisma.pipeline.upsert({
+     *   create: {
+     *     // ... data to create a Pipeline
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Pipeline we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PipelineUpsertArgs>(args: SelectSubset<T, PipelineUpsertArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Pipelines.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineCountArgs} args - Arguments to filter Pipelines to count.
+     * @example
+     * // Count the number of Pipelines
+     * const count = await prisma.pipeline.count({
+     *   where: {
+     *     // ... the filter for the Pipelines we want to count
+     *   }
+     * })
+    **/
+    count<T extends PipelineCountArgs>(
+      args?: Subset<T, PipelineCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PipelineCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Pipeline.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PipelineAggregateArgs>(args: Subset<T, PipelineAggregateArgs>): Prisma.PrismaPromise<GetPipelineAggregateType<T>>
+
+    /**
+     * Group by Pipeline.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PipelineGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PipelineGroupByArgs['orderBy'] }
+        : { orderBy?: PipelineGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PipelineGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPipelineGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Pipeline model
+   */
+  readonly fields: PipelineFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Pipeline.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PipelineClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    pipelineStages<T extends Pipeline$pipelineStagesArgs<ExtArgs> = {}>(args?: Subset<T, Pipeline$pipelineStagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PipelineStagePayload<ExtArgs>, T, "findMany"> | Null>
+    deals<T extends Pipeline$dealsArgs<ExtArgs> = {}>(args?: Subset<T, Pipeline$dealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Pipeline model
+   */ 
+  interface PipelineFieldRefs {
+    readonly id: FieldRef<"Pipeline", 'String'>
+    readonly name: FieldRef<"Pipeline", 'String'>
+    readonly description: FieldRef<"Pipeline", 'String'>
+    readonly isDefault: FieldRef<"Pipeline", 'Boolean'>
+    readonly stages: FieldRef<"Pipeline", 'Json'>
+    readonly metadata: FieldRef<"Pipeline", 'Json'>
+    readonly createdAt: FieldRef<"Pipeline", 'DateTime'>
+    readonly updatedAt: FieldRef<"Pipeline", 'DateTime'>
+    readonly deletedAt: FieldRef<"Pipeline", 'DateTime'>
+    readonly tenantId: FieldRef<"Pipeline", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Pipeline findUnique
+   */
+  export type PipelineFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which Pipeline to fetch.
+     */
+    where: PipelineWhereUniqueInput
+  }
+
+  /**
+   * Pipeline findUniqueOrThrow
+   */
+  export type PipelineFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which Pipeline to fetch.
+     */
+    where: PipelineWhereUniqueInput
+  }
+
+  /**
+   * Pipeline findFirst
+   */
+  export type PipelineFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which Pipeline to fetch.
+     */
+    where?: PipelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pipelines to fetch.
+     */
+    orderBy?: PipelineOrderByWithRelationInput | PipelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Pipelines.
+     */
+    cursor?: PipelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pipelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pipelines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Pipelines.
+     */
+    distinct?: PipelineScalarFieldEnum | PipelineScalarFieldEnum[]
+  }
+
+  /**
+   * Pipeline findFirstOrThrow
+   */
+  export type PipelineFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which Pipeline to fetch.
+     */
+    where?: PipelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pipelines to fetch.
+     */
+    orderBy?: PipelineOrderByWithRelationInput | PipelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Pipelines.
+     */
+    cursor?: PipelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pipelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pipelines.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Pipelines.
+     */
+    distinct?: PipelineScalarFieldEnum | PipelineScalarFieldEnum[]
+  }
+
+  /**
+   * Pipeline findMany
+   */
+  export type PipelineFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * Filter, which Pipelines to fetch.
+     */
+    where?: PipelineWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Pipelines to fetch.
+     */
+    orderBy?: PipelineOrderByWithRelationInput | PipelineOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Pipelines.
+     */
+    cursor?: PipelineWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Pipelines from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Pipelines.
+     */
+    skip?: number
+    distinct?: PipelineScalarFieldEnum | PipelineScalarFieldEnum[]
+  }
+
+  /**
+   * Pipeline create
+   */
+  export type PipelineCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Pipeline.
+     */
+    data: XOR<PipelineCreateInput, PipelineUncheckedCreateInput>
+  }
+
+  /**
+   * Pipeline createMany
+   */
+  export type PipelineCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Pipelines.
+     */
+    data: PipelineCreateManyInput | PipelineCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Pipeline createManyAndReturn
+   */
+  export type PipelineCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Pipelines.
+     */
+    data: PipelineCreateManyInput | PipelineCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Pipeline update
+   */
+  export type PipelineUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Pipeline.
+     */
+    data: XOR<PipelineUpdateInput, PipelineUncheckedUpdateInput>
+    /**
+     * Choose, which Pipeline to update.
+     */
+    where: PipelineWhereUniqueInput
+  }
+
+  /**
+   * Pipeline updateMany
+   */
+  export type PipelineUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Pipelines.
+     */
+    data: XOR<PipelineUpdateManyMutationInput, PipelineUncheckedUpdateManyInput>
+    /**
+     * Filter which Pipelines to update
+     */
+    where?: PipelineWhereInput
+  }
+
+  /**
+   * Pipeline upsert
+   */
+  export type PipelineUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Pipeline to update in case it exists.
+     */
+    where: PipelineWhereUniqueInput
+    /**
+     * In case the Pipeline found by the `where` argument doesn't exist, create a new Pipeline with this data.
+     */
+    create: XOR<PipelineCreateInput, PipelineUncheckedCreateInput>
+    /**
+     * In case the Pipeline was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PipelineUpdateInput, PipelineUncheckedUpdateInput>
+  }
+
+  /**
+   * Pipeline delete
+   */
+  export type PipelineDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+    /**
+     * Filter which Pipeline to delete.
+     */
+    where: PipelineWhereUniqueInput
+  }
+
+  /**
+   * Pipeline deleteMany
+   */
+  export type PipelineDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Pipelines to delete
+     */
+    where?: PipelineWhereInput
+  }
+
+  /**
+   * Pipeline.pipelineStages
+   */
+  export type Pipeline$pipelineStagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineStage
+     */
+    select?: PipelineStageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineStageInclude<ExtArgs> | null
+    where?: PipelineStageWhereInput
+    orderBy?: PipelineStageOrderByWithRelationInput | PipelineStageOrderByWithRelationInput[]
+    cursor?: PipelineStageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: PipelineStageScalarFieldEnum | PipelineStageScalarFieldEnum[]
+  }
+
+  /**
+   * Pipeline.deals
+   */
+  export type Pipeline$dealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    cursor?: DealWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * Pipeline without action
+   */
+  export type PipelineDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Pipeline
+     */
+    select?: PipelineSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PipelineStage
+   */
+
+  export type AggregatePipelineStage = {
+    _count: PipelineStageCountAggregateOutputType | null
+    _avg: PipelineStageAvgAggregateOutputType | null
+    _sum: PipelineStageSumAggregateOutputType | null
+    _min: PipelineStageMinAggregateOutputType | null
+    _max: PipelineStageMaxAggregateOutputType | null
+  }
+
+  export type PipelineStageAvgAggregateOutputType = {
+    order: number | null
+    probability: number | null
+  }
+
+  export type PipelineStageSumAggregateOutputType = {
+    order: number | null
+    probability: number | null
+  }
+
+  export type PipelineStageMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    order: number | null
+    probability: number | null
+    color: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    pipelineId: string | null
+  }
+
+  export type PipelineStageMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    order: number | null
+    probability: number | null
+    color: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    pipelineId: string | null
+  }
+
+  export type PipelineStageCountAggregateOutputType = {
+    id: number
+    name: number
+    order: number
+    probability: number
+    color: number
+    createdAt: number
+    updatedAt: number
+    pipelineId: number
+    _all: number
+  }
+
+
+  export type PipelineStageAvgAggregateInputType = {
+    order?: true
+    probability?: true
+  }
+
+  export type PipelineStageSumAggregateInputType = {
+    order?: true
+    probability?: true
+  }
+
+  export type PipelineStageMinAggregateInputType = {
+    id?: true
+    name?: true
+    order?: true
+    probability?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
+    pipelineId?: true
+  }
+
+  export type PipelineStageMaxAggregateInputType = {
+    id?: true
+    name?: true
+    order?: true
+    probability?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
+    pipelineId?: true
+  }
+
+  export type PipelineStageCountAggregateInputType = {
+    id?: true
+    name?: true
+    order?: true
+    probability?: true
+    color?: true
+    createdAt?: true
+    updatedAt?: true
+    pipelineId?: true
+    _all?: true
+  }
+
+  export type PipelineStageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PipelineStage to aggregate.
+     */
+    where?: PipelineStageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PipelineStages to fetch.
+     */
+    orderBy?: PipelineStageOrderByWithRelationInput | PipelineStageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PipelineStageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PipelineStages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PipelineStages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PipelineStages
+    **/
+    _count?: true | PipelineStageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: PipelineStageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: PipelineStageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PipelineStageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PipelineStageMaxAggregateInputType
+  }
+
+  export type GetPipelineStageAggregateType<T extends PipelineStageAggregateArgs> = {
+        [P in keyof T & keyof AggregatePipelineStage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePipelineStage[P]>
+      : GetScalarType<T[P], AggregatePipelineStage[P]>
+  }
+
+
+
+
+  export type PipelineStageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PipelineStageWhereInput
+    orderBy?: PipelineStageOrderByWithAggregationInput | PipelineStageOrderByWithAggregationInput[]
+    by: PipelineStageScalarFieldEnum[] | PipelineStageScalarFieldEnum
+    having?: PipelineStageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PipelineStageCountAggregateInputType | true
+    _avg?: PipelineStageAvgAggregateInputType
+    _sum?: PipelineStageSumAggregateInputType
+    _min?: PipelineStageMinAggregateInputType
+    _max?: PipelineStageMaxAggregateInputType
+  }
+
+  export type PipelineStageGroupByOutputType = {
+    id: string
+    name: string
+    order: number
+    probability: number
+    color: string | null
+    createdAt: Date
+    updatedAt: Date
+    pipelineId: string
+    _count: PipelineStageCountAggregateOutputType | null
+    _avg: PipelineStageAvgAggregateOutputType | null
+    _sum: PipelineStageSumAggregateOutputType | null
+    _min: PipelineStageMinAggregateOutputType | null
+    _max: PipelineStageMaxAggregateOutputType | null
+  }
+
+  type GetPipelineStageGroupByPayload<T extends PipelineStageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PipelineStageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PipelineStageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PipelineStageGroupByOutputType[P]>
+            : GetScalarType<T[P], PipelineStageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PipelineStageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    order?: boolean
+    probability?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    pipelineId?: boolean
+    pipeline?: boolean | PipelineDefaultArgs<ExtArgs>
+    deals?: boolean | PipelineStage$dealsArgs<ExtArgs>
+    _count?: boolean | PipelineStageCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pipelineStage"]>
+
+  export type PipelineStageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    order?: boolean
+    probability?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    pipelineId?: boolean
+    pipeline?: boolean | PipelineDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pipelineStage"]>
+
+  export type PipelineStageSelectScalar = {
+    id?: boolean
+    name?: boolean
+    order?: boolean
+    probability?: boolean
+    color?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    pipelineId?: boolean
+  }
+
+  export type PipelineStageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pipeline?: boolean | PipelineDefaultArgs<ExtArgs>
+    deals?: boolean | PipelineStage$dealsArgs<ExtArgs>
+    _count?: boolean | PipelineStageCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PipelineStageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    pipeline?: boolean | PipelineDefaultArgs<ExtArgs>
+  }
+
+  export type $PipelineStagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PipelineStage"
+    objects: {
+      pipeline: Prisma.$PipelinePayload<ExtArgs>
+      deals: Prisma.$DealPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      order: number
+      probability: number
+      color: string | null
+      createdAt: Date
+      updatedAt: Date
+      pipelineId: string
+    }, ExtArgs["result"]["pipelineStage"]>
+    composites: {}
+  }
+
+  type PipelineStageGetPayload<S extends boolean | null | undefined | PipelineStageDefaultArgs> = $Result.GetResult<Prisma.$PipelineStagePayload, S>
+
+  type PipelineStageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PipelineStageFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PipelineStageCountAggregateInputType | true
+    }
+
+  export interface PipelineStageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PipelineStage'], meta: { name: 'PipelineStage' } }
+    /**
+     * Find zero or one PipelineStage that matches the filter.
+     * @param {PipelineStageFindUniqueArgs} args - Arguments to find a PipelineStage
+     * @example
+     * // Get one PipelineStage
+     * const pipelineStage = await prisma.pipelineStage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PipelineStageFindUniqueArgs>(args: SelectSubset<T, PipelineStageFindUniqueArgs<ExtArgs>>): Prisma__PipelineStageClient<$Result.GetResult<Prisma.$PipelineStagePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PipelineStage that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PipelineStageFindUniqueOrThrowArgs} args - Arguments to find a PipelineStage
+     * @example
+     * // Get one PipelineStage
+     * const pipelineStage = await prisma.pipelineStage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PipelineStageFindUniqueOrThrowArgs>(args: SelectSubset<T, PipelineStageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PipelineStageClient<$Result.GetResult<Prisma.$PipelineStagePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PipelineStage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineStageFindFirstArgs} args - Arguments to find a PipelineStage
+     * @example
+     * // Get one PipelineStage
+     * const pipelineStage = await prisma.pipelineStage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PipelineStageFindFirstArgs>(args?: SelectSubset<T, PipelineStageFindFirstArgs<ExtArgs>>): Prisma__PipelineStageClient<$Result.GetResult<Prisma.$PipelineStagePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PipelineStage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineStageFindFirstOrThrowArgs} args - Arguments to find a PipelineStage
+     * @example
+     * // Get one PipelineStage
+     * const pipelineStage = await prisma.pipelineStage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PipelineStageFindFirstOrThrowArgs>(args?: SelectSubset<T, PipelineStageFindFirstOrThrowArgs<ExtArgs>>): Prisma__PipelineStageClient<$Result.GetResult<Prisma.$PipelineStagePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PipelineStages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineStageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PipelineStages
+     * const pipelineStages = await prisma.pipelineStage.findMany()
+     * 
+     * // Get first 10 PipelineStages
+     * const pipelineStages = await prisma.pipelineStage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pipelineStageWithIdOnly = await prisma.pipelineStage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PipelineStageFindManyArgs>(args?: SelectSubset<T, PipelineStageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PipelineStagePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PipelineStage.
+     * @param {PipelineStageCreateArgs} args - Arguments to create a PipelineStage.
+     * @example
+     * // Create one PipelineStage
+     * const PipelineStage = await prisma.pipelineStage.create({
+     *   data: {
+     *     // ... data to create a PipelineStage
+     *   }
+     * })
+     * 
+     */
+    create<T extends PipelineStageCreateArgs>(args: SelectSubset<T, PipelineStageCreateArgs<ExtArgs>>): Prisma__PipelineStageClient<$Result.GetResult<Prisma.$PipelineStagePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PipelineStages.
+     * @param {PipelineStageCreateManyArgs} args - Arguments to create many PipelineStages.
+     * @example
+     * // Create many PipelineStages
+     * const pipelineStage = await prisma.pipelineStage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PipelineStageCreateManyArgs>(args?: SelectSubset<T, PipelineStageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PipelineStages and returns the data saved in the database.
+     * @param {PipelineStageCreateManyAndReturnArgs} args - Arguments to create many PipelineStages.
+     * @example
+     * // Create many PipelineStages
+     * const pipelineStage = await prisma.pipelineStage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PipelineStages and only return the `id`
+     * const pipelineStageWithIdOnly = await prisma.pipelineStage.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PipelineStageCreateManyAndReturnArgs>(args?: SelectSubset<T, PipelineStageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PipelineStagePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PipelineStage.
+     * @param {PipelineStageDeleteArgs} args - Arguments to delete one PipelineStage.
+     * @example
+     * // Delete one PipelineStage
+     * const PipelineStage = await prisma.pipelineStage.delete({
+     *   where: {
+     *     // ... filter to delete one PipelineStage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PipelineStageDeleteArgs>(args: SelectSubset<T, PipelineStageDeleteArgs<ExtArgs>>): Prisma__PipelineStageClient<$Result.GetResult<Prisma.$PipelineStagePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PipelineStage.
+     * @param {PipelineStageUpdateArgs} args - Arguments to update one PipelineStage.
+     * @example
+     * // Update one PipelineStage
+     * const pipelineStage = await prisma.pipelineStage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PipelineStageUpdateArgs>(args: SelectSubset<T, PipelineStageUpdateArgs<ExtArgs>>): Prisma__PipelineStageClient<$Result.GetResult<Prisma.$PipelineStagePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PipelineStages.
+     * @param {PipelineStageDeleteManyArgs} args - Arguments to filter PipelineStages to delete.
+     * @example
+     * // Delete a few PipelineStages
+     * const { count } = await prisma.pipelineStage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PipelineStageDeleteManyArgs>(args?: SelectSubset<T, PipelineStageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PipelineStages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineStageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PipelineStages
+     * const pipelineStage = await prisma.pipelineStage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PipelineStageUpdateManyArgs>(args: SelectSubset<T, PipelineStageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PipelineStage.
+     * @param {PipelineStageUpsertArgs} args - Arguments to update or create a PipelineStage.
+     * @example
+     * // Update or create a PipelineStage
+     * const pipelineStage = await prisma.pipelineStage.upsert({
+     *   create: {
+     *     // ... data to create a PipelineStage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PipelineStage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PipelineStageUpsertArgs>(args: SelectSubset<T, PipelineStageUpsertArgs<ExtArgs>>): Prisma__PipelineStageClient<$Result.GetResult<Prisma.$PipelineStagePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PipelineStages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineStageCountArgs} args - Arguments to filter PipelineStages to count.
+     * @example
+     * // Count the number of PipelineStages
+     * const count = await prisma.pipelineStage.count({
+     *   where: {
+     *     // ... the filter for the PipelineStages we want to count
+     *   }
+     * })
+    **/
+    count<T extends PipelineStageCountArgs>(
+      args?: Subset<T, PipelineStageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PipelineStageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PipelineStage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineStageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PipelineStageAggregateArgs>(args: Subset<T, PipelineStageAggregateArgs>): Prisma.PrismaPromise<GetPipelineStageAggregateType<T>>
+
+    /**
+     * Group by PipelineStage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PipelineStageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PipelineStageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PipelineStageGroupByArgs['orderBy'] }
+        : { orderBy?: PipelineStageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PipelineStageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPipelineStageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PipelineStage model
+   */
+  readonly fields: PipelineStageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PipelineStage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PipelineStageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    pipeline<T extends PipelineDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PipelineDefaultArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    deals<T extends PipelineStage$dealsArgs<ExtArgs> = {}>(args?: Subset<T, PipelineStage$dealsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PipelineStage model
+   */ 
+  interface PipelineStageFieldRefs {
+    readonly id: FieldRef<"PipelineStage", 'String'>
+    readonly name: FieldRef<"PipelineStage", 'String'>
+    readonly order: FieldRef<"PipelineStage", 'Int'>
+    readonly probability: FieldRef<"PipelineStage", 'Int'>
+    readonly color: FieldRef<"PipelineStage", 'String'>
+    readonly createdAt: FieldRef<"PipelineStage", 'DateTime'>
+    readonly updatedAt: FieldRef<"PipelineStage", 'DateTime'>
+    readonly pipelineId: FieldRef<"PipelineStage", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PipelineStage findUnique
+   */
+  export type PipelineStageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineStage
+     */
+    select?: PipelineStageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineStageInclude<ExtArgs> | null
+    /**
+     * Filter, which PipelineStage to fetch.
+     */
+    where: PipelineStageWhereUniqueInput
+  }
+
+  /**
+   * PipelineStage findUniqueOrThrow
+   */
+  export type PipelineStageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineStage
+     */
+    select?: PipelineStageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineStageInclude<ExtArgs> | null
+    /**
+     * Filter, which PipelineStage to fetch.
+     */
+    where: PipelineStageWhereUniqueInput
+  }
+
+  /**
+   * PipelineStage findFirst
+   */
+  export type PipelineStageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineStage
+     */
+    select?: PipelineStageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineStageInclude<ExtArgs> | null
+    /**
+     * Filter, which PipelineStage to fetch.
+     */
+    where?: PipelineStageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PipelineStages to fetch.
+     */
+    orderBy?: PipelineStageOrderByWithRelationInput | PipelineStageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PipelineStages.
+     */
+    cursor?: PipelineStageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PipelineStages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PipelineStages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PipelineStages.
+     */
+    distinct?: PipelineStageScalarFieldEnum | PipelineStageScalarFieldEnum[]
+  }
+
+  /**
+   * PipelineStage findFirstOrThrow
+   */
+  export type PipelineStageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineStage
+     */
+    select?: PipelineStageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineStageInclude<ExtArgs> | null
+    /**
+     * Filter, which PipelineStage to fetch.
+     */
+    where?: PipelineStageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PipelineStages to fetch.
+     */
+    orderBy?: PipelineStageOrderByWithRelationInput | PipelineStageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PipelineStages.
+     */
+    cursor?: PipelineStageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PipelineStages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PipelineStages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PipelineStages.
+     */
+    distinct?: PipelineStageScalarFieldEnum | PipelineStageScalarFieldEnum[]
+  }
+
+  /**
+   * PipelineStage findMany
+   */
+  export type PipelineStageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineStage
+     */
+    select?: PipelineStageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineStageInclude<ExtArgs> | null
+    /**
+     * Filter, which PipelineStages to fetch.
+     */
+    where?: PipelineStageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PipelineStages to fetch.
+     */
+    orderBy?: PipelineStageOrderByWithRelationInput | PipelineStageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PipelineStages.
+     */
+    cursor?: PipelineStageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PipelineStages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PipelineStages.
+     */
+    skip?: number
+    distinct?: PipelineStageScalarFieldEnum | PipelineStageScalarFieldEnum[]
+  }
+
+  /**
+   * PipelineStage create
+   */
+  export type PipelineStageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineStage
+     */
+    select?: PipelineStageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineStageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PipelineStage.
+     */
+    data: XOR<PipelineStageCreateInput, PipelineStageUncheckedCreateInput>
+  }
+
+  /**
+   * PipelineStage createMany
+   */
+  export type PipelineStageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PipelineStages.
+     */
+    data: PipelineStageCreateManyInput | PipelineStageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PipelineStage createManyAndReturn
+   */
+  export type PipelineStageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineStage
+     */
+    select?: PipelineStageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PipelineStages.
+     */
+    data: PipelineStageCreateManyInput | PipelineStageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineStageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * PipelineStage update
+   */
+  export type PipelineStageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineStage
+     */
+    select?: PipelineStageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineStageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PipelineStage.
+     */
+    data: XOR<PipelineStageUpdateInput, PipelineStageUncheckedUpdateInput>
+    /**
+     * Choose, which PipelineStage to update.
+     */
+    where: PipelineStageWhereUniqueInput
+  }
+
+  /**
+   * PipelineStage updateMany
+   */
+  export type PipelineStageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PipelineStages.
+     */
+    data: XOR<PipelineStageUpdateManyMutationInput, PipelineStageUncheckedUpdateManyInput>
+    /**
+     * Filter which PipelineStages to update
+     */
+    where?: PipelineStageWhereInput
+  }
+
+  /**
+   * PipelineStage upsert
+   */
+  export type PipelineStageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineStage
+     */
+    select?: PipelineStageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineStageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PipelineStage to update in case it exists.
+     */
+    where: PipelineStageWhereUniqueInput
+    /**
+     * In case the PipelineStage found by the `where` argument doesn't exist, create a new PipelineStage with this data.
+     */
+    create: XOR<PipelineStageCreateInput, PipelineStageUncheckedCreateInput>
+    /**
+     * In case the PipelineStage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PipelineStageUpdateInput, PipelineStageUncheckedUpdateInput>
+  }
+
+  /**
+   * PipelineStage delete
+   */
+  export type PipelineStageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineStage
+     */
+    select?: PipelineStageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineStageInclude<ExtArgs> | null
+    /**
+     * Filter which PipelineStage to delete.
+     */
+    where: PipelineStageWhereUniqueInput
+  }
+
+  /**
+   * PipelineStage deleteMany
+   */
+  export type PipelineStageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PipelineStages to delete
+     */
+    where?: PipelineStageWhereInput
+  }
+
+  /**
+   * PipelineStage.deals
+   */
+  export type PipelineStage$dealsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    cursor?: DealWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * PipelineStage without action
+   */
+  export type PipelineStageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PipelineStage
+     */
+    select?: PipelineStageSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PipelineStageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Deal
+   */
+
+  export type AggregateDeal = {
+    _count: DealCountAggregateOutputType | null
+    _avg: DealAvgAggregateOutputType | null
+    _sum: DealSumAggregateOutputType | null
+    _min: DealMinAggregateOutputType | null
+    _max: DealMaxAggregateOutputType | null
+  }
+
+  export type DealAvgAggregateOutputType = {
+    value: Decimal | null
+    probability: number | null
+  }
+
+  export type DealSumAggregateOutputType = {
+    value: Decimal | null
+    probability: number | null
+  }
+
+  export type DealMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    value: Decimal | null
+    currency: $Enums.CurrencyCode | null
+    expectedCloseDate: Date | null
+    actualCloseDate: Date | null
+    probability: number | null
+    source: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
+    tenantId: string | null
+    pipelineId: string | null
+    stageId: string | null
+    contactId: string | null
+    organizationId: string | null
+    assignedTo: string | null
+  }
+
+  export type DealMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    value: Decimal | null
+    currency: $Enums.CurrencyCode | null
+    expectedCloseDate: Date | null
+    actualCloseDate: Date | null
+    probability: number | null
+    source: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
+    tenantId: string | null
+    pipelineId: string | null
+    stageId: string | null
+    contactId: string | null
+    organizationId: string | null
+    assignedTo: string | null
+  }
+
+  export type DealCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    value: number
+    currency: number
+    expectedCloseDate: number
+    actualCloseDate: number
+    probability: number
+    source: number
+    tags: number
+    metadata: number
+    createdAt: number
+    updatedAt: number
+    deletedAt: number
+    tenantId: number
+    pipelineId: number
+    stageId: number
+    contactId: number
+    organizationId: number
+    assignedTo: number
+    _all: number
+  }
+
+
+  export type DealAvgAggregateInputType = {
+    value?: true
+    probability?: true
+  }
+
+  export type DealSumAggregateInputType = {
+    value?: true
+    probability?: true
+  }
+
+  export type DealMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    value?: true
+    currency?: true
+    expectedCloseDate?: true
+    actualCloseDate?: true
+    probability?: true
+    source?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+    pipelineId?: true
+    stageId?: true
+    contactId?: true
+    organizationId?: true
+    assignedTo?: true
+  }
+
+  export type DealMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    value?: true
+    currency?: true
+    expectedCloseDate?: true
+    actualCloseDate?: true
+    probability?: true
+    source?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+    pipelineId?: true
+    stageId?: true
+    contactId?: true
+    organizationId?: true
+    assignedTo?: true
+  }
+
+  export type DealCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    value?: true
+    currency?: true
+    expectedCloseDate?: true
+    actualCloseDate?: true
+    probability?: true
+    source?: true
+    tags?: true
+    metadata?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+    pipelineId?: true
+    stageId?: true
+    contactId?: true
+    organizationId?: true
+    assignedTo?: true
+    _all?: true
+  }
+
+  export type DealAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Deal to aggregate.
+     */
+    where?: DealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Deals to fetch.
+     */
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Deals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Deals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Deals
+    **/
+    _count?: true | DealCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DealAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DealSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DealMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DealMaxAggregateInputType
+  }
+
+  export type GetDealAggregateType<T extends DealAggregateArgs> = {
+        [P in keyof T & keyof AggregateDeal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDeal[P]>
+      : GetScalarType<T[P], AggregateDeal[P]>
+  }
+
+
+
+
+  export type DealGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DealWhereInput
+    orderBy?: DealOrderByWithAggregationInput | DealOrderByWithAggregationInput[]
+    by: DealScalarFieldEnum[] | DealScalarFieldEnum
+    having?: DealScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DealCountAggregateInputType | true
+    _avg?: DealAvgAggregateInputType
+    _sum?: DealSumAggregateInputType
+    _min?: DealMinAggregateInputType
+    _max?: DealMaxAggregateInputType
+  }
+
+  export type DealGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    value: Decimal
+    currency: $Enums.CurrencyCode
+    expectedCloseDate: Date | null
+    actualCloseDate: Date | null
+    probability: number
+    source: string | null
+    tags: string[]
+    metadata: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    deletedAt: Date | null
+    tenantId: string
+    pipelineId: string
+    stageId: string
+    contactId: string | null
+    organizationId: string | null
+    assignedTo: string | null
+    _count: DealCountAggregateOutputType | null
+    _avg: DealAvgAggregateOutputType | null
+    _sum: DealSumAggregateOutputType | null
+    _min: DealMinAggregateOutputType | null
+    _max: DealMaxAggregateOutputType | null
+  }
+
+  type GetDealGroupByPayload<T extends DealGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DealGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DealGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DealGroupByOutputType[P]>
+            : GetScalarType<T[P], DealGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DealSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    value?: boolean
+    currency?: boolean
+    expectedCloseDate?: boolean
+    actualCloseDate?: boolean
+    probability?: boolean
+    source?: boolean
+    tags?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+    pipelineId?: boolean
+    stageId?: boolean
+    contactId?: boolean
+    organizationId?: boolean
+    assignedTo?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    pipeline?: boolean | PipelineDefaultArgs<ExtArgs>
+    stage?: boolean | PipelineStageDefaultArgs<ExtArgs>
+    contact?: boolean | Deal$contactArgs<ExtArgs>
+    organization?: boolean | Deal$organizationArgs<ExtArgs>
+    assignee?: boolean | Deal$assigneeArgs<ExtArgs>
+    activities?: boolean | Deal$activitiesArgs<ExtArgs>
+    _count?: boolean | DealCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["deal"]>
+
+  export type DealSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    value?: boolean
+    currency?: boolean
+    expectedCloseDate?: boolean
+    actualCloseDate?: boolean
+    probability?: boolean
+    source?: boolean
+    tags?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+    pipelineId?: boolean
+    stageId?: boolean
+    contactId?: boolean
+    organizationId?: boolean
+    assignedTo?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    pipeline?: boolean | PipelineDefaultArgs<ExtArgs>
+    stage?: boolean | PipelineStageDefaultArgs<ExtArgs>
+    contact?: boolean | Deal$contactArgs<ExtArgs>
+    organization?: boolean | Deal$organizationArgs<ExtArgs>
+    assignee?: boolean | Deal$assigneeArgs<ExtArgs>
+  }, ExtArgs["result"]["deal"]>
+
+  export type DealSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    value?: boolean
+    currency?: boolean
+    expectedCloseDate?: boolean
+    actualCloseDate?: boolean
+    probability?: boolean
+    source?: boolean
+    tags?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+    pipelineId?: boolean
+    stageId?: boolean
+    contactId?: boolean
+    organizationId?: boolean
+    assignedTo?: boolean
+  }
+
+  export type DealInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    pipeline?: boolean | PipelineDefaultArgs<ExtArgs>
+    stage?: boolean | PipelineStageDefaultArgs<ExtArgs>
+    contact?: boolean | Deal$contactArgs<ExtArgs>
+    organization?: boolean | Deal$organizationArgs<ExtArgs>
+    assignee?: boolean | Deal$assigneeArgs<ExtArgs>
+    activities?: boolean | Deal$activitiesArgs<ExtArgs>
+    _count?: boolean | DealCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DealIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    pipeline?: boolean | PipelineDefaultArgs<ExtArgs>
+    stage?: boolean | PipelineStageDefaultArgs<ExtArgs>
+    contact?: boolean | Deal$contactArgs<ExtArgs>
+    organization?: boolean | Deal$organizationArgs<ExtArgs>
+    assignee?: boolean | Deal$assigneeArgs<ExtArgs>
+  }
+
+  export type $DealPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Deal"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      pipeline: Prisma.$PipelinePayload<ExtArgs>
+      stage: Prisma.$PipelineStagePayload<ExtArgs>
+      contact: Prisma.$ContactPayload<ExtArgs> | null
+      organization: Prisma.$OrganizationPayload<ExtArgs> | null
+      assignee: Prisma.$UserPayload<ExtArgs> | null
+      activities: Prisma.$CrmActivityPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      value: Prisma.Decimal
+      currency: $Enums.CurrencyCode
+      expectedCloseDate: Date | null
+      actualCloseDate: Date | null
+      probability: number
+      source: string | null
+      tags: string[]
+      metadata: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+      deletedAt: Date | null
+      tenantId: string
+      pipelineId: string
+      stageId: string
+      contactId: string | null
+      organizationId: string | null
+      assignedTo: string | null
+    }, ExtArgs["result"]["deal"]>
+    composites: {}
+  }
+
+  type DealGetPayload<S extends boolean | null | undefined | DealDefaultArgs> = $Result.GetResult<Prisma.$DealPayload, S>
+
+  type DealCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<DealFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: DealCountAggregateInputType | true
+    }
+
+  export interface DealDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Deal'], meta: { name: 'Deal' } }
+    /**
+     * Find zero or one Deal that matches the filter.
+     * @param {DealFindUniqueArgs} args - Arguments to find a Deal
+     * @example
+     * // Get one Deal
+     * const deal = await prisma.deal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DealFindUniqueArgs>(args: SelectSubset<T, DealFindUniqueArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Deal that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {DealFindUniqueOrThrowArgs} args - Arguments to find a Deal
+     * @example
+     * // Get one Deal
+     * const deal = await prisma.deal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DealFindUniqueOrThrowArgs>(args: SelectSubset<T, DealFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Deal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealFindFirstArgs} args - Arguments to find a Deal
+     * @example
+     * // Get one Deal
+     * const deal = await prisma.deal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DealFindFirstArgs>(args?: SelectSubset<T, DealFindFirstArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Deal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealFindFirstOrThrowArgs} args - Arguments to find a Deal
+     * @example
+     * // Get one Deal
+     * const deal = await prisma.deal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DealFindFirstOrThrowArgs>(args?: SelectSubset<T, DealFindFirstOrThrowArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Deals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Deals
+     * const deals = await prisma.deal.findMany()
+     * 
+     * // Get first 10 Deals
+     * const deals = await prisma.deal.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const dealWithIdOnly = await prisma.deal.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DealFindManyArgs>(args?: SelectSubset<T, DealFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Deal.
+     * @param {DealCreateArgs} args - Arguments to create a Deal.
+     * @example
+     * // Create one Deal
+     * const Deal = await prisma.deal.create({
+     *   data: {
+     *     // ... data to create a Deal
+     *   }
+     * })
+     * 
+     */
+    create<T extends DealCreateArgs>(args: SelectSubset<T, DealCreateArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Deals.
+     * @param {DealCreateManyArgs} args - Arguments to create many Deals.
+     * @example
+     * // Create many Deals
+     * const deal = await prisma.deal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DealCreateManyArgs>(args?: SelectSubset<T, DealCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Deals and returns the data saved in the database.
+     * @param {DealCreateManyAndReturnArgs} args - Arguments to create many Deals.
+     * @example
+     * // Create many Deals
+     * const deal = await prisma.deal.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Deals and only return the `id`
+     * const dealWithIdOnly = await prisma.deal.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DealCreateManyAndReturnArgs>(args?: SelectSubset<T, DealCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Deal.
+     * @param {DealDeleteArgs} args - Arguments to delete one Deal.
+     * @example
+     * // Delete one Deal
+     * const Deal = await prisma.deal.delete({
+     *   where: {
+     *     // ... filter to delete one Deal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DealDeleteArgs>(args: SelectSubset<T, DealDeleteArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Deal.
+     * @param {DealUpdateArgs} args - Arguments to update one Deal.
+     * @example
+     * // Update one Deal
+     * const deal = await prisma.deal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DealUpdateArgs>(args: SelectSubset<T, DealUpdateArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Deals.
+     * @param {DealDeleteManyArgs} args - Arguments to filter Deals to delete.
+     * @example
+     * // Delete a few Deals
+     * const { count } = await prisma.deal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DealDeleteManyArgs>(args?: SelectSubset<T, DealDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Deals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Deals
+     * const deal = await prisma.deal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DealUpdateManyArgs>(args: SelectSubset<T, DealUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Deal.
+     * @param {DealUpsertArgs} args - Arguments to update or create a Deal.
+     * @example
+     * // Update or create a Deal
+     * const deal = await prisma.deal.upsert({
+     *   create: {
+     *     // ... data to create a Deal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Deal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DealUpsertArgs>(args: SelectSubset<T, DealUpsertArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Deals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealCountArgs} args - Arguments to filter Deals to count.
+     * @example
+     * // Count the number of Deals
+     * const count = await prisma.deal.count({
+     *   where: {
+     *     // ... the filter for the Deals we want to count
+     *   }
+     * })
+    **/
+    count<T extends DealCountArgs>(
+      args?: Subset<T, DealCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DealCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Deal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DealAggregateArgs>(args: Subset<T, DealAggregateArgs>): Prisma.PrismaPromise<GetDealAggregateType<T>>
+
+    /**
+     * Group by Deal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DealGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DealGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DealGroupByArgs['orderBy'] }
+        : { orderBy?: DealGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DealGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDealGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Deal model
+   */
+  readonly fields: DealFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Deal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DealClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    pipeline<T extends PipelineDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PipelineDefaultArgs<ExtArgs>>): Prisma__PipelineClient<$Result.GetResult<Prisma.$PipelinePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    stage<T extends PipelineStageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PipelineStageDefaultArgs<ExtArgs>>): Prisma__PipelineStageClient<$Result.GetResult<Prisma.$PipelineStagePayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    contact<T extends Deal$contactArgs<ExtArgs> = {}>(args?: Subset<T, Deal$contactArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    organization<T extends Deal$organizationArgs<ExtArgs> = {}>(args?: Subset<T, Deal$organizationArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    assignee<T extends Deal$assigneeArgs<ExtArgs> = {}>(args?: Subset<T, Deal$assigneeArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    activities<T extends Deal$activitiesArgs<ExtArgs> = {}>(args?: Subset<T, Deal$activitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Deal model
+   */ 
+  interface DealFieldRefs {
+    readonly id: FieldRef<"Deal", 'String'>
+    readonly title: FieldRef<"Deal", 'String'>
+    readonly description: FieldRef<"Deal", 'String'>
+    readonly value: FieldRef<"Deal", 'Decimal'>
+    readonly currency: FieldRef<"Deal", 'CurrencyCode'>
+    readonly expectedCloseDate: FieldRef<"Deal", 'DateTime'>
+    readonly actualCloseDate: FieldRef<"Deal", 'DateTime'>
+    readonly probability: FieldRef<"Deal", 'Int'>
+    readonly source: FieldRef<"Deal", 'String'>
+    readonly tags: FieldRef<"Deal", 'String[]'>
+    readonly metadata: FieldRef<"Deal", 'Json'>
+    readonly createdAt: FieldRef<"Deal", 'DateTime'>
+    readonly updatedAt: FieldRef<"Deal", 'DateTime'>
+    readonly deletedAt: FieldRef<"Deal", 'DateTime'>
+    readonly tenantId: FieldRef<"Deal", 'String'>
+    readonly pipelineId: FieldRef<"Deal", 'String'>
+    readonly stageId: FieldRef<"Deal", 'String'>
+    readonly contactId: FieldRef<"Deal", 'String'>
+    readonly organizationId: FieldRef<"Deal", 'String'>
+    readonly assignedTo: FieldRef<"Deal", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Deal findUnique
+   */
+  export type DealFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * Filter, which Deal to fetch.
+     */
+    where: DealWhereUniqueInput
+  }
+
+  /**
+   * Deal findUniqueOrThrow
+   */
+  export type DealFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * Filter, which Deal to fetch.
+     */
+    where: DealWhereUniqueInput
+  }
+
+  /**
+   * Deal findFirst
+   */
+  export type DealFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * Filter, which Deal to fetch.
+     */
+    where?: DealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Deals to fetch.
+     */
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Deals.
+     */
+    cursor?: DealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Deals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Deals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Deals.
+     */
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * Deal findFirstOrThrow
+   */
+  export type DealFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * Filter, which Deal to fetch.
+     */
+    where?: DealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Deals to fetch.
+     */
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Deals.
+     */
+    cursor?: DealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Deals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Deals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Deals.
+     */
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * Deal findMany
+   */
+  export type DealFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * Filter, which Deals to fetch.
+     */
+    where?: DealWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Deals to fetch.
+     */
+    orderBy?: DealOrderByWithRelationInput | DealOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Deals.
+     */
+    cursor?: DealWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Deals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Deals.
+     */
+    skip?: number
+    distinct?: DealScalarFieldEnum | DealScalarFieldEnum[]
+  }
+
+  /**
+   * Deal create
+   */
+  export type DealCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Deal.
+     */
+    data: XOR<DealCreateInput, DealUncheckedCreateInput>
+  }
+
+  /**
+   * Deal createMany
+   */
+  export type DealCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Deals.
+     */
+    data: DealCreateManyInput | DealCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Deal createManyAndReturn
+   */
+  export type DealCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Deals.
+     */
+    data: DealCreateManyInput | DealCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Deal update
+   */
+  export type DealUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Deal.
+     */
+    data: XOR<DealUpdateInput, DealUncheckedUpdateInput>
+    /**
+     * Choose, which Deal to update.
+     */
+    where: DealWhereUniqueInput
+  }
+
+  /**
+   * Deal updateMany
+   */
+  export type DealUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Deals.
+     */
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyInput>
+    /**
+     * Filter which Deals to update
+     */
+    where?: DealWhereInput
+  }
+
+  /**
+   * Deal upsert
+   */
+  export type DealUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Deal to update in case it exists.
+     */
+    where: DealWhereUniqueInput
+    /**
+     * In case the Deal found by the `where` argument doesn't exist, create a new Deal with this data.
+     */
+    create: XOR<DealCreateInput, DealUncheckedCreateInput>
+    /**
+     * In case the Deal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DealUpdateInput, DealUncheckedUpdateInput>
+  }
+
+  /**
+   * Deal delete
+   */
+  export type DealDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    /**
+     * Filter which Deal to delete.
+     */
+    where: DealWhereUniqueInput
+  }
+
+  /**
+   * Deal deleteMany
+   */
+  export type DealDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Deals to delete
+     */
+    where?: DealWhereInput
+  }
+
+  /**
+   * Deal.contact
+   */
+  export type Deal$contactArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    where?: ContactWhereInput
+  }
+
+  /**
+   * Deal.organization
+   */
+  export type Deal$organizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    where?: OrganizationWhereInput
+  }
+
+  /**
+   * Deal.assignee
+   */
+  export type Deal$assigneeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * Deal.activities
+   */
+  export type Deal$activitiesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityInclude<ExtArgs> | null
+    where?: CrmActivityWhereInput
+    orderBy?: CrmActivityOrderByWithRelationInput | CrmActivityOrderByWithRelationInput[]
+    cursor?: CrmActivityWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CrmActivityScalarFieldEnum | CrmActivityScalarFieldEnum[]
+  }
+
+  /**
+   * Deal without action
+   */
+  export type DealDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CrmActivity
+   */
+
+  export type AggregateCrmActivity = {
+    _count: CrmActivityCountAggregateOutputType | null
+    _avg: CrmActivityAvgAggregateOutputType | null
+    _sum: CrmActivitySumAggregateOutputType | null
+    _min: CrmActivityMinAggregateOutputType | null
+    _max: CrmActivityMaxAggregateOutputType | null
+  }
+
+  export type CrmActivityAvgAggregateOutputType = {
+    duration: number | null
+  }
+
+  export type CrmActivitySumAggregateOutputType = {
+    duration: number | null
+  }
+
+  export type CrmActivityMinAggregateOutputType = {
+    id: string | null
+    type: $Enums.CrmActivityType | null
+    subject: string | null
+    description: string | null
+    dueDate: Date | null
+    completedAt: Date | null
+    duration: number | null
+    outcome: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
+    tenantId: string | null
+    contactId: string | null
+    dealId: string | null
+    organizationId: string | null
+  }
+
+  export type CrmActivityMaxAggregateOutputType = {
+    id: string | null
+    type: $Enums.CrmActivityType | null
+    subject: string | null
+    description: string | null
+    dueDate: Date | null
+    completedAt: Date | null
+    duration: number | null
+    outcome: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    deletedAt: Date | null
+    tenantId: string | null
+    contactId: string | null
+    dealId: string | null
+    organizationId: string | null
+  }
+
+  export type CrmActivityCountAggregateOutputType = {
+    id: number
+    type: number
+    subject: number
+    description: number
+    dueDate: number
+    completedAt: number
+    duration: number
+    outcome: number
+    metadata: number
+    createdAt: number
+    updatedAt: number
+    deletedAt: number
+    tenantId: number
+    contactId: number
+    dealId: number
+    organizationId: number
+    _all: number
+  }
+
+
+  export type CrmActivityAvgAggregateInputType = {
+    duration?: true
+  }
+
+  export type CrmActivitySumAggregateInputType = {
+    duration?: true
+  }
+
+  export type CrmActivityMinAggregateInputType = {
+    id?: true
+    type?: true
+    subject?: true
+    description?: true
+    dueDate?: true
+    completedAt?: true
+    duration?: true
+    outcome?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+    contactId?: true
+    dealId?: true
+    organizationId?: true
+  }
+
+  export type CrmActivityMaxAggregateInputType = {
+    id?: true
+    type?: true
+    subject?: true
+    description?: true
+    dueDate?: true
+    completedAt?: true
+    duration?: true
+    outcome?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+    contactId?: true
+    dealId?: true
+    organizationId?: true
+  }
+
+  export type CrmActivityCountAggregateInputType = {
+    id?: true
+    type?: true
+    subject?: true
+    description?: true
+    dueDate?: true
+    completedAt?: true
+    duration?: true
+    outcome?: true
+    metadata?: true
+    createdAt?: true
+    updatedAt?: true
+    deletedAt?: true
+    tenantId?: true
+    contactId?: true
+    dealId?: true
+    organizationId?: true
+    _all?: true
+  }
+
+  export type CrmActivityAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CrmActivity to aggregate.
+     */
+    where?: CrmActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CrmActivities to fetch.
+     */
+    orderBy?: CrmActivityOrderByWithRelationInput | CrmActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CrmActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CrmActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CrmActivities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CrmActivities
+    **/
+    _count?: true | CrmActivityCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: CrmActivityAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: CrmActivitySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CrmActivityMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CrmActivityMaxAggregateInputType
+  }
+
+  export type GetCrmActivityAggregateType<T extends CrmActivityAggregateArgs> = {
+        [P in keyof T & keyof AggregateCrmActivity]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCrmActivity[P]>
+      : GetScalarType<T[P], AggregateCrmActivity[P]>
+  }
+
+
+
+
+  export type CrmActivityGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CrmActivityWhereInput
+    orderBy?: CrmActivityOrderByWithAggregationInput | CrmActivityOrderByWithAggregationInput[]
+    by: CrmActivityScalarFieldEnum[] | CrmActivityScalarFieldEnum
+    having?: CrmActivityScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CrmActivityCountAggregateInputType | true
+    _avg?: CrmActivityAvgAggregateInputType
+    _sum?: CrmActivitySumAggregateInputType
+    _min?: CrmActivityMinAggregateInputType
+    _max?: CrmActivityMaxAggregateInputType
+  }
+
+  export type CrmActivityGroupByOutputType = {
+    id: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description: string | null
+    dueDate: Date | null
+    completedAt: Date | null
+    duration: number | null
+    outcome: string | null
+    metadata: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    deletedAt: Date | null
+    tenantId: string
+    contactId: string | null
+    dealId: string | null
+    organizationId: string | null
+    _count: CrmActivityCountAggregateOutputType | null
+    _avg: CrmActivityAvgAggregateOutputType | null
+    _sum: CrmActivitySumAggregateOutputType | null
+    _min: CrmActivityMinAggregateOutputType | null
+    _max: CrmActivityMaxAggregateOutputType | null
+  }
+
+  type GetCrmActivityGroupByPayload<T extends CrmActivityGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CrmActivityGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CrmActivityGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CrmActivityGroupByOutputType[P]>
+            : GetScalarType<T[P], CrmActivityGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CrmActivitySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    subject?: boolean
+    description?: boolean
+    dueDate?: boolean
+    completedAt?: boolean
+    duration?: boolean
+    outcome?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+    contactId?: boolean
+    dealId?: boolean
+    organizationId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    contact?: boolean | CrmActivity$contactArgs<ExtArgs>
+    deal?: boolean | CrmActivity$dealArgs<ExtArgs>
+    organization?: boolean | CrmActivity$organizationArgs<ExtArgs>
+  }, ExtArgs["result"]["crmActivity"]>
+
+  export type CrmActivitySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    type?: boolean
+    subject?: boolean
+    description?: boolean
+    dueDate?: boolean
+    completedAt?: boolean
+    duration?: boolean
+    outcome?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+    contactId?: boolean
+    dealId?: boolean
+    organizationId?: boolean
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    contact?: boolean | CrmActivity$contactArgs<ExtArgs>
+    deal?: boolean | CrmActivity$dealArgs<ExtArgs>
+    organization?: boolean | CrmActivity$organizationArgs<ExtArgs>
+  }, ExtArgs["result"]["crmActivity"]>
+
+  export type CrmActivitySelectScalar = {
+    id?: boolean
+    type?: boolean
+    subject?: boolean
+    description?: boolean
+    dueDate?: boolean
+    completedAt?: boolean
+    duration?: boolean
+    outcome?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    deletedAt?: boolean
+    tenantId?: boolean
+    contactId?: boolean
+    dealId?: boolean
+    organizationId?: boolean
+  }
+
+  export type CrmActivityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    contact?: boolean | CrmActivity$contactArgs<ExtArgs>
+    deal?: boolean | CrmActivity$dealArgs<ExtArgs>
+    organization?: boolean | CrmActivity$organizationArgs<ExtArgs>
+  }
+  export type CrmActivityIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenant?: boolean | TenantDefaultArgs<ExtArgs>
+    contact?: boolean | CrmActivity$contactArgs<ExtArgs>
+    deal?: boolean | CrmActivity$dealArgs<ExtArgs>
+    organization?: boolean | CrmActivity$organizationArgs<ExtArgs>
+  }
+
+  export type $CrmActivityPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CrmActivity"
+    objects: {
+      tenant: Prisma.$TenantPayload<ExtArgs>
+      contact: Prisma.$ContactPayload<ExtArgs> | null
+      deal: Prisma.$DealPayload<ExtArgs> | null
+      organization: Prisma.$OrganizationPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      type: $Enums.CrmActivityType
+      subject: string
+      description: string | null
+      dueDate: Date | null
+      completedAt: Date | null
+      duration: number | null
+      outcome: string | null
+      metadata: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+      deletedAt: Date | null
+      tenantId: string
+      contactId: string | null
+      dealId: string | null
+      organizationId: string | null
+    }, ExtArgs["result"]["crmActivity"]>
+    composites: {}
+  }
+
+  type CrmActivityGetPayload<S extends boolean | null | undefined | CrmActivityDefaultArgs> = $Result.GetResult<Prisma.$CrmActivityPayload, S>
+
+  type CrmActivityCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<CrmActivityFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: CrmActivityCountAggregateInputType | true
+    }
+
+  export interface CrmActivityDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CrmActivity'], meta: { name: 'CrmActivity' } }
+    /**
+     * Find zero or one CrmActivity that matches the filter.
+     * @param {CrmActivityFindUniqueArgs} args - Arguments to find a CrmActivity
+     * @example
+     * // Get one CrmActivity
+     * const crmActivity = await prisma.crmActivity.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CrmActivityFindUniqueArgs>(args: SelectSubset<T, CrmActivityFindUniqueArgs<ExtArgs>>): Prisma__CrmActivityClient<$Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one CrmActivity that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {CrmActivityFindUniqueOrThrowArgs} args - Arguments to find a CrmActivity
+     * @example
+     * // Get one CrmActivity
+     * const crmActivity = await prisma.crmActivity.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CrmActivityFindUniqueOrThrowArgs>(args: SelectSubset<T, CrmActivityFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CrmActivityClient<$Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first CrmActivity that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrmActivityFindFirstArgs} args - Arguments to find a CrmActivity
+     * @example
+     * // Get one CrmActivity
+     * const crmActivity = await prisma.crmActivity.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CrmActivityFindFirstArgs>(args?: SelectSubset<T, CrmActivityFindFirstArgs<ExtArgs>>): Prisma__CrmActivityClient<$Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first CrmActivity that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrmActivityFindFirstOrThrowArgs} args - Arguments to find a CrmActivity
+     * @example
+     * // Get one CrmActivity
+     * const crmActivity = await prisma.crmActivity.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CrmActivityFindFirstOrThrowArgs>(args?: SelectSubset<T, CrmActivityFindFirstOrThrowArgs<ExtArgs>>): Prisma__CrmActivityClient<$Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more CrmActivities that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrmActivityFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CrmActivities
+     * const crmActivities = await prisma.crmActivity.findMany()
+     * 
+     * // Get first 10 CrmActivities
+     * const crmActivities = await prisma.crmActivity.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const crmActivityWithIdOnly = await prisma.crmActivity.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CrmActivityFindManyArgs>(args?: SelectSubset<T, CrmActivityFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a CrmActivity.
+     * @param {CrmActivityCreateArgs} args - Arguments to create a CrmActivity.
+     * @example
+     * // Create one CrmActivity
+     * const CrmActivity = await prisma.crmActivity.create({
+     *   data: {
+     *     // ... data to create a CrmActivity
+     *   }
+     * })
+     * 
+     */
+    create<T extends CrmActivityCreateArgs>(args: SelectSubset<T, CrmActivityCreateArgs<ExtArgs>>): Prisma__CrmActivityClient<$Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many CrmActivities.
+     * @param {CrmActivityCreateManyArgs} args - Arguments to create many CrmActivities.
+     * @example
+     * // Create many CrmActivities
+     * const crmActivity = await prisma.crmActivity.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CrmActivityCreateManyArgs>(args?: SelectSubset<T, CrmActivityCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CrmActivities and returns the data saved in the database.
+     * @param {CrmActivityCreateManyAndReturnArgs} args - Arguments to create many CrmActivities.
+     * @example
+     * // Create many CrmActivities
+     * const crmActivity = await prisma.crmActivity.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CrmActivities and only return the `id`
+     * const crmActivityWithIdOnly = await prisma.crmActivity.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CrmActivityCreateManyAndReturnArgs>(args?: SelectSubset<T, CrmActivityCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a CrmActivity.
+     * @param {CrmActivityDeleteArgs} args - Arguments to delete one CrmActivity.
+     * @example
+     * // Delete one CrmActivity
+     * const CrmActivity = await prisma.crmActivity.delete({
+     *   where: {
+     *     // ... filter to delete one CrmActivity
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CrmActivityDeleteArgs>(args: SelectSubset<T, CrmActivityDeleteArgs<ExtArgs>>): Prisma__CrmActivityClient<$Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one CrmActivity.
+     * @param {CrmActivityUpdateArgs} args - Arguments to update one CrmActivity.
+     * @example
+     * // Update one CrmActivity
+     * const crmActivity = await prisma.crmActivity.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CrmActivityUpdateArgs>(args: SelectSubset<T, CrmActivityUpdateArgs<ExtArgs>>): Prisma__CrmActivityClient<$Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more CrmActivities.
+     * @param {CrmActivityDeleteManyArgs} args - Arguments to filter CrmActivities to delete.
+     * @example
+     * // Delete a few CrmActivities
+     * const { count } = await prisma.crmActivity.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CrmActivityDeleteManyArgs>(args?: SelectSubset<T, CrmActivityDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CrmActivities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrmActivityUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CrmActivities
+     * const crmActivity = await prisma.crmActivity.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CrmActivityUpdateManyArgs>(args: SelectSubset<T, CrmActivityUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one CrmActivity.
+     * @param {CrmActivityUpsertArgs} args - Arguments to update or create a CrmActivity.
+     * @example
+     * // Update or create a CrmActivity
+     * const crmActivity = await prisma.crmActivity.upsert({
+     *   create: {
+     *     // ... data to create a CrmActivity
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CrmActivity we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CrmActivityUpsertArgs>(args: SelectSubset<T, CrmActivityUpsertArgs<ExtArgs>>): Prisma__CrmActivityClient<$Result.GetResult<Prisma.$CrmActivityPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of CrmActivities.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrmActivityCountArgs} args - Arguments to filter CrmActivities to count.
+     * @example
+     * // Count the number of CrmActivities
+     * const count = await prisma.crmActivity.count({
+     *   where: {
+     *     // ... the filter for the CrmActivities we want to count
+     *   }
+     * })
+    **/
+    count<T extends CrmActivityCountArgs>(
+      args?: Subset<T, CrmActivityCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CrmActivityCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CrmActivity.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrmActivityAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CrmActivityAggregateArgs>(args: Subset<T, CrmActivityAggregateArgs>): Prisma.PrismaPromise<GetCrmActivityAggregateType<T>>
+
+    /**
+     * Group by CrmActivity.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CrmActivityGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CrmActivityGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CrmActivityGroupByArgs['orderBy'] }
+        : { orderBy?: CrmActivityGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CrmActivityGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCrmActivityGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CrmActivity model
+   */
+  readonly fields: CrmActivityFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CrmActivity.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CrmActivityClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    contact<T extends CrmActivity$contactArgs<ExtArgs> = {}>(args?: Subset<T, CrmActivity$contactArgs<ExtArgs>>): Prisma__ContactClient<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    deal<T extends CrmActivity$dealArgs<ExtArgs> = {}>(args?: Subset<T, CrmActivity$dealArgs<ExtArgs>>): Prisma__DealClient<$Result.GetResult<Prisma.$DealPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    organization<T extends CrmActivity$organizationArgs<ExtArgs> = {}>(args?: Subset<T, CrmActivity$organizationArgs<ExtArgs>>): Prisma__OrganizationClient<$Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CrmActivity model
+   */ 
+  interface CrmActivityFieldRefs {
+    readonly id: FieldRef<"CrmActivity", 'String'>
+    readonly type: FieldRef<"CrmActivity", 'CrmActivityType'>
+    readonly subject: FieldRef<"CrmActivity", 'String'>
+    readonly description: FieldRef<"CrmActivity", 'String'>
+    readonly dueDate: FieldRef<"CrmActivity", 'DateTime'>
+    readonly completedAt: FieldRef<"CrmActivity", 'DateTime'>
+    readonly duration: FieldRef<"CrmActivity", 'Int'>
+    readonly outcome: FieldRef<"CrmActivity", 'String'>
+    readonly metadata: FieldRef<"CrmActivity", 'Json'>
+    readonly createdAt: FieldRef<"CrmActivity", 'DateTime'>
+    readonly updatedAt: FieldRef<"CrmActivity", 'DateTime'>
+    readonly deletedAt: FieldRef<"CrmActivity", 'DateTime'>
+    readonly tenantId: FieldRef<"CrmActivity", 'String'>
+    readonly contactId: FieldRef<"CrmActivity", 'String'>
+    readonly dealId: FieldRef<"CrmActivity", 'String'>
+    readonly organizationId: FieldRef<"CrmActivity", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CrmActivity findUnique
+   */
+  export type CrmActivityFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which CrmActivity to fetch.
+     */
+    where: CrmActivityWhereUniqueInput
+  }
+
+  /**
+   * CrmActivity findUniqueOrThrow
+   */
+  export type CrmActivityFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which CrmActivity to fetch.
+     */
+    where: CrmActivityWhereUniqueInput
+  }
+
+  /**
+   * CrmActivity findFirst
+   */
+  export type CrmActivityFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which CrmActivity to fetch.
+     */
+    where?: CrmActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CrmActivities to fetch.
+     */
+    orderBy?: CrmActivityOrderByWithRelationInput | CrmActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CrmActivities.
+     */
+    cursor?: CrmActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CrmActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CrmActivities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CrmActivities.
+     */
+    distinct?: CrmActivityScalarFieldEnum | CrmActivityScalarFieldEnum[]
+  }
+
+  /**
+   * CrmActivity findFirstOrThrow
+   */
+  export type CrmActivityFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which CrmActivity to fetch.
+     */
+    where?: CrmActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CrmActivities to fetch.
+     */
+    orderBy?: CrmActivityOrderByWithRelationInput | CrmActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CrmActivities.
+     */
+    cursor?: CrmActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CrmActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CrmActivities.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CrmActivities.
+     */
+    distinct?: CrmActivityScalarFieldEnum | CrmActivityScalarFieldEnum[]
+  }
+
+  /**
+   * CrmActivity findMany
+   */
+  export type CrmActivityFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityInclude<ExtArgs> | null
+    /**
+     * Filter, which CrmActivities to fetch.
+     */
+    where?: CrmActivityWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CrmActivities to fetch.
+     */
+    orderBy?: CrmActivityOrderByWithRelationInput | CrmActivityOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CrmActivities.
+     */
+    cursor?: CrmActivityWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CrmActivities from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CrmActivities.
+     */
+    skip?: number
+    distinct?: CrmActivityScalarFieldEnum | CrmActivityScalarFieldEnum[]
+  }
+
+  /**
+   * CrmActivity create
+   */
+  export type CrmActivityCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CrmActivity.
+     */
+    data: XOR<CrmActivityCreateInput, CrmActivityUncheckedCreateInput>
+  }
+
+  /**
+   * CrmActivity createMany
+   */
+  export type CrmActivityCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CrmActivities.
+     */
+    data: CrmActivityCreateManyInput | CrmActivityCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CrmActivity createManyAndReturn
+   */
+  export type CrmActivityCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many CrmActivities.
+     */
+    data: CrmActivityCreateManyInput | CrmActivityCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CrmActivity update
+   */
+  export type CrmActivityUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CrmActivity.
+     */
+    data: XOR<CrmActivityUpdateInput, CrmActivityUncheckedUpdateInput>
+    /**
+     * Choose, which CrmActivity to update.
+     */
+    where: CrmActivityWhereUniqueInput
+  }
+
+  /**
+   * CrmActivity updateMany
+   */
+  export type CrmActivityUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CrmActivities.
+     */
+    data: XOR<CrmActivityUpdateManyMutationInput, CrmActivityUncheckedUpdateManyInput>
+    /**
+     * Filter which CrmActivities to update
+     */
+    where?: CrmActivityWhereInput
+  }
+
+  /**
+   * CrmActivity upsert
+   */
+  export type CrmActivityUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CrmActivity to update in case it exists.
+     */
+    where: CrmActivityWhereUniqueInput
+    /**
+     * In case the CrmActivity found by the `where` argument doesn't exist, create a new CrmActivity with this data.
+     */
+    create: XOR<CrmActivityCreateInput, CrmActivityUncheckedCreateInput>
+    /**
+     * In case the CrmActivity was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CrmActivityUpdateInput, CrmActivityUncheckedUpdateInput>
+  }
+
+  /**
+   * CrmActivity delete
+   */
+  export type CrmActivityDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityInclude<ExtArgs> | null
+    /**
+     * Filter which CrmActivity to delete.
+     */
+    where: CrmActivityWhereUniqueInput
+  }
+
+  /**
+   * CrmActivity deleteMany
+   */
+  export type CrmActivityDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CrmActivities to delete
+     */
+    where?: CrmActivityWhereInput
+  }
+
+  /**
+   * CrmActivity.contact
+   */
+  export type CrmActivity$contactArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Contact
+     */
+    select?: ContactSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ContactInclude<ExtArgs> | null
+    where?: ContactWhereInput
+  }
+
+  /**
+   * CrmActivity.deal
+   */
+  export type CrmActivity$dealArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Deal
+     */
+    select?: DealSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DealInclude<ExtArgs> | null
+    where?: DealWhereInput
+  }
+
+  /**
+   * CrmActivity.organization
+   */
+  export type CrmActivity$organizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Organization
+     */
+    select?: OrganizationSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OrganizationInclude<ExtArgs> | null
+    where?: OrganizationWhereInput
+  }
+
+  /**
+   * CrmActivity without action
+   */
+  export type CrmActivityDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CrmActivity
+     */
+    select?: CrmActivitySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CrmActivityInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -25988,6 +33857,139 @@ export namespace Prisma {
   export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
 
 
+  export const ContactScalarFieldEnum: {
+    id: 'id',
+    firstName: 'firstName',
+    lastName: 'lastName',
+    email: 'email',
+    phone: 'phone',
+    mobile: 'mobile',
+    whatsapp: 'whatsapp',
+    jobTitle: 'jobTitle',
+    department: 'department',
+    source: 'source',
+    status: 'status',
+    leadScore: 'leadScore',
+    tags: 'tags',
+    notes: 'notes',
+    address: 'address',
+    socialLinks: 'socialLinks',
+    metadata: 'metadata',
+    lastContactedAt: 'lastContactedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt',
+    tenantId: 'tenantId',
+    organizationId: 'organizationId'
+  };
+
+  export type ContactScalarFieldEnum = (typeof ContactScalarFieldEnum)[keyof typeof ContactScalarFieldEnum]
+
+
+  export const OrganizationScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    legalName: 'legalName',
+    website: 'website',
+    industry: 'industry',
+    size: 'size',
+    revenue: 'revenue',
+    description: 'description',
+    logoUrl: 'logoUrl',
+    address: 'address',
+    phone: 'phone',
+    email: 'email',
+    gstNumber: 'gstNumber',
+    panNumber: 'panNumber',
+    tags: 'tags',
+    metadata: 'metadata',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt',
+    tenantId: 'tenantId'
+  };
+
+  export type OrganizationScalarFieldEnum = (typeof OrganizationScalarFieldEnum)[keyof typeof OrganizationScalarFieldEnum]
+
+
+  export const PipelineScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    isDefault: 'isDefault',
+    stages: 'stages',
+    metadata: 'metadata',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt',
+    tenantId: 'tenantId'
+  };
+
+  export type PipelineScalarFieldEnum = (typeof PipelineScalarFieldEnum)[keyof typeof PipelineScalarFieldEnum]
+
+
+  export const PipelineStageScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    order: 'order',
+    probability: 'probability',
+    color: 'color',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    pipelineId: 'pipelineId'
+  };
+
+  export type PipelineStageScalarFieldEnum = (typeof PipelineStageScalarFieldEnum)[keyof typeof PipelineStageScalarFieldEnum]
+
+
+  export const DealScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    value: 'value',
+    currency: 'currency',
+    expectedCloseDate: 'expectedCloseDate',
+    actualCloseDate: 'actualCloseDate',
+    probability: 'probability',
+    source: 'source',
+    tags: 'tags',
+    metadata: 'metadata',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt',
+    tenantId: 'tenantId',
+    pipelineId: 'pipelineId',
+    stageId: 'stageId',
+    contactId: 'contactId',
+    organizationId: 'organizationId',
+    assignedTo: 'assignedTo'
+  };
+
+  export type DealScalarFieldEnum = (typeof DealScalarFieldEnum)[keyof typeof DealScalarFieldEnum]
+
+
+  export const CrmActivityScalarFieldEnum: {
+    id: 'id',
+    type: 'type',
+    subject: 'subject',
+    description: 'description',
+    dueDate: 'dueDate',
+    completedAt: 'completedAt',
+    duration: 'duration',
+    outcome: 'outcome',
+    metadata: 'metadata',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    deletedAt: 'deletedAt',
+    tenantId: 'tenantId',
+    contactId: 'contactId',
+    dealId: 'dealId',
+    organizationId: 'organizationId'
+  };
+
+  export type CrmActivityScalarFieldEnum = (typeof CrmActivityScalarFieldEnum)[keyof typeof CrmActivityScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -26294,6 +34296,48 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'ContactStatus'
+   */
+  export type EnumContactStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ContactStatus[]'
+   */
+  export type ListEnumContactStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ContactStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'OrganizationSize'
+   */
+  export type EnumOrganizationSizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrganizationSize'>
+    
+
+
+  /**
+   * Reference to a field of type 'OrganizationSize[]'
+   */
+  export type ListEnumOrganizationSizeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OrganizationSize[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'CrmActivityType'
+   */
+  export type EnumCrmActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CrmActivityType'>
+    
+
+
+  /**
+   * Reference to a field of type 'CrmActivityType[]'
+   */
+  export type ListEnumCrmActivityTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'CrmActivityType[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -26345,6 +34389,11 @@ export namespace Prisma {
     translations?: TranslationListRelationFilter
     users?: UserListRelationFilter
     webhooks?: WebhookListRelationFilter
+    contacts?: ContactListRelationFilter
+    organizations?: OrganizationListRelationFilter
+    pipelines?: PipelineListRelationFilter
+    deals?: DealListRelationFilter
+    crmActivities?: CrmActivityListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
@@ -26379,6 +34428,11 @@ export namespace Prisma {
     translations?: TranslationOrderByRelationAggregateInput
     users?: UserOrderByRelationAggregateInput
     webhooks?: WebhookOrderByRelationAggregateInput
+    contacts?: ContactOrderByRelationAggregateInput
+    organizations?: OrganizationOrderByRelationAggregateInput
+    pipelines?: PipelineOrderByRelationAggregateInput
+    deals?: DealOrderByRelationAggregateInput
+    crmActivities?: CrmActivityOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -26416,6 +34470,11 @@ export namespace Prisma {
     translations?: TranslationListRelationFilter
     users?: UserListRelationFilter
     webhooks?: WebhookListRelationFilter
+    contacts?: ContactListRelationFilter
+    organizations?: OrganizationListRelationFilter
+    pipelines?: PipelineListRelationFilter
+    deals?: DealListRelationFilter
+    crmActivities?: CrmActivityListRelationFilter
   }, "id" | "slug" | "primaryDomain">
 
   export type TenantOrderByWithAggregationInput = {
@@ -26498,6 +34557,7 @@ export namespace Prisma {
     userRoles?: UserRoleListRelationFilter
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     uploadedFiles?: FileListRelationFilter
+    assignedDeals?: DealListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -26527,6 +34587,7 @@ export namespace Prisma {
     userRoles?: UserRoleOrderByRelationAggregateInput
     tenant?: TenantOrderByWithRelationInput
     uploadedFiles?: FileOrderByRelationAggregateInput
+    assignedDeals?: DealOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -26559,6 +34620,7 @@ export namespace Prisma {
     userRoles?: UserRoleListRelationFilter
     tenant?: XOR<TenantRelationFilter, TenantWhereInput>
     uploadedFiles?: FileListRelationFilter
+    assignedDeals?: DealListRelationFilter
   }, "id" | "email" | "phone">
 
   export type UserOrderByWithAggregationInput = {
@@ -28350,6 +36412,738 @@ export namespace Prisma {
     uploadedById?: StringNullableWithAggregatesFilter<"File"> | string | null
   }
 
+  export type ContactWhereInput = {
+    AND?: ContactWhereInput | ContactWhereInput[]
+    OR?: ContactWhereInput[]
+    NOT?: ContactWhereInput | ContactWhereInput[]
+    id?: StringFilter<"Contact"> | string
+    firstName?: StringFilter<"Contact"> | string
+    lastName?: StringFilter<"Contact"> | string
+    email?: StringNullableFilter<"Contact"> | string | null
+    phone?: StringNullableFilter<"Contact"> | string | null
+    mobile?: StringNullableFilter<"Contact"> | string | null
+    whatsapp?: StringNullableFilter<"Contact"> | string | null
+    jobTitle?: StringNullableFilter<"Contact"> | string | null
+    department?: StringNullableFilter<"Contact"> | string | null
+    source?: StringNullableFilter<"Contact"> | string | null
+    status?: EnumContactStatusFilter<"Contact"> | $Enums.ContactStatus
+    leadScore?: IntFilter<"Contact"> | number
+    tags?: StringNullableListFilter<"Contact">
+    notes?: StringNullableFilter<"Contact"> | string | null
+    address?: JsonNullableFilter<"Contact">
+    socialLinks?: JsonNullableFilter<"Contact">
+    metadata?: JsonNullableFilter<"Contact">
+    lastContactedAt?: DateTimeNullableFilter<"Contact"> | Date | string | null
+    createdAt?: DateTimeFilter<"Contact"> | Date | string
+    updatedAt?: DateTimeFilter<"Contact"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Contact"> | Date | string | null
+    tenantId?: StringFilter<"Contact"> | string
+    organizationId?: StringNullableFilter<"Contact"> | string | null
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    organization?: XOR<OrganizationNullableRelationFilter, OrganizationWhereInput> | null
+    deals?: DealListRelationFilter
+    activities?: CrmActivityListRelationFilter
+  }
+
+  export type ContactOrderByWithRelationInput = {
+    id?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    email?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    mobile?: SortOrderInput | SortOrder
+    whatsapp?: SortOrderInput | SortOrder
+    jobTitle?: SortOrderInput | SortOrder
+    department?: SortOrderInput | SortOrder
+    source?: SortOrderInput | SortOrder
+    status?: SortOrder
+    leadScore?: SortOrder
+    tags?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    socialLinks?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    lastContactedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    organizationId?: SortOrderInput | SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    organization?: OrganizationOrderByWithRelationInput
+    deals?: DealOrderByRelationAggregateInput
+    activities?: CrmActivityOrderByRelationAggregateInput
+  }
+
+  export type ContactWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    email_tenantId?: ContactEmailTenantIdCompoundUniqueInput
+    AND?: ContactWhereInput | ContactWhereInput[]
+    OR?: ContactWhereInput[]
+    NOT?: ContactWhereInput | ContactWhereInput[]
+    firstName?: StringFilter<"Contact"> | string
+    lastName?: StringFilter<"Contact"> | string
+    email?: StringNullableFilter<"Contact"> | string | null
+    phone?: StringNullableFilter<"Contact"> | string | null
+    mobile?: StringNullableFilter<"Contact"> | string | null
+    whatsapp?: StringNullableFilter<"Contact"> | string | null
+    jobTitle?: StringNullableFilter<"Contact"> | string | null
+    department?: StringNullableFilter<"Contact"> | string | null
+    source?: StringNullableFilter<"Contact"> | string | null
+    status?: EnumContactStatusFilter<"Contact"> | $Enums.ContactStatus
+    leadScore?: IntFilter<"Contact"> | number
+    tags?: StringNullableListFilter<"Contact">
+    notes?: StringNullableFilter<"Contact"> | string | null
+    address?: JsonNullableFilter<"Contact">
+    socialLinks?: JsonNullableFilter<"Contact">
+    metadata?: JsonNullableFilter<"Contact">
+    lastContactedAt?: DateTimeNullableFilter<"Contact"> | Date | string | null
+    createdAt?: DateTimeFilter<"Contact"> | Date | string
+    updatedAt?: DateTimeFilter<"Contact"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Contact"> | Date | string | null
+    tenantId?: StringFilter<"Contact"> | string
+    organizationId?: StringNullableFilter<"Contact"> | string | null
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    organization?: XOR<OrganizationNullableRelationFilter, OrganizationWhereInput> | null
+    deals?: DealListRelationFilter
+    activities?: CrmActivityListRelationFilter
+  }, "id" | "email_tenantId">
+
+  export type ContactOrderByWithAggregationInput = {
+    id?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    email?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    mobile?: SortOrderInput | SortOrder
+    whatsapp?: SortOrderInput | SortOrder
+    jobTitle?: SortOrderInput | SortOrder
+    department?: SortOrderInput | SortOrder
+    source?: SortOrderInput | SortOrder
+    status?: SortOrder
+    leadScore?: SortOrder
+    tags?: SortOrder
+    notes?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    socialLinks?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    lastContactedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    organizationId?: SortOrderInput | SortOrder
+    _count?: ContactCountOrderByAggregateInput
+    _avg?: ContactAvgOrderByAggregateInput
+    _max?: ContactMaxOrderByAggregateInput
+    _min?: ContactMinOrderByAggregateInput
+    _sum?: ContactSumOrderByAggregateInput
+  }
+
+  export type ContactScalarWhereWithAggregatesInput = {
+    AND?: ContactScalarWhereWithAggregatesInput | ContactScalarWhereWithAggregatesInput[]
+    OR?: ContactScalarWhereWithAggregatesInput[]
+    NOT?: ContactScalarWhereWithAggregatesInput | ContactScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Contact"> | string
+    firstName?: StringWithAggregatesFilter<"Contact"> | string
+    lastName?: StringWithAggregatesFilter<"Contact"> | string
+    email?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    mobile?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    whatsapp?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    jobTitle?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    department?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    source?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    status?: EnumContactStatusWithAggregatesFilter<"Contact"> | $Enums.ContactStatus
+    leadScore?: IntWithAggregatesFilter<"Contact"> | number
+    tags?: StringNullableListFilter<"Contact">
+    notes?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+    address?: JsonNullableWithAggregatesFilter<"Contact">
+    socialLinks?: JsonNullableWithAggregatesFilter<"Contact">
+    metadata?: JsonNullableWithAggregatesFilter<"Contact">
+    lastContactedAt?: DateTimeNullableWithAggregatesFilter<"Contact"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Contact"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Contact"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Contact"> | Date | string | null
+    tenantId?: StringWithAggregatesFilter<"Contact"> | string
+    organizationId?: StringNullableWithAggregatesFilter<"Contact"> | string | null
+  }
+
+  export type OrganizationWhereInput = {
+    AND?: OrganizationWhereInput | OrganizationWhereInput[]
+    OR?: OrganizationWhereInput[]
+    NOT?: OrganizationWhereInput | OrganizationWhereInput[]
+    id?: StringFilter<"Organization"> | string
+    name?: StringFilter<"Organization"> | string
+    legalName?: StringNullableFilter<"Organization"> | string | null
+    website?: StringNullableFilter<"Organization"> | string | null
+    industry?: StringNullableFilter<"Organization"> | string | null
+    size?: EnumOrganizationSizeNullableFilter<"Organization"> | $Enums.OrganizationSize | null
+    revenue?: DecimalNullableFilter<"Organization"> | Decimal | DecimalJsLike | number | string | null
+    description?: StringNullableFilter<"Organization"> | string | null
+    logoUrl?: StringNullableFilter<"Organization"> | string | null
+    address?: JsonNullableFilter<"Organization">
+    phone?: StringNullableFilter<"Organization"> | string | null
+    email?: StringNullableFilter<"Organization"> | string | null
+    gstNumber?: StringNullableFilter<"Organization"> | string | null
+    panNumber?: StringNullableFilter<"Organization"> | string | null
+    tags?: StringNullableListFilter<"Organization">
+    metadata?: JsonNullableFilter<"Organization">
+    createdAt?: DateTimeFilter<"Organization"> | Date | string
+    updatedAt?: DateTimeFilter<"Organization"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Organization"> | Date | string | null
+    tenantId?: StringFilter<"Organization"> | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    contacts?: ContactListRelationFilter
+    deals?: DealListRelationFilter
+    activities?: CrmActivityListRelationFilter
+  }
+
+  export type OrganizationOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    legalName?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    industry?: SortOrderInput | SortOrder
+    size?: SortOrderInput | SortOrder
+    revenue?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    logoUrl?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    gstNumber?: SortOrderInput | SortOrder
+    panNumber?: SortOrderInput | SortOrder
+    tags?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    contacts?: ContactOrderByRelationAggregateInput
+    deals?: DealOrderByRelationAggregateInput
+    activities?: CrmActivityOrderByRelationAggregateInput
+  }
+
+  export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OrganizationWhereInput | OrganizationWhereInput[]
+    OR?: OrganizationWhereInput[]
+    NOT?: OrganizationWhereInput | OrganizationWhereInput[]
+    name?: StringFilter<"Organization"> | string
+    legalName?: StringNullableFilter<"Organization"> | string | null
+    website?: StringNullableFilter<"Organization"> | string | null
+    industry?: StringNullableFilter<"Organization"> | string | null
+    size?: EnumOrganizationSizeNullableFilter<"Organization"> | $Enums.OrganizationSize | null
+    revenue?: DecimalNullableFilter<"Organization"> | Decimal | DecimalJsLike | number | string | null
+    description?: StringNullableFilter<"Organization"> | string | null
+    logoUrl?: StringNullableFilter<"Organization"> | string | null
+    address?: JsonNullableFilter<"Organization">
+    phone?: StringNullableFilter<"Organization"> | string | null
+    email?: StringNullableFilter<"Organization"> | string | null
+    gstNumber?: StringNullableFilter<"Organization"> | string | null
+    panNumber?: StringNullableFilter<"Organization"> | string | null
+    tags?: StringNullableListFilter<"Organization">
+    metadata?: JsonNullableFilter<"Organization">
+    createdAt?: DateTimeFilter<"Organization"> | Date | string
+    updatedAt?: DateTimeFilter<"Organization"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Organization"> | Date | string | null
+    tenantId?: StringFilter<"Organization"> | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    contacts?: ContactListRelationFilter
+    deals?: DealListRelationFilter
+    activities?: CrmActivityListRelationFilter
+  }, "id">
+
+  export type OrganizationOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    legalName?: SortOrderInput | SortOrder
+    website?: SortOrderInput | SortOrder
+    industry?: SortOrderInput | SortOrder
+    size?: SortOrderInput | SortOrder
+    revenue?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    logoUrl?: SortOrderInput | SortOrder
+    address?: SortOrderInput | SortOrder
+    phone?: SortOrderInput | SortOrder
+    email?: SortOrderInput | SortOrder
+    gstNumber?: SortOrderInput | SortOrder
+    panNumber?: SortOrderInput | SortOrder
+    tags?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    _count?: OrganizationCountOrderByAggregateInput
+    _avg?: OrganizationAvgOrderByAggregateInput
+    _max?: OrganizationMaxOrderByAggregateInput
+    _min?: OrganizationMinOrderByAggregateInput
+    _sum?: OrganizationSumOrderByAggregateInput
+  }
+
+  export type OrganizationScalarWhereWithAggregatesInput = {
+    AND?: OrganizationScalarWhereWithAggregatesInput | OrganizationScalarWhereWithAggregatesInput[]
+    OR?: OrganizationScalarWhereWithAggregatesInput[]
+    NOT?: OrganizationScalarWhereWithAggregatesInput | OrganizationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Organization"> | string
+    name?: StringWithAggregatesFilter<"Organization"> | string
+    legalName?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    website?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    industry?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    size?: EnumOrganizationSizeNullableWithAggregatesFilter<"Organization"> | $Enums.OrganizationSize | null
+    revenue?: DecimalNullableWithAggregatesFilter<"Organization"> | Decimal | DecimalJsLike | number | string | null
+    description?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    logoUrl?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    address?: JsonNullableWithAggregatesFilter<"Organization">
+    phone?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    email?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    gstNumber?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    panNumber?: StringNullableWithAggregatesFilter<"Organization"> | string | null
+    tags?: StringNullableListFilter<"Organization">
+    metadata?: JsonNullableWithAggregatesFilter<"Organization">
+    createdAt?: DateTimeWithAggregatesFilter<"Organization"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Organization"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Organization"> | Date | string | null
+    tenantId?: StringWithAggregatesFilter<"Organization"> | string
+  }
+
+  export type PipelineWhereInput = {
+    AND?: PipelineWhereInput | PipelineWhereInput[]
+    OR?: PipelineWhereInput[]
+    NOT?: PipelineWhereInput | PipelineWhereInput[]
+    id?: StringFilter<"Pipeline"> | string
+    name?: StringFilter<"Pipeline"> | string
+    description?: StringNullableFilter<"Pipeline"> | string | null
+    isDefault?: BoolFilter<"Pipeline"> | boolean
+    stages?: JsonFilter<"Pipeline">
+    metadata?: JsonNullableFilter<"Pipeline">
+    createdAt?: DateTimeFilter<"Pipeline"> | Date | string
+    updatedAt?: DateTimeFilter<"Pipeline"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Pipeline"> | Date | string | null
+    tenantId?: StringFilter<"Pipeline"> | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    pipelineStages?: PipelineStageListRelationFilter
+    deals?: DealListRelationFilter
+  }
+
+  export type PipelineOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isDefault?: SortOrder
+    stages?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    pipelineStages?: PipelineStageOrderByRelationAggregateInput
+    deals?: DealOrderByRelationAggregateInput
+  }
+
+  export type PipelineWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name_tenantId?: PipelineNameTenantIdCompoundUniqueInput
+    AND?: PipelineWhereInput | PipelineWhereInput[]
+    OR?: PipelineWhereInput[]
+    NOT?: PipelineWhereInput | PipelineWhereInput[]
+    name?: StringFilter<"Pipeline"> | string
+    description?: StringNullableFilter<"Pipeline"> | string | null
+    isDefault?: BoolFilter<"Pipeline"> | boolean
+    stages?: JsonFilter<"Pipeline">
+    metadata?: JsonNullableFilter<"Pipeline">
+    createdAt?: DateTimeFilter<"Pipeline"> | Date | string
+    updatedAt?: DateTimeFilter<"Pipeline"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Pipeline"> | Date | string | null
+    tenantId?: StringFilter<"Pipeline"> | string
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    pipelineStages?: PipelineStageListRelationFilter
+    deals?: DealListRelationFilter
+  }, "id" | "name_tenantId">
+
+  export type PipelineOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    isDefault?: SortOrder
+    stages?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    _count?: PipelineCountOrderByAggregateInput
+    _max?: PipelineMaxOrderByAggregateInput
+    _min?: PipelineMinOrderByAggregateInput
+  }
+
+  export type PipelineScalarWhereWithAggregatesInput = {
+    AND?: PipelineScalarWhereWithAggregatesInput | PipelineScalarWhereWithAggregatesInput[]
+    OR?: PipelineScalarWhereWithAggregatesInput[]
+    NOT?: PipelineScalarWhereWithAggregatesInput | PipelineScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Pipeline"> | string
+    name?: StringWithAggregatesFilter<"Pipeline"> | string
+    description?: StringNullableWithAggregatesFilter<"Pipeline"> | string | null
+    isDefault?: BoolWithAggregatesFilter<"Pipeline"> | boolean
+    stages?: JsonWithAggregatesFilter<"Pipeline">
+    metadata?: JsonNullableWithAggregatesFilter<"Pipeline">
+    createdAt?: DateTimeWithAggregatesFilter<"Pipeline"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Pipeline"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Pipeline"> | Date | string | null
+    tenantId?: StringWithAggregatesFilter<"Pipeline"> | string
+  }
+
+  export type PipelineStageWhereInput = {
+    AND?: PipelineStageWhereInput | PipelineStageWhereInput[]
+    OR?: PipelineStageWhereInput[]
+    NOT?: PipelineStageWhereInput | PipelineStageWhereInput[]
+    id?: StringFilter<"PipelineStage"> | string
+    name?: StringFilter<"PipelineStage"> | string
+    order?: IntFilter<"PipelineStage"> | number
+    probability?: IntFilter<"PipelineStage"> | number
+    color?: StringNullableFilter<"PipelineStage"> | string | null
+    createdAt?: DateTimeFilter<"PipelineStage"> | Date | string
+    updatedAt?: DateTimeFilter<"PipelineStage"> | Date | string
+    pipelineId?: StringFilter<"PipelineStage"> | string
+    pipeline?: XOR<PipelineRelationFilter, PipelineWhereInput>
+    deals?: DealListRelationFilter
+  }
+
+  export type PipelineStageOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    probability?: SortOrder
+    color?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    pipelineId?: SortOrder
+    pipeline?: PipelineOrderByWithRelationInput
+    deals?: DealOrderByRelationAggregateInput
+  }
+
+  export type PipelineStageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name_pipelineId?: PipelineStageNamePipelineIdCompoundUniqueInput
+    AND?: PipelineStageWhereInput | PipelineStageWhereInput[]
+    OR?: PipelineStageWhereInput[]
+    NOT?: PipelineStageWhereInput | PipelineStageWhereInput[]
+    name?: StringFilter<"PipelineStage"> | string
+    order?: IntFilter<"PipelineStage"> | number
+    probability?: IntFilter<"PipelineStage"> | number
+    color?: StringNullableFilter<"PipelineStage"> | string | null
+    createdAt?: DateTimeFilter<"PipelineStage"> | Date | string
+    updatedAt?: DateTimeFilter<"PipelineStage"> | Date | string
+    pipelineId?: StringFilter<"PipelineStage"> | string
+    pipeline?: XOR<PipelineRelationFilter, PipelineWhereInput>
+    deals?: DealListRelationFilter
+  }, "id" | "name_pipelineId">
+
+  export type PipelineStageOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    probability?: SortOrder
+    color?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    pipelineId?: SortOrder
+    _count?: PipelineStageCountOrderByAggregateInput
+    _avg?: PipelineStageAvgOrderByAggregateInput
+    _max?: PipelineStageMaxOrderByAggregateInput
+    _min?: PipelineStageMinOrderByAggregateInput
+    _sum?: PipelineStageSumOrderByAggregateInput
+  }
+
+  export type PipelineStageScalarWhereWithAggregatesInput = {
+    AND?: PipelineStageScalarWhereWithAggregatesInput | PipelineStageScalarWhereWithAggregatesInput[]
+    OR?: PipelineStageScalarWhereWithAggregatesInput[]
+    NOT?: PipelineStageScalarWhereWithAggregatesInput | PipelineStageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"PipelineStage"> | string
+    name?: StringWithAggregatesFilter<"PipelineStage"> | string
+    order?: IntWithAggregatesFilter<"PipelineStage"> | number
+    probability?: IntWithAggregatesFilter<"PipelineStage"> | number
+    color?: StringNullableWithAggregatesFilter<"PipelineStage"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"PipelineStage"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"PipelineStage"> | Date | string
+    pipelineId?: StringWithAggregatesFilter<"PipelineStage"> | string
+  }
+
+  export type DealWhereInput = {
+    AND?: DealWhereInput | DealWhereInput[]
+    OR?: DealWhereInput[]
+    NOT?: DealWhereInput | DealWhereInput[]
+    id?: StringFilter<"Deal"> | string
+    title?: StringFilter<"Deal"> | string
+    description?: StringNullableFilter<"Deal"> | string | null
+    value?: DecimalFilter<"Deal"> | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFilter<"Deal"> | $Enums.CurrencyCode
+    expectedCloseDate?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    actualCloseDate?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    probability?: IntFilter<"Deal"> | number
+    source?: StringNullableFilter<"Deal"> | string | null
+    tags?: StringNullableListFilter<"Deal">
+    metadata?: JsonNullableFilter<"Deal">
+    createdAt?: DateTimeFilter<"Deal"> | Date | string
+    updatedAt?: DateTimeFilter<"Deal"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    tenantId?: StringFilter<"Deal"> | string
+    pipelineId?: StringFilter<"Deal"> | string
+    stageId?: StringFilter<"Deal"> | string
+    contactId?: StringNullableFilter<"Deal"> | string | null
+    organizationId?: StringNullableFilter<"Deal"> | string | null
+    assignedTo?: StringNullableFilter<"Deal"> | string | null
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    pipeline?: XOR<PipelineRelationFilter, PipelineWhereInput>
+    stage?: XOR<PipelineStageRelationFilter, PipelineStageWhereInput>
+    contact?: XOR<ContactNullableRelationFilter, ContactWhereInput> | null
+    organization?: XOR<OrganizationNullableRelationFilter, OrganizationWhereInput> | null
+    assignee?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    activities?: CrmActivityListRelationFilter
+  }
+
+  export type DealOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    value?: SortOrder
+    currency?: SortOrder
+    expectedCloseDate?: SortOrderInput | SortOrder
+    actualCloseDate?: SortOrderInput | SortOrder
+    probability?: SortOrder
+    source?: SortOrderInput | SortOrder
+    tags?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    pipelineId?: SortOrder
+    stageId?: SortOrder
+    contactId?: SortOrderInput | SortOrder
+    organizationId?: SortOrderInput | SortOrder
+    assignedTo?: SortOrderInput | SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    pipeline?: PipelineOrderByWithRelationInput
+    stage?: PipelineStageOrderByWithRelationInput
+    contact?: ContactOrderByWithRelationInput
+    organization?: OrganizationOrderByWithRelationInput
+    assignee?: UserOrderByWithRelationInput
+    activities?: CrmActivityOrderByRelationAggregateInput
+  }
+
+  export type DealWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DealWhereInput | DealWhereInput[]
+    OR?: DealWhereInput[]
+    NOT?: DealWhereInput | DealWhereInput[]
+    title?: StringFilter<"Deal"> | string
+    description?: StringNullableFilter<"Deal"> | string | null
+    value?: DecimalFilter<"Deal"> | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFilter<"Deal"> | $Enums.CurrencyCode
+    expectedCloseDate?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    actualCloseDate?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    probability?: IntFilter<"Deal"> | number
+    source?: StringNullableFilter<"Deal"> | string | null
+    tags?: StringNullableListFilter<"Deal">
+    metadata?: JsonNullableFilter<"Deal">
+    createdAt?: DateTimeFilter<"Deal"> | Date | string
+    updatedAt?: DateTimeFilter<"Deal"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    tenantId?: StringFilter<"Deal"> | string
+    pipelineId?: StringFilter<"Deal"> | string
+    stageId?: StringFilter<"Deal"> | string
+    contactId?: StringNullableFilter<"Deal"> | string | null
+    organizationId?: StringNullableFilter<"Deal"> | string | null
+    assignedTo?: StringNullableFilter<"Deal"> | string | null
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    pipeline?: XOR<PipelineRelationFilter, PipelineWhereInput>
+    stage?: XOR<PipelineStageRelationFilter, PipelineStageWhereInput>
+    contact?: XOR<ContactNullableRelationFilter, ContactWhereInput> | null
+    organization?: XOR<OrganizationNullableRelationFilter, OrganizationWhereInput> | null
+    assignee?: XOR<UserNullableRelationFilter, UserWhereInput> | null
+    activities?: CrmActivityListRelationFilter
+  }, "id">
+
+  export type DealOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    value?: SortOrder
+    currency?: SortOrder
+    expectedCloseDate?: SortOrderInput | SortOrder
+    actualCloseDate?: SortOrderInput | SortOrder
+    probability?: SortOrder
+    source?: SortOrderInput | SortOrder
+    tags?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    pipelineId?: SortOrder
+    stageId?: SortOrder
+    contactId?: SortOrderInput | SortOrder
+    organizationId?: SortOrderInput | SortOrder
+    assignedTo?: SortOrderInput | SortOrder
+    _count?: DealCountOrderByAggregateInput
+    _avg?: DealAvgOrderByAggregateInput
+    _max?: DealMaxOrderByAggregateInput
+    _min?: DealMinOrderByAggregateInput
+    _sum?: DealSumOrderByAggregateInput
+  }
+
+  export type DealScalarWhereWithAggregatesInput = {
+    AND?: DealScalarWhereWithAggregatesInput | DealScalarWhereWithAggregatesInput[]
+    OR?: DealScalarWhereWithAggregatesInput[]
+    NOT?: DealScalarWhereWithAggregatesInput | DealScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Deal"> | string
+    title?: StringWithAggregatesFilter<"Deal"> | string
+    description?: StringNullableWithAggregatesFilter<"Deal"> | string | null
+    value?: DecimalWithAggregatesFilter<"Deal"> | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeWithAggregatesFilter<"Deal"> | $Enums.CurrencyCode
+    expectedCloseDate?: DateTimeNullableWithAggregatesFilter<"Deal"> | Date | string | null
+    actualCloseDate?: DateTimeNullableWithAggregatesFilter<"Deal"> | Date | string | null
+    probability?: IntWithAggregatesFilter<"Deal"> | number
+    source?: StringNullableWithAggregatesFilter<"Deal"> | string | null
+    tags?: StringNullableListFilter<"Deal">
+    metadata?: JsonNullableWithAggregatesFilter<"Deal">
+    createdAt?: DateTimeWithAggregatesFilter<"Deal"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Deal"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Deal"> | Date | string | null
+    tenantId?: StringWithAggregatesFilter<"Deal"> | string
+    pipelineId?: StringWithAggregatesFilter<"Deal"> | string
+    stageId?: StringWithAggregatesFilter<"Deal"> | string
+    contactId?: StringNullableWithAggregatesFilter<"Deal"> | string | null
+    organizationId?: StringNullableWithAggregatesFilter<"Deal"> | string | null
+    assignedTo?: StringNullableWithAggregatesFilter<"Deal"> | string | null
+  }
+
+  export type CrmActivityWhereInput = {
+    AND?: CrmActivityWhereInput | CrmActivityWhereInput[]
+    OR?: CrmActivityWhereInput[]
+    NOT?: CrmActivityWhereInput | CrmActivityWhereInput[]
+    id?: StringFilter<"CrmActivity"> | string
+    type?: EnumCrmActivityTypeFilter<"CrmActivity"> | $Enums.CrmActivityType
+    subject?: StringFilter<"CrmActivity"> | string
+    description?: StringNullableFilter<"CrmActivity"> | string | null
+    dueDate?: DateTimeNullableFilter<"CrmActivity"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"CrmActivity"> | Date | string | null
+    duration?: IntNullableFilter<"CrmActivity"> | number | null
+    outcome?: StringNullableFilter<"CrmActivity"> | string | null
+    metadata?: JsonNullableFilter<"CrmActivity">
+    createdAt?: DateTimeFilter<"CrmActivity"> | Date | string
+    updatedAt?: DateTimeFilter<"CrmActivity"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"CrmActivity"> | Date | string | null
+    tenantId?: StringFilter<"CrmActivity"> | string
+    contactId?: StringNullableFilter<"CrmActivity"> | string | null
+    dealId?: StringNullableFilter<"CrmActivity"> | string | null
+    organizationId?: StringNullableFilter<"CrmActivity"> | string | null
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    contact?: XOR<ContactNullableRelationFilter, ContactWhereInput> | null
+    deal?: XOR<DealNullableRelationFilter, DealWhereInput> | null
+    organization?: XOR<OrganizationNullableRelationFilter, OrganizationWhereInput> | null
+  }
+
+  export type CrmActivityOrderByWithRelationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    subject?: SortOrder
+    description?: SortOrderInput | SortOrder
+    dueDate?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    duration?: SortOrderInput | SortOrder
+    outcome?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    contactId?: SortOrderInput | SortOrder
+    dealId?: SortOrderInput | SortOrder
+    organizationId?: SortOrderInput | SortOrder
+    tenant?: TenantOrderByWithRelationInput
+    contact?: ContactOrderByWithRelationInput
+    deal?: DealOrderByWithRelationInput
+    organization?: OrganizationOrderByWithRelationInput
+  }
+
+  export type CrmActivityWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: CrmActivityWhereInput | CrmActivityWhereInput[]
+    OR?: CrmActivityWhereInput[]
+    NOT?: CrmActivityWhereInput | CrmActivityWhereInput[]
+    type?: EnumCrmActivityTypeFilter<"CrmActivity"> | $Enums.CrmActivityType
+    subject?: StringFilter<"CrmActivity"> | string
+    description?: StringNullableFilter<"CrmActivity"> | string | null
+    dueDate?: DateTimeNullableFilter<"CrmActivity"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"CrmActivity"> | Date | string | null
+    duration?: IntNullableFilter<"CrmActivity"> | number | null
+    outcome?: StringNullableFilter<"CrmActivity"> | string | null
+    metadata?: JsonNullableFilter<"CrmActivity">
+    createdAt?: DateTimeFilter<"CrmActivity"> | Date | string
+    updatedAt?: DateTimeFilter<"CrmActivity"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"CrmActivity"> | Date | string | null
+    tenantId?: StringFilter<"CrmActivity"> | string
+    contactId?: StringNullableFilter<"CrmActivity"> | string | null
+    dealId?: StringNullableFilter<"CrmActivity"> | string | null
+    organizationId?: StringNullableFilter<"CrmActivity"> | string | null
+    tenant?: XOR<TenantRelationFilter, TenantWhereInput>
+    contact?: XOR<ContactNullableRelationFilter, ContactWhereInput> | null
+    deal?: XOR<DealNullableRelationFilter, DealWhereInput> | null
+    organization?: XOR<OrganizationNullableRelationFilter, OrganizationWhereInput> | null
+  }, "id">
+
+  export type CrmActivityOrderByWithAggregationInput = {
+    id?: SortOrder
+    type?: SortOrder
+    subject?: SortOrder
+    description?: SortOrderInput | SortOrder
+    dueDate?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    duration?: SortOrderInput | SortOrder
+    outcome?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    tenantId?: SortOrder
+    contactId?: SortOrderInput | SortOrder
+    dealId?: SortOrderInput | SortOrder
+    organizationId?: SortOrderInput | SortOrder
+    _count?: CrmActivityCountOrderByAggregateInput
+    _avg?: CrmActivityAvgOrderByAggregateInput
+    _max?: CrmActivityMaxOrderByAggregateInput
+    _min?: CrmActivityMinOrderByAggregateInput
+    _sum?: CrmActivitySumOrderByAggregateInput
+  }
+
+  export type CrmActivityScalarWhereWithAggregatesInput = {
+    AND?: CrmActivityScalarWhereWithAggregatesInput | CrmActivityScalarWhereWithAggregatesInput[]
+    OR?: CrmActivityScalarWhereWithAggregatesInput[]
+    NOT?: CrmActivityScalarWhereWithAggregatesInput | CrmActivityScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CrmActivity"> | string
+    type?: EnumCrmActivityTypeWithAggregatesFilter<"CrmActivity"> | $Enums.CrmActivityType
+    subject?: StringWithAggregatesFilter<"CrmActivity"> | string
+    description?: StringNullableWithAggregatesFilter<"CrmActivity"> | string | null
+    dueDate?: DateTimeNullableWithAggregatesFilter<"CrmActivity"> | Date | string | null
+    completedAt?: DateTimeNullableWithAggregatesFilter<"CrmActivity"> | Date | string | null
+    duration?: IntNullableWithAggregatesFilter<"CrmActivity"> | number | null
+    outcome?: StringNullableWithAggregatesFilter<"CrmActivity"> | string | null
+    metadata?: JsonNullableWithAggregatesFilter<"CrmActivity">
+    createdAt?: DateTimeWithAggregatesFilter<"CrmActivity"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CrmActivity"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"CrmActivity"> | Date | string | null
+    tenantId?: StringWithAggregatesFilter<"CrmActivity"> | string
+    contactId?: StringNullableWithAggregatesFilter<"CrmActivity"> | string | null
+    dealId?: StringNullableWithAggregatesFilter<"CrmActivity"> | string | null
+    organizationId?: StringNullableWithAggregatesFilter<"CrmActivity"> | string | null
+  }
+
   export type TenantCreateInput = {
     id?: string
     slug: string
@@ -28382,6 +37176,11 @@ export namespace Prisma {
     translations?: TranslationCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
@@ -28416,6 +37215,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
@@ -28450,6 +37254,11 @@ export namespace Prisma {
     translations?: TranslationUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
@@ -28484,6 +37293,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
@@ -28578,6 +37392,7 @@ export namespace Prisma {
     userRoles?: UserRoleCreateNestedManyWithoutUserInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     uploadedFiles?: FileCreateNestedManyWithoutUploadedByInput
+    assignedDeals?: DealCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -28606,6 +37421,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     userRoles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     uploadedFiles?: FileUncheckedCreateNestedManyWithoutUploadedByInput
+    assignedDeals?: DealUncheckedCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserUpdateInput = {
@@ -28634,6 +37450,7 @@ export namespace Prisma {
     userRoles?: UserRoleUpdateManyWithoutUserNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     uploadedFiles?: FileUpdateManyWithoutUploadedByNestedInput
+    assignedDeals?: DealUpdateManyWithoutAssigneeNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -28662,6 +37479,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     userRoles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     uploadedFiles?: FileUncheckedUpdateManyWithoutUploadedByNestedInput
+    assignedDeals?: DealUncheckedUpdateManyWithoutAssigneeNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -30675,6 +39493,832 @@ export namespace Prisma {
     uploadedById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type ContactCreateInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    jobTitle?: string | null
+    department?: string | null
+    source?: string | null
+    status?: $Enums.ContactStatus
+    leadScore?: number
+    tags?: ContactCreatetagsInput | string[]
+    notes?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutContactsInput
+    organization?: OrganizationCreateNestedOneWithoutContactsInput
+    deals?: DealCreateNestedManyWithoutContactInput
+    activities?: CrmActivityCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactUncheckedCreateInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    jobTitle?: string | null
+    department?: string | null
+    source?: string | null
+    status?: $Enums.ContactStatus
+    leadScore?: number
+    tags?: ContactCreatetagsInput | string[]
+    notes?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    organizationId?: string | null
+    deals?: DealUncheckedCreateNestedManyWithoutContactInput
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    leadScore?: IntFieldUpdateOperationsInput | number
+    tags?: ContactUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutContactsNestedInput
+    organization?: OrganizationUpdateOneWithoutContactsNestedInput
+    deals?: DealUpdateManyWithoutContactNestedInput
+    activities?: CrmActivityUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    leadScore?: IntFieldUpdateOperationsInput | number
+    tags?: ContactUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    deals?: DealUncheckedUpdateManyWithoutContactNestedInput
+    activities?: CrmActivityUncheckedUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactCreateManyInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    jobTitle?: string | null
+    department?: string | null
+    source?: string | null
+    status?: $Enums.ContactStatus
+    leadScore?: number
+    tags?: ContactCreatetagsInput | string[]
+    notes?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    organizationId?: string | null
+  }
+
+  export type ContactUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    leadScore?: IntFieldUpdateOperationsInput | number
+    tags?: ContactUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ContactUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    leadScore?: IntFieldUpdateOperationsInput | number
+    tags?: ContactUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type OrganizationCreateInput = {
+    id?: string
+    name: string
+    legalName?: string | null
+    website?: string | null
+    industry?: string | null
+    size?: $Enums.OrganizationSize | null
+    revenue?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    logoUrl?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: string | null
+    email?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    tags?: OrganizationCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutOrganizationsInput
+    contacts?: ContactCreateNestedManyWithoutOrganizationInput
+    deals?: DealCreateNestedManyWithoutOrganizationInput
+    activities?: CrmActivityCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateInput = {
+    id?: string
+    name: string
+    legalName?: string | null
+    website?: string | null
+    industry?: string | null
+    size?: $Enums.OrganizationSize | null
+    revenue?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    logoUrl?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: string | null
+    email?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    tags?: OrganizationCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    contacts?: ContactUncheckedCreateNestedManyWithoutOrganizationInput
+    deals?: DealUncheckedCreateNestedManyWithoutOrganizationInput
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    legalName?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableEnumOrganizationSizeFieldUpdateOperationsInput | $Enums.OrganizationSize | null
+    revenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: OrganizationUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutOrganizationsNestedInput
+    contacts?: ContactUpdateManyWithoutOrganizationNestedInput
+    deals?: DealUpdateManyWithoutOrganizationNestedInput
+    activities?: CrmActivityUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    legalName?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableEnumOrganizationSizeFieldUpdateOperationsInput | $Enums.OrganizationSize | null
+    revenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: OrganizationUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    contacts?: ContactUncheckedUpdateManyWithoutOrganizationNestedInput
+    deals?: DealUncheckedUpdateManyWithoutOrganizationNestedInput
+    activities?: CrmActivityUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationCreateManyInput = {
+    id?: string
+    name: string
+    legalName?: string | null
+    website?: string | null
+    industry?: string | null
+    size?: $Enums.OrganizationSize | null
+    revenue?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    logoUrl?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: string | null
+    email?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    tags?: OrganizationCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+  }
+
+  export type OrganizationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    legalName?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableEnumOrganizationSizeFieldUpdateOperationsInput | $Enums.OrganizationSize | null
+    revenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: OrganizationUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type OrganizationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    legalName?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableEnumOrganizationSizeFieldUpdateOperationsInput | $Enums.OrganizationSize | null
+    revenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: OrganizationUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PipelineCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isDefault?: boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutPipelinesInput
+    pipelineStages?: PipelineStageCreateNestedManyWithoutPipelineInput
+    deals?: DealCreateNestedManyWithoutPipelineInput
+  }
+
+  export type PipelineUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isDefault?: boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    pipelineStages?: PipelineStageUncheckedCreateNestedManyWithoutPipelineInput
+    deals?: DealUncheckedCreateNestedManyWithoutPipelineInput
+  }
+
+  export type PipelineUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutPipelinesNestedInput
+    pipelineStages?: PipelineStageUpdateManyWithoutPipelineNestedInput
+    deals?: DealUpdateManyWithoutPipelineNestedInput
+  }
+
+  export type PipelineUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    pipelineStages?: PipelineStageUncheckedUpdateManyWithoutPipelineNestedInput
+    deals?: DealUncheckedUpdateManyWithoutPipelineNestedInput
+  }
+
+  export type PipelineCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isDefault?: boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+  }
+
+  export type PipelineUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type PipelineUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type PipelineStageCreateInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    pipeline: PipelineCreateNestedOneWithoutPipelineStagesInput
+    deals?: DealCreateNestedManyWithoutStageInput
+  }
+
+  export type PipelineStageUncheckedCreateInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    pipelineId: string
+    deals?: DealUncheckedCreateNestedManyWithoutStageInput
+  }
+
+  export type PipelineStageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pipeline?: PipelineUpdateOneRequiredWithoutPipelineStagesNestedInput
+    deals?: DealUpdateManyWithoutStageNestedInput
+  }
+
+  export type PipelineStageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    deals?: DealUncheckedUpdateManyWithoutStageNestedInput
+  }
+
+  export type PipelineStageCreateManyInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    pipelineId: string
+  }
+
+  export type PipelineStageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PipelineStageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pipelineId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DealCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutDealsInput
+    pipeline: PipelineCreateNestedOneWithoutDealsInput
+    stage: PipelineStageCreateNestedOneWithoutDealsInput
+    contact?: ContactCreateNestedOneWithoutDealsInput
+    organization?: OrganizationCreateNestedOneWithoutDealsInput
+    assignee?: UserCreateNestedOneWithoutAssignedDealsInput
+    activities?: CrmActivityCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    pipelineId: string
+    stageId: string
+    contactId?: string | null
+    organizationId?: string | null
+    assignedTo?: string | null
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutDealsNestedInput
+    pipeline?: PipelineUpdateOneRequiredWithoutDealsNestedInput
+    stage?: PipelineStageUpdateOneRequiredWithoutDealsNestedInput
+    contact?: ContactUpdateOneWithoutDealsNestedInput
+    organization?: OrganizationUpdateOneWithoutDealsNestedInput
+    assignee?: UserUpdateOneWithoutAssignedDealsNestedInput
+    activities?: CrmActivityUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    activities?: CrmActivityUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    pipelineId: string
+    stageId: string
+    contactId?: string | null
+    organizationId?: string | null
+    assignedTo?: string | null
+  }
+
+  export type DealUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type DealUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CrmActivityCreateInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutCrmActivitiesInput
+    contact?: ContactCreateNestedOneWithoutActivitiesInput
+    deal?: DealCreateNestedOneWithoutActivitiesInput
+    organization?: OrganizationCreateNestedOneWithoutActivitiesInput
+  }
+
+  export type CrmActivityUncheckedCreateInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    contactId?: string | null
+    dealId?: string | null
+    organizationId?: string | null
+  }
+
+  export type CrmActivityUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutCrmActivitiesNestedInput
+    contact?: ContactUpdateOneWithoutActivitiesNestedInput
+    deal?: DealUpdateOneWithoutActivitiesNestedInput
+    organization?: OrganizationUpdateOneWithoutActivitiesNestedInput
+  }
+
+  export type CrmActivityUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CrmActivityCreateManyInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    contactId?: string | null
+    dealId?: string | null
+    organizationId?: string | null
+  }
+
+  export type CrmActivityUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type CrmActivityUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -30858,6 +40502,36 @@ export namespace Prisma {
     none?: WebhookWhereInput
   }
 
+  export type ContactListRelationFilter = {
+    every?: ContactWhereInput
+    some?: ContactWhereInput
+    none?: ContactWhereInput
+  }
+
+  export type OrganizationListRelationFilter = {
+    every?: OrganizationWhereInput
+    some?: OrganizationWhereInput
+    none?: OrganizationWhereInput
+  }
+
+  export type PipelineListRelationFilter = {
+    every?: PipelineWhereInput
+    some?: PipelineWhereInput
+    none?: PipelineWhereInput
+  }
+
+  export type DealListRelationFilter = {
+    every?: DealWhereInput
+    some?: DealWhereInput
+    none?: DealWhereInput
+  }
+
+  export type CrmActivityListRelationFilter = {
+    every?: CrmActivityWhereInput
+    some?: CrmActivityWhereInput
+    none?: CrmActivityWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -30908,6 +40582,26 @@ export namespace Prisma {
   }
 
   export type WebhookOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ContactOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OrganizationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PipelineOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DealOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CrmActivityOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -32508,6 +42202,499 @@ export namespace Prisma {
     _max?: NestedBigIntFilter<$PrismaModel>
   }
 
+  export type EnumContactStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactStatus | EnumContactStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactStatusFilter<$PrismaModel> | $Enums.ContactStatus
+  }
+
+  export type OrganizationNullableRelationFilter = {
+    is?: OrganizationWhereInput | null
+    isNot?: OrganizationWhereInput | null
+  }
+
+  export type ContactEmailTenantIdCompoundUniqueInput = {
+    email: string
+    tenantId: string
+  }
+
+  export type ContactCountOrderByAggregateInput = {
+    id?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    mobile?: SortOrder
+    whatsapp?: SortOrder
+    jobTitle?: SortOrder
+    department?: SortOrder
+    source?: SortOrder
+    status?: SortOrder
+    leadScore?: SortOrder
+    tags?: SortOrder
+    notes?: SortOrder
+    address?: SortOrder
+    socialLinks?: SortOrder
+    metadata?: SortOrder
+    lastContactedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type ContactAvgOrderByAggregateInput = {
+    leadScore?: SortOrder
+  }
+
+  export type ContactMaxOrderByAggregateInput = {
+    id?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    mobile?: SortOrder
+    whatsapp?: SortOrder
+    jobTitle?: SortOrder
+    department?: SortOrder
+    source?: SortOrder
+    status?: SortOrder
+    leadScore?: SortOrder
+    notes?: SortOrder
+    lastContactedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type ContactMinOrderByAggregateInput = {
+    id?: SortOrder
+    firstName?: SortOrder
+    lastName?: SortOrder
+    email?: SortOrder
+    phone?: SortOrder
+    mobile?: SortOrder
+    whatsapp?: SortOrder
+    jobTitle?: SortOrder
+    department?: SortOrder
+    source?: SortOrder
+    status?: SortOrder
+    leadScore?: SortOrder
+    notes?: SortOrder
+    lastContactedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type ContactSumOrderByAggregateInput = {
+    leadScore?: SortOrder
+  }
+
+  export type EnumContactStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactStatus | EnumContactStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactStatusWithAggregatesFilter<$PrismaModel> | $Enums.ContactStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContactStatusFilter<$PrismaModel>
+    _max?: NestedEnumContactStatusFilter<$PrismaModel>
+  }
+
+  export type EnumOrganizationSizeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrganizationSize | EnumOrganizationSizeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.OrganizationSize[] | ListEnumOrganizationSizeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.OrganizationSize[] | ListEnumOrganizationSizeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumOrganizationSizeNullableFilter<$PrismaModel> | $Enums.OrganizationSize | null
+  }
+
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type OrganizationCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    legalName?: SortOrder
+    website?: SortOrder
+    industry?: SortOrder
+    size?: SortOrder
+    revenue?: SortOrder
+    description?: SortOrder
+    logoUrl?: SortOrder
+    address?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    gstNumber?: SortOrder
+    panNumber?: SortOrder
+    tags?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type OrganizationAvgOrderByAggregateInput = {
+    revenue?: SortOrder
+  }
+
+  export type OrganizationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    legalName?: SortOrder
+    website?: SortOrder
+    industry?: SortOrder
+    size?: SortOrder
+    revenue?: SortOrder
+    description?: SortOrder
+    logoUrl?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    gstNumber?: SortOrder
+    panNumber?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type OrganizationMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    legalName?: SortOrder
+    website?: SortOrder
+    industry?: SortOrder
+    size?: SortOrder
+    revenue?: SortOrder
+    description?: SortOrder
+    logoUrl?: SortOrder
+    phone?: SortOrder
+    email?: SortOrder
+    gstNumber?: SortOrder
+    panNumber?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type OrganizationSumOrderByAggregateInput = {
+    revenue?: SortOrder
+  }
+
+  export type EnumOrganizationSizeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrganizationSize | EnumOrganizationSizeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.OrganizationSize[] | ListEnumOrganizationSizeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.OrganizationSize[] | ListEnumOrganizationSizeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumOrganizationSizeNullableWithAggregatesFilter<$PrismaModel> | $Enums.OrganizationSize | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumOrganizationSizeNullableFilter<$PrismaModel>
+    _max?: NestedEnumOrganizationSizeNullableFilter<$PrismaModel>
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type PipelineStageListRelationFilter = {
+    every?: PipelineStageWhereInput
+    some?: PipelineStageWhereInput
+    none?: PipelineStageWhereInput
+  }
+
+  export type PipelineStageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PipelineNameTenantIdCompoundUniqueInput = {
+    name: string
+    tenantId: string
+  }
+
+  export type PipelineCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isDefault?: SortOrder
+    stages?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type PipelineMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isDefault?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type PipelineMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    isDefault?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+  }
+
+  export type PipelineRelationFilter = {
+    is?: PipelineWhereInput
+    isNot?: PipelineWhereInput
+  }
+
+  export type PipelineStageNamePipelineIdCompoundUniqueInput = {
+    name: string
+    pipelineId: string
+  }
+
+  export type PipelineStageCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    probability?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    pipelineId?: SortOrder
+  }
+
+  export type PipelineStageAvgOrderByAggregateInput = {
+    order?: SortOrder
+    probability?: SortOrder
+  }
+
+  export type PipelineStageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    probability?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    pipelineId?: SortOrder
+  }
+
+  export type PipelineStageMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    order?: SortOrder
+    probability?: SortOrder
+    color?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    pipelineId?: SortOrder
+  }
+
+  export type PipelineStageSumOrderByAggregateInput = {
+    order?: SortOrder
+    probability?: SortOrder
+  }
+
+  export type PipelineStageRelationFilter = {
+    is?: PipelineStageWhereInput
+    isNot?: PipelineStageWhereInput
+  }
+
+  export type ContactNullableRelationFilter = {
+    is?: ContactWhereInput | null
+    isNot?: ContactWhereInput | null
+  }
+
+  export type DealCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    value?: SortOrder
+    currency?: SortOrder
+    expectedCloseDate?: SortOrder
+    actualCloseDate?: SortOrder
+    probability?: SortOrder
+    source?: SortOrder
+    tags?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+    pipelineId?: SortOrder
+    stageId?: SortOrder
+    contactId?: SortOrder
+    organizationId?: SortOrder
+    assignedTo?: SortOrder
+  }
+
+  export type DealAvgOrderByAggregateInput = {
+    value?: SortOrder
+    probability?: SortOrder
+  }
+
+  export type DealMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    value?: SortOrder
+    currency?: SortOrder
+    expectedCloseDate?: SortOrder
+    actualCloseDate?: SortOrder
+    probability?: SortOrder
+    source?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+    pipelineId?: SortOrder
+    stageId?: SortOrder
+    contactId?: SortOrder
+    organizationId?: SortOrder
+    assignedTo?: SortOrder
+  }
+
+  export type DealMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    value?: SortOrder
+    currency?: SortOrder
+    expectedCloseDate?: SortOrder
+    actualCloseDate?: SortOrder
+    probability?: SortOrder
+    source?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+    pipelineId?: SortOrder
+    stageId?: SortOrder
+    contactId?: SortOrder
+    organizationId?: SortOrder
+    assignedTo?: SortOrder
+  }
+
+  export type DealSumOrderByAggregateInput = {
+    value?: SortOrder
+    probability?: SortOrder
+  }
+
+  export type EnumCrmActivityTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CrmActivityType | EnumCrmActivityTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CrmActivityType[] | ListEnumCrmActivityTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CrmActivityType[] | ListEnumCrmActivityTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCrmActivityTypeFilter<$PrismaModel> | $Enums.CrmActivityType
+  }
+
+  export type DealNullableRelationFilter = {
+    is?: DealWhereInput | null
+    isNot?: DealWhereInput | null
+  }
+
+  export type CrmActivityCountOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    subject?: SortOrder
+    description?: SortOrder
+    dueDate?: SortOrder
+    completedAt?: SortOrder
+    duration?: SortOrder
+    outcome?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+    contactId?: SortOrder
+    dealId?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type CrmActivityAvgOrderByAggregateInput = {
+    duration?: SortOrder
+  }
+
+  export type CrmActivityMaxOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    subject?: SortOrder
+    description?: SortOrder
+    dueDate?: SortOrder
+    completedAt?: SortOrder
+    duration?: SortOrder
+    outcome?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+    contactId?: SortOrder
+    dealId?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type CrmActivityMinOrderByAggregateInput = {
+    id?: SortOrder
+    type?: SortOrder
+    subject?: SortOrder
+    description?: SortOrder
+    dueDate?: SortOrder
+    completedAt?: SortOrder
+    duration?: SortOrder
+    outcome?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    deletedAt?: SortOrder
+    tenantId?: SortOrder
+    contactId?: SortOrder
+    dealId?: SortOrder
+    organizationId?: SortOrder
+  }
+
+  export type CrmActivitySumOrderByAggregateInput = {
+    duration?: SortOrder
+  }
+
+  export type EnumCrmActivityTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CrmActivityType | EnumCrmActivityTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CrmActivityType[] | ListEnumCrmActivityTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CrmActivityType[] | ListEnumCrmActivityTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCrmActivityTypeWithAggregatesFilter<$PrismaModel> | $Enums.CrmActivityType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCrmActivityTypeFilter<$PrismaModel>
+    _max?: NestedEnumCrmActivityTypeFilter<$PrismaModel>
+  }
+
   export type TenantCreatesupportedCurrenciesInput = {
     set: $Enums.CurrencyCode[]
   }
@@ -32600,6 +42787,41 @@ export namespace Prisma {
     connect?: WebhookWhereUniqueInput | WebhookWhereUniqueInput[]
   }
 
+  export type ContactCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ContactCreateWithoutTenantInput, ContactUncheckedCreateWithoutTenantInput> | ContactCreateWithoutTenantInput[] | ContactUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ContactCreateOrConnectWithoutTenantInput | ContactCreateOrConnectWithoutTenantInput[]
+    createMany?: ContactCreateManyTenantInputEnvelope
+    connect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+  }
+
+  export type OrganizationCreateNestedManyWithoutTenantInput = {
+    create?: XOR<OrganizationCreateWithoutTenantInput, OrganizationUncheckedCreateWithoutTenantInput> | OrganizationCreateWithoutTenantInput[] | OrganizationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: OrganizationCreateOrConnectWithoutTenantInput | OrganizationCreateOrConnectWithoutTenantInput[]
+    createMany?: OrganizationCreateManyTenantInputEnvelope
+    connect?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+  }
+
+  export type PipelineCreateNestedManyWithoutTenantInput = {
+    create?: XOR<PipelineCreateWithoutTenantInput, PipelineUncheckedCreateWithoutTenantInput> | PipelineCreateWithoutTenantInput[] | PipelineUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PipelineCreateOrConnectWithoutTenantInput | PipelineCreateOrConnectWithoutTenantInput[]
+    createMany?: PipelineCreateManyTenantInputEnvelope
+    connect?: PipelineWhereUniqueInput | PipelineWhereUniqueInput[]
+  }
+
+  export type DealCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DealCreateWithoutTenantInput, DealUncheckedCreateWithoutTenantInput> | DealCreateWithoutTenantInput[] | DealUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutTenantInput | DealCreateOrConnectWithoutTenantInput[]
+    createMany?: DealCreateManyTenantInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type CrmActivityCreateNestedManyWithoutTenantInput = {
+    create?: XOR<CrmActivityCreateWithoutTenantInput, CrmActivityUncheckedCreateWithoutTenantInput> | CrmActivityCreateWithoutTenantInput[] | CrmActivityUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutTenantInput | CrmActivityCreateOrConnectWithoutTenantInput[]
+    createMany?: CrmActivityCreateManyTenantInputEnvelope
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+  }
+
   export type AuditLogUncheckedCreateNestedManyWithoutTenantInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -32682,6 +42904,41 @@ export namespace Prisma {
     connectOrCreate?: WebhookCreateOrConnectWithoutTenantInput | WebhookCreateOrConnectWithoutTenantInput[]
     createMany?: WebhookCreateManyTenantInputEnvelope
     connect?: WebhookWhereUniqueInput | WebhookWhereUniqueInput[]
+  }
+
+  export type ContactUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<ContactCreateWithoutTenantInput, ContactUncheckedCreateWithoutTenantInput> | ContactCreateWithoutTenantInput[] | ContactUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ContactCreateOrConnectWithoutTenantInput | ContactCreateOrConnectWithoutTenantInput[]
+    createMany?: ContactCreateManyTenantInputEnvelope
+    connect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+  }
+
+  export type OrganizationUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<OrganizationCreateWithoutTenantInput, OrganizationUncheckedCreateWithoutTenantInput> | OrganizationCreateWithoutTenantInput[] | OrganizationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: OrganizationCreateOrConnectWithoutTenantInput | OrganizationCreateOrConnectWithoutTenantInput[]
+    createMany?: OrganizationCreateManyTenantInputEnvelope
+    connect?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+  }
+
+  export type PipelineUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<PipelineCreateWithoutTenantInput, PipelineUncheckedCreateWithoutTenantInput> | PipelineCreateWithoutTenantInput[] | PipelineUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PipelineCreateOrConnectWithoutTenantInput | PipelineCreateOrConnectWithoutTenantInput[]
+    createMany?: PipelineCreateManyTenantInputEnvelope
+    connect?: PipelineWhereUniqueInput | PipelineWhereUniqueInput[]
+  }
+
+  export type DealUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<DealCreateWithoutTenantInput, DealUncheckedCreateWithoutTenantInput> | DealCreateWithoutTenantInput[] | DealUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutTenantInput | DealCreateOrConnectWithoutTenantInput[]
+    createMany?: DealCreateManyTenantInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type CrmActivityUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<CrmActivityCreateWithoutTenantInput, CrmActivityUncheckedCreateWithoutTenantInput> | CrmActivityCreateWithoutTenantInput[] | CrmActivityUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutTenantInput | CrmActivityCreateOrConnectWithoutTenantInput[]
+    createMany?: CrmActivityCreateManyTenantInputEnvelope
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -32890,6 +43147,76 @@ export namespace Prisma {
     deleteMany?: WebhookScalarWhereInput | WebhookScalarWhereInput[]
   }
 
+  export type ContactUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ContactCreateWithoutTenantInput, ContactUncheckedCreateWithoutTenantInput> | ContactCreateWithoutTenantInput[] | ContactUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ContactCreateOrConnectWithoutTenantInput | ContactCreateOrConnectWithoutTenantInput[]
+    upsert?: ContactUpsertWithWhereUniqueWithoutTenantInput | ContactUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ContactCreateManyTenantInputEnvelope
+    set?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    disconnect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    delete?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    connect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    update?: ContactUpdateWithWhereUniqueWithoutTenantInput | ContactUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ContactUpdateManyWithWhereWithoutTenantInput | ContactUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ContactScalarWhereInput | ContactScalarWhereInput[]
+  }
+
+  export type OrganizationUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<OrganizationCreateWithoutTenantInput, OrganizationUncheckedCreateWithoutTenantInput> | OrganizationCreateWithoutTenantInput[] | OrganizationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: OrganizationCreateOrConnectWithoutTenantInput | OrganizationCreateOrConnectWithoutTenantInput[]
+    upsert?: OrganizationUpsertWithWhereUniqueWithoutTenantInput | OrganizationUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: OrganizationCreateManyTenantInputEnvelope
+    set?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    disconnect?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    delete?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    connect?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    update?: OrganizationUpdateWithWhereUniqueWithoutTenantInput | OrganizationUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: OrganizationUpdateManyWithWhereWithoutTenantInput | OrganizationUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: OrganizationScalarWhereInput | OrganizationScalarWhereInput[]
+  }
+
+  export type PipelineUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<PipelineCreateWithoutTenantInput, PipelineUncheckedCreateWithoutTenantInput> | PipelineCreateWithoutTenantInput[] | PipelineUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PipelineCreateOrConnectWithoutTenantInput | PipelineCreateOrConnectWithoutTenantInput[]
+    upsert?: PipelineUpsertWithWhereUniqueWithoutTenantInput | PipelineUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: PipelineCreateManyTenantInputEnvelope
+    set?: PipelineWhereUniqueInput | PipelineWhereUniqueInput[]
+    disconnect?: PipelineWhereUniqueInput | PipelineWhereUniqueInput[]
+    delete?: PipelineWhereUniqueInput | PipelineWhereUniqueInput[]
+    connect?: PipelineWhereUniqueInput | PipelineWhereUniqueInput[]
+    update?: PipelineUpdateWithWhereUniqueWithoutTenantInput | PipelineUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: PipelineUpdateManyWithWhereWithoutTenantInput | PipelineUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: PipelineScalarWhereInput | PipelineScalarWhereInput[]
+  }
+
+  export type DealUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DealCreateWithoutTenantInput, DealUncheckedCreateWithoutTenantInput> | DealCreateWithoutTenantInput[] | DealUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutTenantInput | DealCreateOrConnectWithoutTenantInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutTenantInput | DealUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DealCreateManyTenantInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutTenantInput | DealUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutTenantInput | DealUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type CrmActivityUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<CrmActivityCreateWithoutTenantInput, CrmActivityUncheckedCreateWithoutTenantInput> | CrmActivityCreateWithoutTenantInput[] | CrmActivityUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutTenantInput | CrmActivityCreateOrConnectWithoutTenantInput[]
+    upsert?: CrmActivityUpsertWithWhereUniqueWithoutTenantInput | CrmActivityUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: CrmActivityCreateManyTenantInputEnvelope
+    set?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    disconnect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    delete?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    update?: CrmActivityUpdateWithWhereUniqueWithoutTenantInput | CrmActivityUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: CrmActivityUpdateManyWithWhereWithoutTenantInput | CrmActivityUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: CrmActivityScalarWhereInput | CrmActivityScalarWhereInput[]
+  }
+
   export type AuditLogUncheckedUpdateManyWithoutTenantNestedInput = {
     create?: XOR<AuditLogCreateWithoutTenantInput, AuditLogUncheckedCreateWithoutTenantInput> | AuditLogCreateWithoutTenantInput[] | AuditLogUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: AuditLogCreateOrConnectWithoutTenantInput | AuditLogCreateOrConnectWithoutTenantInput[]
@@ -33058,6 +43385,76 @@ export namespace Prisma {
     deleteMany?: WebhookScalarWhereInput | WebhookScalarWhereInput[]
   }
 
+  export type ContactUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<ContactCreateWithoutTenantInput, ContactUncheckedCreateWithoutTenantInput> | ContactCreateWithoutTenantInput[] | ContactUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: ContactCreateOrConnectWithoutTenantInput | ContactCreateOrConnectWithoutTenantInput[]
+    upsert?: ContactUpsertWithWhereUniqueWithoutTenantInput | ContactUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: ContactCreateManyTenantInputEnvelope
+    set?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    disconnect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    delete?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    connect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    update?: ContactUpdateWithWhereUniqueWithoutTenantInput | ContactUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: ContactUpdateManyWithWhereWithoutTenantInput | ContactUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: ContactScalarWhereInput | ContactScalarWhereInput[]
+  }
+
+  export type OrganizationUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<OrganizationCreateWithoutTenantInput, OrganizationUncheckedCreateWithoutTenantInput> | OrganizationCreateWithoutTenantInput[] | OrganizationUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: OrganizationCreateOrConnectWithoutTenantInput | OrganizationCreateOrConnectWithoutTenantInput[]
+    upsert?: OrganizationUpsertWithWhereUniqueWithoutTenantInput | OrganizationUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: OrganizationCreateManyTenantInputEnvelope
+    set?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    disconnect?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    delete?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    connect?: OrganizationWhereUniqueInput | OrganizationWhereUniqueInput[]
+    update?: OrganizationUpdateWithWhereUniqueWithoutTenantInput | OrganizationUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: OrganizationUpdateManyWithWhereWithoutTenantInput | OrganizationUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: OrganizationScalarWhereInput | OrganizationScalarWhereInput[]
+  }
+
+  export type PipelineUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<PipelineCreateWithoutTenantInput, PipelineUncheckedCreateWithoutTenantInput> | PipelineCreateWithoutTenantInput[] | PipelineUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: PipelineCreateOrConnectWithoutTenantInput | PipelineCreateOrConnectWithoutTenantInput[]
+    upsert?: PipelineUpsertWithWhereUniqueWithoutTenantInput | PipelineUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: PipelineCreateManyTenantInputEnvelope
+    set?: PipelineWhereUniqueInput | PipelineWhereUniqueInput[]
+    disconnect?: PipelineWhereUniqueInput | PipelineWhereUniqueInput[]
+    delete?: PipelineWhereUniqueInput | PipelineWhereUniqueInput[]
+    connect?: PipelineWhereUniqueInput | PipelineWhereUniqueInput[]
+    update?: PipelineUpdateWithWhereUniqueWithoutTenantInput | PipelineUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: PipelineUpdateManyWithWhereWithoutTenantInput | PipelineUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: PipelineScalarWhereInput | PipelineScalarWhereInput[]
+  }
+
+  export type DealUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<DealCreateWithoutTenantInput, DealUncheckedCreateWithoutTenantInput> | DealCreateWithoutTenantInput[] | DealUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutTenantInput | DealCreateOrConnectWithoutTenantInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutTenantInput | DealUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: DealCreateManyTenantInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutTenantInput | DealUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutTenantInput | DealUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type CrmActivityUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<CrmActivityCreateWithoutTenantInput, CrmActivityUncheckedCreateWithoutTenantInput> | CrmActivityCreateWithoutTenantInput[] | CrmActivityUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutTenantInput | CrmActivityCreateOrConnectWithoutTenantInput[]
+    upsert?: CrmActivityUpsertWithWhereUniqueWithoutTenantInput | CrmActivityUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: CrmActivityCreateManyTenantInputEnvelope
+    set?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    disconnect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    delete?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    update?: CrmActivityUpdateWithWhereUniqueWithoutTenantInput | CrmActivityUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: CrmActivityUpdateManyWithWhereWithoutTenantInput | CrmActivityUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: CrmActivityScalarWhereInput | CrmActivityScalarWhereInput[]
+  }
+
   export type ApiKeyCreateNestedManyWithoutUserInput = {
     create?: XOR<ApiKeyCreateWithoutUserInput, ApiKeyUncheckedCreateWithoutUserInput> | ApiKeyCreateWithoutUserInput[] | ApiKeyUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ApiKeyCreateOrConnectWithoutUserInput | ApiKeyCreateOrConnectWithoutUserInput[]
@@ -33106,6 +43503,13 @@ export namespace Prisma {
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
   }
 
+  export type DealCreateNestedManyWithoutAssigneeInput = {
+    create?: XOR<DealCreateWithoutAssigneeInput, DealUncheckedCreateWithoutAssigneeInput> | DealCreateWithoutAssigneeInput[] | DealUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutAssigneeInput | DealCreateOrConnectWithoutAssigneeInput[]
+    createMany?: DealCreateManyAssigneeInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
   export type ApiKeyUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<ApiKeyCreateWithoutUserInput, ApiKeyUncheckedCreateWithoutUserInput> | ApiKeyCreateWithoutUserInput[] | ApiKeyUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ApiKeyCreateOrConnectWithoutUserInput | ApiKeyCreateOrConnectWithoutUserInput[]
@@ -33146,6 +43550,13 @@ export namespace Prisma {
     connectOrCreate?: FileCreateOrConnectWithoutUploadedByInput | FileCreateOrConnectWithoutUploadedByInput[]
     createMany?: FileCreateManyUploadedByInputEnvelope
     connect?: FileWhereUniqueInput | FileWhereUniqueInput[]
+  }
+
+  export type DealUncheckedCreateNestedManyWithoutAssigneeInput = {
+    create?: XOR<DealCreateWithoutAssigneeInput, DealUncheckedCreateWithoutAssigneeInput> | DealCreateWithoutAssigneeInput[] | DealUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutAssigneeInput | DealCreateOrConnectWithoutAssigneeInput[]
+    createMany?: DealCreateManyAssigneeInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -33248,6 +43659,20 @@ export namespace Prisma {
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
   }
 
+  export type DealUpdateManyWithoutAssigneeNestedInput = {
+    create?: XOR<DealCreateWithoutAssigneeInput, DealUncheckedCreateWithoutAssigneeInput> | DealCreateWithoutAssigneeInput[] | DealUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutAssigneeInput | DealCreateOrConnectWithoutAssigneeInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutAssigneeInput | DealUpsertWithWhereUniqueWithoutAssigneeInput[]
+    createMany?: DealCreateManyAssigneeInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutAssigneeInput | DealUpdateWithWhereUniqueWithoutAssigneeInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutAssigneeInput | DealUpdateManyWithWhereWithoutAssigneeInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
   export type ApiKeyUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<ApiKeyCreateWithoutUserInput, ApiKeyUncheckedCreateWithoutUserInput> | ApiKeyCreateWithoutUserInput[] | ApiKeyUncheckedCreateWithoutUserInput[]
     connectOrCreate?: ApiKeyCreateOrConnectWithoutUserInput | ApiKeyCreateOrConnectWithoutUserInput[]
@@ -33330,6 +43755,20 @@ export namespace Prisma {
     update?: FileUpdateWithWhereUniqueWithoutUploadedByInput | FileUpdateWithWhereUniqueWithoutUploadedByInput[]
     updateMany?: FileUpdateManyWithWhereWithoutUploadedByInput | FileUpdateManyWithWhereWithoutUploadedByInput[]
     deleteMany?: FileScalarWhereInput | FileScalarWhereInput[]
+  }
+
+  export type DealUncheckedUpdateManyWithoutAssigneeNestedInput = {
+    create?: XOR<DealCreateWithoutAssigneeInput, DealUncheckedCreateWithoutAssigneeInput> | DealCreateWithoutAssigneeInput[] | DealUncheckedCreateWithoutAssigneeInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutAssigneeInput | DealCreateOrConnectWithoutAssigneeInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutAssigneeInput | DealUpsertWithWhereUniqueWithoutAssigneeInput[]
+    createMany?: DealCreateManyAssigneeInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutAssigneeInput | DealUpdateWithWhereUniqueWithoutAssigneeInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutAssigneeInput | DealUpdateManyWithWhereWithoutAssigneeInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSessionsInput = {
@@ -34120,6 +44559,655 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUploadedFilesInput, UserUpdateWithoutUploadedFilesInput>, UserUncheckedUpdateWithoutUploadedFilesInput>
   }
 
+  export type ContactCreatetagsInput = {
+    set: string[]
+  }
+
+  export type TenantCreateNestedOneWithoutContactsInput = {
+    create?: XOR<TenantCreateWithoutContactsInput, TenantUncheckedCreateWithoutContactsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutContactsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type OrganizationCreateNestedOneWithoutContactsInput = {
+    create?: XOR<OrganizationCreateWithoutContactsInput, OrganizationUncheckedCreateWithoutContactsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutContactsInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type DealCreateNestedManyWithoutContactInput = {
+    create?: XOR<DealCreateWithoutContactInput, DealUncheckedCreateWithoutContactInput> | DealCreateWithoutContactInput[] | DealUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutContactInput | DealCreateOrConnectWithoutContactInput[]
+    createMany?: DealCreateManyContactInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type CrmActivityCreateNestedManyWithoutContactInput = {
+    create?: XOR<CrmActivityCreateWithoutContactInput, CrmActivityUncheckedCreateWithoutContactInput> | CrmActivityCreateWithoutContactInput[] | CrmActivityUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutContactInput | CrmActivityCreateOrConnectWithoutContactInput[]
+    createMany?: CrmActivityCreateManyContactInputEnvelope
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+  }
+
+  export type DealUncheckedCreateNestedManyWithoutContactInput = {
+    create?: XOR<DealCreateWithoutContactInput, DealUncheckedCreateWithoutContactInput> | DealCreateWithoutContactInput[] | DealUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutContactInput | DealCreateOrConnectWithoutContactInput[]
+    createMany?: DealCreateManyContactInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type CrmActivityUncheckedCreateNestedManyWithoutContactInput = {
+    create?: XOR<CrmActivityCreateWithoutContactInput, CrmActivityUncheckedCreateWithoutContactInput> | CrmActivityCreateWithoutContactInput[] | CrmActivityUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutContactInput | CrmActivityCreateOrConnectWithoutContactInput[]
+    createMany?: CrmActivityCreateManyContactInputEnvelope
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+  }
+
+  export type EnumContactStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ContactStatus
+  }
+
+  export type ContactUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type TenantUpdateOneRequiredWithoutContactsNestedInput = {
+    create?: XOR<TenantCreateWithoutContactsInput, TenantUncheckedCreateWithoutContactsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutContactsInput
+    upsert?: TenantUpsertWithoutContactsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutContactsInput, TenantUpdateWithoutContactsInput>, TenantUncheckedUpdateWithoutContactsInput>
+  }
+
+  export type OrganizationUpdateOneWithoutContactsNestedInput = {
+    create?: XOR<OrganizationCreateWithoutContactsInput, OrganizationUncheckedCreateWithoutContactsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutContactsInput
+    upsert?: OrganizationUpsertWithoutContactsInput
+    disconnect?: OrganizationWhereInput | boolean
+    delete?: OrganizationWhereInput | boolean
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutContactsInput, OrganizationUpdateWithoutContactsInput>, OrganizationUncheckedUpdateWithoutContactsInput>
+  }
+
+  export type DealUpdateManyWithoutContactNestedInput = {
+    create?: XOR<DealCreateWithoutContactInput, DealUncheckedCreateWithoutContactInput> | DealCreateWithoutContactInput[] | DealUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutContactInput | DealCreateOrConnectWithoutContactInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutContactInput | DealUpsertWithWhereUniqueWithoutContactInput[]
+    createMany?: DealCreateManyContactInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutContactInput | DealUpdateWithWhereUniqueWithoutContactInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutContactInput | DealUpdateManyWithWhereWithoutContactInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type CrmActivityUpdateManyWithoutContactNestedInput = {
+    create?: XOR<CrmActivityCreateWithoutContactInput, CrmActivityUncheckedCreateWithoutContactInput> | CrmActivityCreateWithoutContactInput[] | CrmActivityUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutContactInput | CrmActivityCreateOrConnectWithoutContactInput[]
+    upsert?: CrmActivityUpsertWithWhereUniqueWithoutContactInput | CrmActivityUpsertWithWhereUniqueWithoutContactInput[]
+    createMany?: CrmActivityCreateManyContactInputEnvelope
+    set?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    disconnect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    delete?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    update?: CrmActivityUpdateWithWhereUniqueWithoutContactInput | CrmActivityUpdateWithWhereUniqueWithoutContactInput[]
+    updateMany?: CrmActivityUpdateManyWithWhereWithoutContactInput | CrmActivityUpdateManyWithWhereWithoutContactInput[]
+    deleteMany?: CrmActivityScalarWhereInput | CrmActivityScalarWhereInput[]
+  }
+
+  export type DealUncheckedUpdateManyWithoutContactNestedInput = {
+    create?: XOR<DealCreateWithoutContactInput, DealUncheckedCreateWithoutContactInput> | DealCreateWithoutContactInput[] | DealUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutContactInput | DealCreateOrConnectWithoutContactInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutContactInput | DealUpsertWithWhereUniqueWithoutContactInput[]
+    createMany?: DealCreateManyContactInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutContactInput | DealUpdateWithWhereUniqueWithoutContactInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutContactInput | DealUpdateManyWithWhereWithoutContactInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type CrmActivityUncheckedUpdateManyWithoutContactNestedInput = {
+    create?: XOR<CrmActivityCreateWithoutContactInput, CrmActivityUncheckedCreateWithoutContactInput> | CrmActivityCreateWithoutContactInput[] | CrmActivityUncheckedCreateWithoutContactInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutContactInput | CrmActivityCreateOrConnectWithoutContactInput[]
+    upsert?: CrmActivityUpsertWithWhereUniqueWithoutContactInput | CrmActivityUpsertWithWhereUniqueWithoutContactInput[]
+    createMany?: CrmActivityCreateManyContactInputEnvelope
+    set?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    disconnect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    delete?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    update?: CrmActivityUpdateWithWhereUniqueWithoutContactInput | CrmActivityUpdateWithWhereUniqueWithoutContactInput[]
+    updateMany?: CrmActivityUpdateManyWithWhereWithoutContactInput | CrmActivityUpdateManyWithWhereWithoutContactInput[]
+    deleteMany?: CrmActivityScalarWhereInput | CrmActivityScalarWhereInput[]
+  }
+
+  export type OrganizationCreatetagsInput = {
+    set: string[]
+  }
+
+  export type TenantCreateNestedOneWithoutOrganizationsInput = {
+    create?: XOR<TenantCreateWithoutOrganizationsInput, TenantUncheckedCreateWithoutOrganizationsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutOrganizationsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type ContactCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<ContactCreateWithoutOrganizationInput, ContactUncheckedCreateWithoutOrganizationInput> | ContactCreateWithoutOrganizationInput[] | ContactUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: ContactCreateOrConnectWithoutOrganizationInput | ContactCreateOrConnectWithoutOrganizationInput[]
+    createMany?: ContactCreateManyOrganizationInputEnvelope
+    connect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+  }
+
+  export type DealCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<DealCreateWithoutOrganizationInput, DealUncheckedCreateWithoutOrganizationInput> | DealCreateWithoutOrganizationInput[] | DealUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutOrganizationInput | DealCreateOrConnectWithoutOrganizationInput[]
+    createMany?: DealCreateManyOrganizationInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type CrmActivityCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<CrmActivityCreateWithoutOrganizationInput, CrmActivityUncheckedCreateWithoutOrganizationInput> | CrmActivityCreateWithoutOrganizationInput[] | CrmActivityUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutOrganizationInput | CrmActivityCreateOrConnectWithoutOrganizationInput[]
+    createMany?: CrmActivityCreateManyOrganizationInputEnvelope
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+  }
+
+  export type ContactUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<ContactCreateWithoutOrganizationInput, ContactUncheckedCreateWithoutOrganizationInput> | ContactCreateWithoutOrganizationInput[] | ContactUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: ContactCreateOrConnectWithoutOrganizationInput | ContactCreateOrConnectWithoutOrganizationInput[]
+    createMany?: ContactCreateManyOrganizationInputEnvelope
+    connect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+  }
+
+  export type DealUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<DealCreateWithoutOrganizationInput, DealUncheckedCreateWithoutOrganizationInput> | DealCreateWithoutOrganizationInput[] | DealUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutOrganizationInput | DealCreateOrConnectWithoutOrganizationInput[]
+    createMany?: DealCreateManyOrganizationInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type CrmActivityUncheckedCreateNestedManyWithoutOrganizationInput = {
+    create?: XOR<CrmActivityCreateWithoutOrganizationInput, CrmActivityUncheckedCreateWithoutOrganizationInput> | CrmActivityCreateWithoutOrganizationInput[] | CrmActivityUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutOrganizationInput | CrmActivityCreateOrConnectWithoutOrganizationInput[]
+    createMany?: CrmActivityCreateManyOrganizationInputEnvelope
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+  }
+
+  export type NullableEnumOrganizationSizeFieldUpdateOperationsInput = {
+    set?: $Enums.OrganizationSize | null
+  }
+
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type OrganizationUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type TenantUpdateOneRequiredWithoutOrganizationsNestedInput = {
+    create?: XOR<TenantCreateWithoutOrganizationsInput, TenantUncheckedCreateWithoutOrganizationsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutOrganizationsInput
+    upsert?: TenantUpsertWithoutOrganizationsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutOrganizationsInput, TenantUpdateWithoutOrganizationsInput>, TenantUncheckedUpdateWithoutOrganizationsInput>
+  }
+
+  export type ContactUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<ContactCreateWithoutOrganizationInput, ContactUncheckedCreateWithoutOrganizationInput> | ContactCreateWithoutOrganizationInput[] | ContactUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: ContactCreateOrConnectWithoutOrganizationInput | ContactCreateOrConnectWithoutOrganizationInput[]
+    upsert?: ContactUpsertWithWhereUniqueWithoutOrganizationInput | ContactUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: ContactCreateManyOrganizationInputEnvelope
+    set?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    disconnect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    delete?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    connect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    update?: ContactUpdateWithWhereUniqueWithoutOrganizationInput | ContactUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: ContactUpdateManyWithWhereWithoutOrganizationInput | ContactUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: ContactScalarWhereInput | ContactScalarWhereInput[]
+  }
+
+  export type DealUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<DealCreateWithoutOrganizationInput, DealUncheckedCreateWithoutOrganizationInput> | DealCreateWithoutOrganizationInput[] | DealUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutOrganizationInput | DealCreateOrConnectWithoutOrganizationInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutOrganizationInput | DealUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: DealCreateManyOrganizationInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutOrganizationInput | DealUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutOrganizationInput | DealUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type CrmActivityUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<CrmActivityCreateWithoutOrganizationInput, CrmActivityUncheckedCreateWithoutOrganizationInput> | CrmActivityCreateWithoutOrganizationInput[] | CrmActivityUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutOrganizationInput | CrmActivityCreateOrConnectWithoutOrganizationInput[]
+    upsert?: CrmActivityUpsertWithWhereUniqueWithoutOrganizationInput | CrmActivityUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: CrmActivityCreateManyOrganizationInputEnvelope
+    set?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    disconnect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    delete?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    update?: CrmActivityUpdateWithWhereUniqueWithoutOrganizationInput | CrmActivityUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: CrmActivityUpdateManyWithWhereWithoutOrganizationInput | CrmActivityUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: CrmActivityScalarWhereInput | CrmActivityScalarWhereInput[]
+  }
+
+  export type ContactUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<ContactCreateWithoutOrganizationInput, ContactUncheckedCreateWithoutOrganizationInput> | ContactCreateWithoutOrganizationInput[] | ContactUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: ContactCreateOrConnectWithoutOrganizationInput | ContactCreateOrConnectWithoutOrganizationInput[]
+    upsert?: ContactUpsertWithWhereUniqueWithoutOrganizationInput | ContactUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: ContactCreateManyOrganizationInputEnvelope
+    set?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    disconnect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    delete?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    connect?: ContactWhereUniqueInput | ContactWhereUniqueInput[]
+    update?: ContactUpdateWithWhereUniqueWithoutOrganizationInput | ContactUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: ContactUpdateManyWithWhereWithoutOrganizationInput | ContactUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: ContactScalarWhereInput | ContactScalarWhereInput[]
+  }
+
+  export type DealUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<DealCreateWithoutOrganizationInput, DealUncheckedCreateWithoutOrganizationInput> | DealCreateWithoutOrganizationInput[] | DealUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutOrganizationInput | DealCreateOrConnectWithoutOrganizationInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutOrganizationInput | DealUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: DealCreateManyOrganizationInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutOrganizationInput | DealUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutOrganizationInput | DealUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type CrmActivityUncheckedUpdateManyWithoutOrganizationNestedInput = {
+    create?: XOR<CrmActivityCreateWithoutOrganizationInput, CrmActivityUncheckedCreateWithoutOrganizationInput> | CrmActivityCreateWithoutOrganizationInput[] | CrmActivityUncheckedCreateWithoutOrganizationInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutOrganizationInput | CrmActivityCreateOrConnectWithoutOrganizationInput[]
+    upsert?: CrmActivityUpsertWithWhereUniqueWithoutOrganizationInput | CrmActivityUpsertWithWhereUniqueWithoutOrganizationInput[]
+    createMany?: CrmActivityCreateManyOrganizationInputEnvelope
+    set?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    disconnect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    delete?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    update?: CrmActivityUpdateWithWhereUniqueWithoutOrganizationInput | CrmActivityUpdateWithWhereUniqueWithoutOrganizationInput[]
+    updateMany?: CrmActivityUpdateManyWithWhereWithoutOrganizationInput | CrmActivityUpdateManyWithWhereWithoutOrganizationInput[]
+    deleteMany?: CrmActivityScalarWhereInput | CrmActivityScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutPipelinesInput = {
+    create?: XOR<TenantCreateWithoutPipelinesInput, TenantUncheckedCreateWithoutPipelinesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutPipelinesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type PipelineStageCreateNestedManyWithoutPipelineInput = {
+    create?: XOR<PipelineStageCreateWithoutPipelineInput, PipelineStageUncheckedCreateWithoutPipelineInput> | PipelineStageCreateWithoutPipelineInput[] | PipelineStageUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: PipelineStageCreateOrConnectWithoutPipelineInput | PipelineStageCreateOrConnectWithoutPipelineInput[]
+    createMany?: PipelineStageCreateManyPipelineInputEnvelope
+    connect?: PipelineStageWhereUniqueInput | PipelineStageWhereUniqueInput[]
+  }
+
+  export type DealCreateNestedManyWithoutPipelineInput = {
+    create?: XOR<DealCreateWithoutPipelineInput, DealUncheckedCreateWithoutPipelineInput> | DealCreateWithoutPipelineInput[] | DealUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutPipelineInput | DealCreateOrConnectWithoutPipelineInput[]
+    createMany?: DealCreateManyPipelineInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type PipelineStageUncheckedCreateNestedManyWithoutPipelineInput = {
+    create?: XOR<PipelineStageCreateWithoutPipelineInput, PipelineStageUncheckedCreateWithoutPipelineInput> | PipelineStageCreateWithoutPipelineInput[] | PipelineStageUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: PipelineStageCreateOrConnectWithoutPipelineInput | PipelineStageCreateOrConnectWithoutPipelineInput[]
+    createMany?: PipelineStageCreateManyPipelineInputEnvelope
+    connect?: PipelineStageWhereUniqueInput | PipelineStageWhereUniqueInput[]
+  }
+
+  export type DealUncheckedCreateNestedManyWithoutPipelineInput = {
+    create?: XOR<DealCreateWithoutPipelineInput, DealUncheckedCreateWithoutPipelineInput> | DealCreateWithoutPipelineInput[] | DealUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutPipelineInput | DealCreateOrConnectWithoutPipelineInput[]
+    createMany?: DealCreateManyPipelineInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type TenantUpdateOneRequiredWithoutPipelinesNestedInput = {
+    create?: XOR<TenantCreateWithoutPipelinesInput, TenantUncheckedCreateWithoutPipelinesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutPipelinesInput
+    upsert?: TenantUpsertWithoutPipelinesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutPipelinesInput, TenantUpdateWithoutPipelinesInput>, TenantUncheckedUpdateWithoutPipelinesInput>
+  }
+
+  export type PipelineStageUpdateManyWithoutPipelineNestedInput = {
+    create?: XOR<PipelineStageCreateWithoutPipelineInput, PipelineStageUncheckedCreateWithoutPipelineInput> | PipelineStageCreateWithoutPipelineInput[] | PipelineStageUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: PipelineStageCreateOrConnectWithoutPipelineInput | PipelineStageCreateOrConnectWithoutPipelineInput[]
+    upsert?: PipelineStageUpsertWithWhereUniqueWithoutPipelineInput | PipelineStageUpsertWithWhereUniqueWithoutPipelineInput[]
+    createMany?: PipelineStageCreateManyPipelineInputEnvelope
+    set?: PipelineStageWhereUniqueInput | PipelineStageWhereUniqueInput[]
+    disconnect?: PipelineStageWhereUniqueInput | PipelineStageWhereUniqueInput[]
+    delete?: PipelineStageWhereUniqueInput | PipelineStageWhereUniqueInput[]
+    connect?: PipelineStageWhereUniqueInput | PipelineStageWhereUniqueInput[]
+    update?: PipelineStageUpdateWithWhereUniqueWithoutPipelineInput | PipelineStageUpdateWithWhereUniqueWithoutPipelineInput[]
+    updateMany?: PipelineStageUpdateManyWithWhereWithoutPipelineInput | PipelineStageUpdateManyWithWhereWithoutPipelineInput[]
+    deleteMany?: PipelineStageScalarWhereInput | PipelineStageScalarWhereInput[]
+  }
+
+  export type DealUpdateManyWithoutPipelineNestedInput = {
+    create?: XOR<DealCreateWithoutPipelineInput, DealUncheckedCreateWithoutPipelineInput> | DealCreateWithoutPipelineInput[] | DealUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutPipelineInput | DealCreateOrConnectWithoutPipelineInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutPipelineInput | DealUpsertWithWhereUniqueWithoutPipelineInput[]
+    createMany?: DealCreateManyPipelineInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutPipelineInput | DealUpdateWithWhereUniqueWithoutPipelineInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutPipelineInput | DealUpdateManyWithWhereWithoutPipelineInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type PipelineStageUncheckedUpdateManyWithoutPipelineNestedInput = {
+    create?: XOR<PipelineStageCreateWithoutPipelineInput, PipelineStageUncheckedCreateWithoutPipelineInput> | PipelineStageCreateWithoutPipelineInput[] | PipelineStageUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: PipelineStageCreateOrConnectWithoutPipelineInput | PipelineStageCreateOrConnectWithoutPipelineInput[]
+    upsert?: PipelineStageUpsertWithWhereUniqueWithoutPipelineInput | PipelineStageUpsertWithWhereUniqueWithoutPipelineInput[]
+    createMany?: PipelineStageCreateManyPipelineInputEnvelope
+    set?: PipelineStageWhereUniqueInput | PipelineStageWhereUniqueInput[]
+    disconnect?: PipelineStageWhereUniqueInput | PipelineStageWhereUniqueInput[]
+    delete?: PipelineStageWhereUniqueInput | PipelineStageWhereUniqueInput[]
+    connect?: PipelineStageWhereUniqueInput | PipelineStageWhereUniqueInput[]
+    update?: PipelineStageUpdateWithWhereUniqueWithoutPipelineInput | PipelineStageUpdateWithWhereUniqueWithoutPipelineInput[]
+    updateMany?: PipelineStageUpdateManyWithWhereWithoutPipelineInput | PipelineStageUpdateManyWithWhereWithoutPipelineInput[]
+    deleteMany?: PipelineStageScalarWhereInput | PipelineStageScalarWhereInput[]
+  }
+
+  export type DealUncheckedUpdateManyWithoutPipelineNestedInput = {
+    create?: XOR<DealCreateWithoutPipelineInput, DealUncheckedCreateWithoutPipelineInput> | DealCreateWithoutPipelineInput[] | DealUncheckedCreateWithoutPipelineInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutPipelineInput | DealCreateOrConnectWithoutPipelineInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutPipelineInput | DealUpsertWithWhereUniqueWithoutPipelineInput[]
+    createMany?: DealCreateManyPipelineInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutPipelineInput | DealUpdateWithWhereUniqueWithoutPipelineInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutPipelineInput | DealUpdateManyWithWhereWithoutPipelineInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type PipelineCreateNestedOneWithoutPipelineStagesInput = {
+    create?: XOR<PipelineCreateWithoutPipelineStagesInput, PipelineUncheckedCreateWithoutPipelineStagesInput>
+    connectOrCreate?: PipelineCreateOrConnectWithoutPipelineStagesInput
+    connect?: PipelineWhereUniqueInput
+  }
+
+  export type DealCreateNestedManyWithoutStageInput = {
+    create?: XOR<DealCreateWithoutStageInput, DealUncheckedCreateWithoutStageInput> | DealCreateWithoutStageInput[] | DealUncheckedCreateWithoutStageInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutStageInput | DealCreateOrConnectWithoutStageInput[]
+    createMany?: DealCreateManyStageInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type DealUncheckedCreateNestedManyWithoutStageInput = {
+    create?: XOR<DealCreateWithoutStageInput, DealUncheckedCreateWithoutStageInput> | DealCreateWithoutStageInput[] | DealUncheckedCreateWithoutStageInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutStageInput | DealCreateOrConnectWithoutStageInput[]
+    createMany?: DealCreateManyStageInputEnvelope
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+  }
+
+  export type PipelineUpdateOneRequiredWithoutPipelineStagesNestedInput = {
+    create?: XOR<PipelineCreateWithoutPipelineStagesInput, PipelineUncheckedCreateWithoutPipelineStagesInput>
+    connectOrCreate?: PipelineCreateOrConnectWithoutPipelineStagesInput
+    upsert?: PipelineUpsertWithoutPipelineStagesInput
+    connect?: PipelineWhereUniqueInput
+    update?: XOR<XOR<PipelineUpdateToOneWithWhereWithoutPipelineStagesInput, PipelineUpdateWithoutPipelineStagesInput>, PipelineUncheckedUpdateWithoutPipelineStagesInput>
+  }
+
+  export type DealUpdateManyWithoutStageNestedInput = {
+    create?: XOR<DealCreateWithoutStageInput, DealUncheckedCreateWithoutStageInput> | DealCreateWithoutStageInput[] | DealUncheckedCreateWithoutStageInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutStageInput | DealCreateOrConnectWithoutStageInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutStageInput | DealUpsertWithWhereUniqueWithoutStageInput[]
+    createMany?: DealCreateManyStageInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutStageInput | DealUpdateWithWhereUniqueWithoutStageInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutStageInput | DealUpdateManyWithWhereWithoutStageInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type DealUncheckedUpdateManyWithoutStageNestedInput = {
+    create?: XOR<DealCreateWithoutStageInput, DealUncheckedCreateWithoutStageInput> | DealCreateWithoutStageInput[] | DealUncheckedCreateWithoutStageInput[]
+    connectOrCreate?: DealCreateOrConnectWithoutStageInput | DealCreateOrConnectWithoutStageInput[]
+    upsert?: DealUpsertWithWhereUniqueWithoutStageInput | DealUpsertWithWhereUniqueWithoutStageInput[]
+    createMany?: DealCreateManyStageInputEnvelope
+    set?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    disconnect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    delete?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    connect?: DealWhereUniqueInput | DealWhereUniqueInput[]
+    update?: DealUpdateWithWhereUniqueWithoutStageInput | DealUpdateWithWhereUniqueWithoutStageInput[]
+    updateMany?: DealUpdateManyWithWhereWithoutStageInput | DealUpdateManyWithWhereWithoutStageInput[]
+    deleteMany?: DealScalarWhereInput | DealScalarWhereInput[]
+  }
+
+  export type DealCreatetagsInput = {
+    set: string[]
+  }
+
+  export type TenantCreateNestedOneWithoutDealsInput = {
+    create?: XOR<TenantCreateWithoutDealsInput, TenantUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDealsInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type PipelineCreateNestedOneWithoutDealsInput = {
+    create?: XOR<PipelineCreateWithoutDealsInput, PipelineUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: PipelineCreateOrConnectWithoutDealsInput
+    connect?: PipelineWhereUniqueInput
+  }
+
+  export type PipelineStageCreateNestedOneWithoutDealsInput = {
+    create?: XOR<PipelineStageCreateWithoutDealsInput, PipelineStageUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: PipelineStageCreateOrConnectWithoutDealsInput
+    connect?: PipelineStageWhereUniqueInput
+  }
+
+  export type ContactCreateNestedOneWithoutDealsInput = {
+    create?: XOR<ContactCreateWithoutDealsInput, ContactUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: ContactCreateOrConnectWithoutDealsInput
+    connect?: ContactWhereUniqueInput
+  }
+
+  export type OrganizationCreateNestedOneWithoutDealsInput = {
+    create?: XOR<OrganizationCreateWithoutDealsInput, OrganizationUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutDealsInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutAssignedDealsInput = {
+    create?: XOR<UserCreateWithoutAssignedDealsInput, UserUncheckedCreateWithoutAssignedDealsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedDealsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CrmActivityCreateNestedManyWithoutDealInput = {
+    create?: XOR<CrmActivityCreateWithoutDealInput, CrmActivityUncheckedCreateWithoutDealInput> | CrmActivityCreateWithoutDealInput[] | CrmActivityUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutDealInput | CrmActivityCreateOrConnectWithoutDealInput[]
+    createMany?: CrmActivityCreateManyDealInputEnvelope
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+  }
+
+  export type CrmActivityUncheckedCreateNestedManyWithoutDealInput = {
+    create?: XOR<CrmActivityCreateWithoutDealInput, CrmActivityUncheckedCreateWithoutDealInput> | CrmActivityCreateWithoutDealInput[] | CrmActivityUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutDealInput | CrmActivityCreateOrConnectWithoutDealInput[]
+    createMany?: CrmActivityCreateManyDealInputEnvelope
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+  }
+
+  export type DealUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type TenantUpdateOneRequiredWithoutDealsNestedInput = {
+    create?: XOR<TenantCreateWithoutDealsInput, TenantUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutDealsInput
+    upsert?: TenantUpsertWithoutDealsInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutDealsInput, TenantUpdateWithoutDealsInput>, TenantUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type PipelineUpdateOneRequiredWithoutDealsNestedInput = {
+    create?: XOR<PipelineCreateWithoutDealsInput, PipelineUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: PipelineCreateOrConnectWithoutDealsInput
+    upsert?: PipelineUpsertWithoutDealsInput
+    connect?: PipelineWhereUniqueInput
+    update?: XOR<XOR<PipelineUpdateToOneWithWhereWithoutDealsInput, PipelineUpdateWithoutDealsInput>, PipelineUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type PipelineStageUpdateOneRequiredWithoutDealsNestedInput = {
+    create?: XOR<PipelineStageCreateWithoutDealsInput, PipelineStageUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: PipelineStageCreateOrConnectWithoutDealsInput
+    upsert?: PipelineStageUpsertWithoutDealsInput
+    connect?: PipelineStageWhereUniqueInput
+    update?: XOR<XOR<PipelineStageUpdateToOneWithWhereWithoutDealsInput, PipelineStageUpdateWithoutDealsInput>, PipelineStageUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type ContactUpdateOneWithoutDealsNestedInput = {
+    create?: XOR<ContactCreateWithoutDealsInput, ContactUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: ContactCreateOrConnectWithoutDealsInput
+    upsert?: ContactUpsertWithoutDealsInput
+    disconnect?: ContactWhereInput | boolean
+    delete?: ContactWhereInput | boolean
+    connect?: ContactWhereUniqueInput
+    update?: XOR<XOR<ContactUpdateToOneWithWhereWithoutDealsInput, ContactUpdateWithoutDealsInput>, ContactUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type OrganizationUpdateOneWithoutDealsNestedInput = {
+    create?: XOR<OrganizationCreateWithoutDealsInput, OrganizationUncheckedCreateWithoutDealsInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutDealsInput
+    upsert?: OrganizationUpsertWithoutDealsInput
+    disconnect?: OrganizationWhereInput | boolean
+    delete?: OrganizationWhereInput | boolean
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutDealsInput, OrganizationUpdateWithoutDealsInput>, OrganizationUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type UserUpdateOneWithoutAssignedDealsNestedInput = {
+    create?: XOR<UserCreateWithoutAssignedDealsInput, UserUncheckedCreateWithoutAssignedDealsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAssignedDealsInput
+    upsert?: UserUpsertWithoutAssignedDealsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAssignedDealsInput, UserUpdateWithoutAssignedDealsInput>, UserUncheckedUpdateWithoutAssignedDealsInput>
+  }
+
+  export type CrmActivityUpdateManyWithoutDealNestedInput = {
+    create?: XOR<CrmActivityCreateWithoutDealInput, CrmActivityUncheckedCreateWithoutDealInput> | CrmActivityCreateWithoutDealInput[] | CrmActivityUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutDealInput | CrmActivityCreateOrConnectWithoutDealInput[]
+    upsert?: CrmActivityUpsertWithWhereUniqueWithoutDealInput | CrmActivityUpsertWithWhereUniqueWithoutDealInput[]
+    createMany?: CrmActivityCreateManyDealInputEnvelope
+    set?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    disconnect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    delete?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    update?: CrmActivityUpdateWithWhereUniqueWithoutDealInput | CrmActivityUpdateWithWhereUniqueWithoutDealInput[]
+    updateMany?: CrmActivityUpdateManyWithWhereWithoutDealInput | CrmActivityUpdateManyWithWhereWithoutDealInput[]
+    deleteMany?: CrmActivityScalarWhereInput | CrmActivityScalarWhereInput[]
+  }
+
+  export type CrmActivityUncheckedUpdateManyWithoutDealNestedInput = {
+    create?: XOR<CrmActivityCreateWithoutDealInput, CrmActivityUncheckedCreateWithoutDealInput> | CrmActivityCreateWithoutDealInput[] | CrmActivityUncheckedCreateWithoutDealInput[]
+    connectOrCreate?: CrmActivityCreateOrConnectWithoutDealInput | CrmActivityCreateOrConnectWithoutDealInput[]
+    upsert?: CrmActivityUpsertWithWhereUniqueWithoutDealInput | CrmActivityUpsertWithWhereUniqueWithoutDealInput[]
+    createMany?: CrmActivityCreateManyDealInputEnvelope
+    set?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    disconnect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    delete?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    connect?: CrmActivityWhereUniqueInput | CrmActivityWhereUniqueInput[]
+    update?: CrmActivityUpdateWithWhereUniqueWithoutDealInput | CrmActivityUpdateWithWhereUniqueWithoutDealInput[]
+    updateMany?: CrmActivityUpdateManyWithWhereWithoutDealInput | CrmActivityUpdateManyWithWhereWithoutDealInput[]
+    deleteMany?: CrmActivityScalarWhereInput | CrmActivityScalarWhereInput[]
+  }
+
+  export type TenantCreateNestedOneWithoutCrmActivitiesInput = {
+    create?: XOR<TenantCreateWithoutCrmActivitiesInput, TenantUncheckedCreateWithoutCrmActivitiesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutCrmActivitiesInput
+    connect?: TenantWhereUniqueInput
+  }
+
+  export type ContactCreateNestedOneWithoutActivitiesInput = {
+    create?: XOR<ContactCreateWithoutActivitiesInput, ContactUncheckedCreateWithoutActivitiesInput>
+    connectOrCreate?: ContactCreateOrConnectWithoutActivitiesInput
+    connect?: ContactWhereUniqueInput
+  }
+
+  export type DealCreateNestedOneWithoutActivitiesInput = {
+    create?: XOR<DealCreateWithoutActivitiesInput, DealUncheckedCreateWithoutActivitiesInput>
+    connectOrCreate?: DealCreateOrConnectWithoutActivitiesInput
+    connect?: DealWhereUniqueInput
+  }
+
+  export type OrganizationCreateNestedOneWithoutActivitiesInput = {
+    create?: XOR<OrganizationCreateWithoutActivitiesInput, OrganizationUncheckedCreateWithoutActivitiesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutActivitiesInput
+    connect?: OrganizationWhereUniqueInput
+  }
+
+  export type EnumCrmActivityTypeFieldUpdateOperationsInput = {
+    set?: $Enums.CrmActivityType
+  }
+
+  export type TenantUpdateOneRequiredWithoutCrmActivitiesNestedInput = {
+    create?: XOR<TenantCreateWithoutCrmActivitiesInput, TenantUncheckedCreateWithoutCrmActivitiesInput>
+    connectOrCreate?: TenantCreateOrConnectWithoutCrmActivitiesInput
+    upsert?: TenantUpsertWithoutCrmActivitiesInput
+    connect?: TenantWhereUniqueInput
+    update?: XOR<XOR<TenantUpdateToOneWithWhereWithoutCrmActivitiesInput, TenantUpdateWithoutCrmActivitiesInput>, TenantUncheckedUpdateWithoutCrmActivitiesInput>
+  }
+
+  export type ContactUpdateOneWithoutActivitiesNestedInput = {
+    create?: XOR<ContactCreateWithoutActivitiesInput, ContactUncheckedCreateWithoutActivitiesInput>
+    connectOrCreate?: ContactCreateOrConnectWithoutActivitiesInput
+    upsert?: ContactUpsertWithoutActivitiesInput
+    disconnect?: ContactWhereInput | boolean
+    delete?: ContactWhereInput | boolean
+    connect?: ContactWhereUniqueInput
+    update?: XOR<XOR<ContactUpdateToOneWithWhereWithoutActivitiesInput, ContactUpdateWithoutActivitiesInput>, ContactUncheckedUpdateWithoutActivitiesInput>
+  }
+
+  export type DealUpdateOneWithoutActivitiesNestedInput = {
+    create?: XOR<DealCreateWithoutActivitiesInput, DealUncheckedCreateWithoutActivitiesInput>
+    connectOrCreate?: DealCreateOrConnectWithoutActivitiesInput
+    upsert?: DealUpsertWithoutActivitiesInput
+    disconnect?: DealWhereInput | boolean
+    delete?: DealWhereInput | boolean
+    connect?: DealWhereUniqueInput
+    update?: XOR<XOR<DealUpdateToOneWithWhereWithoutActivitiesInput, DealUpdateWithoutActivitiesInput>, DealUncheckedUpdateWithoutActivitiesInput>
+  }
+
+  export type OrganizationUpdateOneWithoutActivitiesNestedInput = {
+    create?: XOR<OrganizationCreateWithoutActivitiesInput, OrganizationUncheckedCreateWithoutActivitiesInput>
+    connectOrCreate?: OrganizationCreateOrConnectWithoutActivitiesInput
+    upsert?: OrganizationUpsertWithoutActivitiesInput
+    disconnect?: OrganizationWhereInput | boolean
+    delete?: OrganizationWhereInput | boolean
+    connect?: OrganizationWhereUniqueInput
+    update?: XOR<XOR<OrganizationUpdateToOneWithWhereWithoutActivitiesInput, OrganizationUpdateWithoutActivitiesInput>, OrganizationUncheckedUpdateWithoutActivitiesInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -34623,6 +45711,84 @@ export namespace Prisma {
     _max?: NestedBigIntFilter<$PrismaModel>
   }
 
+  export type NestedEnumContactStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactStatus | EnumContactStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactStatusFilter<$PrismaModel> | $Enums.ContactStatus
+  }
+
+  export type NestedEnumContactStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ContactStatus | EnumContactStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ContactStatus[] | ListEnumContactStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumContactStatusWithAggregatesFilter<$PrismaModel> | $Enums.ContactStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumContactStatusFilter<$PrismaModel>
+    _max?: NestedEnumContactStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumOrganizationSizeNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrganizationSize | EnumOrganizationSizeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.OrganizationSize[] | ListEnumOrganizationSizeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.OrganizationSize[] | ListEnumOrganizationSizeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumOrganizationSizeNullableFilter<$PrismaModel> | $Enums.OrganizationSize | null
+  }
+
+  export type NestedDecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  }
+
+  export type NestedEnumOrganizationSizeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.OrganizationSize | EnumOrganizationSizeFieldRefInput<$PrismaModel> | null
+    in?: $Enums.OrganizationSize[] | ListEnumOrganizationSizeFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.OrganizationSize[] | ListEnumOrganizationSizeFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumOrganizationSizeNullableWithAggregatesFilter<$PrismaModel> | $Enums.OrganizationSize | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumOrganizationSizeNullableFilter<$PrismaModel>
+    _max?: NestedEnumOrganizationSizeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedDecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  }
+
+  export type NestedEnumCrmActivityTypeFilter<$PrismaModel = never> = {
+    equals?: $Enums.CrmActivityType | EnumCrmActivityTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CrmActivityType[] | ListEnumCrmActivityTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CrmActivityType[] | ListEnumCrmActivityTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCrmActivityTypeFilter<$PrismaModel> | $Enums.CrmActivityType
+  }
+
+  export type NestedEnumCrmActivityTypeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.CrmActivityType | EnumCrmActivityTypeFieldRefInput<$PrismaModel>
+    in?: $Enums.CrmActivityType[] | ListEnumCrmActivityTypeFieldRefInput<$PrismaModel>
+    notIn?: $Enums.CrmActivityType[] | ListEnumCrmActivityTypeFieldRefInput<$PrismaModel>
+    not?: NestedEnumCrmActivityTypeWithAggregatesFilter<$PrismaModel> | $Enums.CrmActivityType
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumCrmActivityTypeFilter<$PrismaModel>
+    _max?: NestedEnumCrmActivityTypeFilter<$PrismaModel>
+  }
+
   export type AuditLogCreateWithoutTenantInput = {
     id?: string
     action: $Enums.AuditAction
@@ -35064,6 +46230,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     userRoles?: UserRoleCreateNestedManyWithoutUserInput
     uploadedFiles?: FileCreateNestedManyWithoutUploadedByInput
+    assignedDeals?: DealCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserUncheckedCreateWithoutTenantInput = {
@@ -35091,6 +46258,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     userRoles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     uploadedFiles?: FileUncheckedCreateNestedManyWithoutUploadedByInput
+    assignedDeals?: DealUncheckedCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserCreateOrConnectWithoutTenantInput = {
@@ -35146,6 +46314,270 @@ export namespace Prisma {
 
   export type WebhookCreateManyTenantInputEnvelope = {
     data: WebhookCreateManyTenantInput | WebhookCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ContactCreateWithoutTenantInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    jobTitle?: string | null
+    department?: string | null
+    source?: string | null
+    status?: $Enums.ContactStatus
+    leadScore?: number
+    tags?: ContactCreatetagsInput | string[]
+    notes?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    organization?: OrganizationCreateNestedOneWithoutContactsInput
+    deals?: DealCreateNestedManyWithoutContactInput
+    activities?: CrmActivityCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactUncheckedCreateWithoutTenantInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    jobTitle?: string | null
+    department?: string | null
+    source?: string | null
+    status?: $Enums.ContactStatus
+    leadScore?: number
+    tags?: ContactCreatetagsInput | string[]
+    notes?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    organizationId?: string | null
+    deals?: DealUncheckedCreateNestedManyWithoutContactInput
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactCreateOrConnectWithoutTenantInput = {
+    where: ContactWhereUniqueInput
+    create: XOR<ContactCreateWithoutTenantInput, ContactUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ContactCreateManyTenantInputEnvelope = {
+    data: ContactCreateManyTenantInput | ContactCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OrganizationCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    legalName?: string | null
+    website?: string | null
+    industry?: string | null
+    size?: $Enums.OrganizationSize | null
+    revenue?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    logoUrl?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: string | null
+    email?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    tags?: OrganizationCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    contacts?: ContactCreateNestedManyWithoutOrganizationInput
+    deals?: DealCreateNestedManyWithoutOrganizationInput
+    activities?: CrmActivityCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    legalName?: string | null
+    website?: string | null
+    industry?: string | null
+    size?: $Enums.OrganizationSize | null
+    revenue?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    logoUrl?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: string | null
+    email?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    tags?: OrganizationCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    contacts?: ContactUncheckedCreateNestedManyWithoutOrganizationInput
+    deals?: DealUncheckedCreateNestedManyWithoutOrganizationInput
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutTenantInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutTenantInput, OrganizationUncheckedCreateWithoutTenantInput>
+  }
+
+  export type OrganizationCreateManyTenantInputEnvelope = {
+    data: OrganizationCreateManyTenantInput | OrganizationCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PipelineCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isDefault?: boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    pipelineStages?: PipelineStageCreateNestedManyWithoutPipelineInput
+    deals?: DealCreateNestedManyWithoutPipelineInput
+  }
+
+  export type PipelineUncheckedCreateWithoutTenantInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isDefault?: boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    pipelineStages?: PipelineStageUncheckedCreateNestedManyWithoutPipelineInput
+    deals?: DealUncheckedCreateNestedManyWithoutPipelineInput
+  }
+
+  export type PipelineCreateOrConnectWithoutTenantInput = {
+    where: PipelineWhereUniqueInput
+    create: XOR<PipelineCreateWithoutTenantInput, PipelineUncheckedCreateWithoutTenantInput>
+  }
+
+  export type PipelineCreateManyTenantInputEnvelope = {
+    data: PipelineCreateManyTenantInput | PipelineCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DealCreateWithoutTenantInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    pipeline: PipelineCreateNestedOneWithoutDealsInput
+    stage: PipelineStageCreateNestedOneWithoutDealsInput
+    contact?: ContactCreateNestedOneWithoutDealsInput
+    organization?: OrganizationCreateNestedOneWithoutDealsInput
+    assignee?: UserCreateNestedOneWithoutAssignedDealsInput
+    activities?: CrmActivityCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutTenantInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    pipelineId: string
+    stageId: string
+    contactId?: string | null
+    organizationId?: string | null
+    assignedTo?: string | null
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutTenantInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutTenantInput, DealUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DealCreateManyTenantInputEnvelope = {
+    data: DealCreateManyTenantInput | DealCreateManyTenantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CrmActivityCreateWithoutTenantInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    contact?: ContactCreateNestedOneWithoutActivitiesInput
+    deal?: DealCreateNestedOneWithoutActivitiesInput
+    organization?: OrganizationCreateNestedOneWithoutActivitiesInput
+  }
+
+  export type CrmActivityUncheckedCreateWithoutTenantInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    contactId?: string | null
+    dealId?: string | null
+    organizationId?: string | null
+  }
+
+  export type CrmActivityCreateOrConnectWithoutTenantInput = {
+    where: CrmActivityWhereUniqueInput
+    create: XOR<CrmActivityCreateWithoutTenantInput, CrmActivityUncheckedCreateWithoutTenantInput>
+  }
+
+  export type CrmActivityCreateManyTenantInputEnvelope = {
+    data: CrmActivityCreateManyTenantInput | CrmActivityCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
@@ -35580,6 +47012,205 @@ export namespace Prisma {
     tenantId?: StringFilter<"Webhook"> | string
   }
 
+  export type ContactUpsertWithWhereUniqueWithoutTenantInput = {
+    where: ContactWhereUniqueInput
+    update: XOR<ContactUpdateWithoutTenantInput, ContactUncheckedUpdateWithoutTenantInput>
+    create: XOR<ContactCreateWithoutTenantInput, ContactUncheckedCreateWithoutTenantInput>
+  }
+
+  export type ContactUpdateWithWhereUniqueWithoutTenantInput = {
+    where: ContactWhereUniqueInput
+    data: XOR<ContactUpdateWithoutTenantInput, ContactUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type ContactUpdateManyWithWhereWithoutTenantInput = {
+    where: ContactScalarWhereInput
+    data: XOR<ContactUpdateManyMutationInput, ContactUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type ContactScalarWhereInput = {
+    AND?: ContactScalarWhereInput | ContactScalarWhereInput[]
+    OR?: ContactScalarWhereInput[]
+    NOT?: ContactScalarWhereInput | ContactScalarWhereInput[]
+    id?: StringFilter<"Contact"> | string
+    firstName?: StringFilter<"Contact"> | string
+    lastName?: StringFilter<"Contact"> | string
+    email?: StringNullableFilter<"Contact"> | string | null
+    phone?: StringNullableFilter<"Contact"> | string | null
+    mobile?: StringNullableFilter<"Contact"> | string | null
+    whatsapp?: StringNullableFilter<"Contact"> | string | null
+    jobTitle?: StringNullableFilter<"Contact"> | string | null
+    department?: StringNullableFilter<"Contact"> | string | null
+    source?: StringNullableFilter<"Contact"> | string | null
+    status?: EnumContactStatusFilter<"Contact"> | $Enums.ContactStatus
+    leadScore?: IntFilter<"Contact"> | number
+    tags?: StringNullableListFilter<"Contact">
+    notes?: StringNullableFilter<"Contact"> | string | null
+    address?: JsonNullableFilter<"Contact">
+    socialLinks?: JsonNullableFilter<"Contact">
+    metadata?: JsonNullableFilter<"Contact">
+    lastContactedAt?: DateTimeNullableFilter<"Contact"> | Date | string | null
+    createdAt?: DateTimeFilter<"Contact"> | Date | string
+    updatedAt?: DateTimeFilter<"Contact"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Contact"> | Date | string | null
+    tenantId?: StringFilter<"Contact"> | string
+    organizationId?: StringNullableFilter<"Contact"> | string | null
+  }
+
+  export type OrganizationUpsertWithWhereUniqueWithoutTenantInput = {
+    where: OrganizationWhereUniqueInput
+    update: XOR<OrganizationUpdateWithoutTenantInput, OrganizationUncheckedUpdateWithoutTenantInput>
+    create: XOR<OrganizationCreateWithoutTenantInput, OrganizationUncheckedCreateWithoutTenantInput>
+  }
+
+  export type OrganizationUpdateWithWhereUniqueWithoutTenantInput = {
+    where: OrganizationWhereUniqueInput
+    data: XOR<OrganizationUpdateWithoutTenantInput, OrganizationUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type OrganizationUpdateManyWithWhereWithoutTenantInput = {
+    where: OrganizationScalarWhereInput
+    data: XOR<OrganizationUpdateManyMutationInput, OrganizationUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type OrganizationScalarWhereInput = {
+    AND?: OrganizationScalarWhereInput | OrganizationScalarWhereInput[]
+    OR?: OrganizationScalarWhereInput[]
+    NOT?: OrganizationScalarWhereInput | OrganizationScalarWhereInput[]
+    id?: StringFilter<"Organization"> | string
+    name?: StringFilter<"Organization"> | string
+    legalName?: StringNullableFilter<"Organization"> | string | null
+    website?: StringNullableFilter<"Organization"> | string | null
+    industry?: StringNullableFilter<"Organization"> | string | null
+    size?: EnumOrganizationSizeNullableFilter<"Organization"> | $Enums.OrganizationSize | null
+    revenue?: DecimalNullableFilter<"Organization"> | Decimal | DecimalJsLike | number | string | null
+    description?: StringNullableFilter<"Organization"> | string | null
+    logoUrl?: StringNullableFilter<"Organization"> | string | null
+    address?: JsonNullableFilter<"Organization">
+    phone?: StringNullableFilter<"Organization"> | string | null
+    email?: StringNullableFilter<"Organization"> | string | null
+    gstNumber?: StringNullableFilter<"Organization"> | string | null
+    panNumber?: StringNullableFilter<"Organization"> | string | null
+    tags?: StringNullableListFilter<"Organization">
+    metadata?: JsonNullableFilter<"Organization">
+    createdAt?: DateTimeFilter<"Organization"> | Date | string
+    updatedAt?: DateTimeFilter<"Organization"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Organization"> | Date | string | null
+    tenantId?: StringFilter<"Organization"> | string
+  }
+
+  export type PipelineUpsertWithWhereUniqueWithoutTenantInput = {
+    where: PipelineWhereUniqueInput
+    update: XOR<PipelineUpdateWithoutTenantInput, PipelineUncheckedUpdateWithoutTenantInput>
+    create: XOR<PipelineCreateWithoutTenantInput, PipelineUncheckedCreateWithoutTenantInput>
+  }
+
+  export type PipelineUpdateWithWhereUniqueWithoutTenantInput = {
+    where: PipelineWhereUniqueInput
+    data: XOR<PipelineUpdateWithoutTenantInput, PipelineUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type PipelineUpdateManyWithWhereWithoutTenantInput = {
+    where: PipelineScalarWhereInput
+    data: XOR<PipelineUpdateManyMutationInput, PipelineUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type PipelineScalarWhereInput = {
+    AND?: PipelineScalarWhereInput | PipelineScalarWhereInput[]
+    OR?: PipelineScalarWhereInput[]
+    NOT?: PipelineScalarWhereInput | PipelineScalarWhereInput[]
+    id?: StringFilter<"Pipeline"> | string
+    name?: StringFilter<"Pipeline"> | string
+    description?: StringNullableFilter<"Pipeline"> | string | null
+    isDefault?: BoolFilter<"Pipeline"> | boolean
+    stages?: JsonFilter<"Pipeline">
+    metadata?: JsonNullableFilter<"Pipeline">
+    createdAt?: DateTimeFilter<"Pipeline"> | Date | string
+    updatedAt?: DateTimeFilter<"Pipeline"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Pipeline"> | Date | string | null
+    tenantId?: StringFilter<"Pipeline"> | string
+  }
+
+  export type DealUpsertWithWhereUniqueWithoutTenantInput = {
+    where: DealWhereUniqueInput
+    update: XOR<DealUpdateWithoutTenantInput, DealUncheckedUpdateWithoutTenantInput>
+    create: XOR<DealCreateWithoutTenantInput, DealUncheckedCreateWithoutTenantInput>
+  }
+
+  export type DealUpdateWithWhereUniqueWithoutTenantInput = {
+    where: DealWhereUniqueInput
+    data: XOR<DealUpdateWithoutTenantInput, DealUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type DealUpdateManyWithWhereWithoutTenantInput = {
+    where: DealScalarWhereInput
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type DealScalarWhereInput = {
+    AND?: DealScalarWhereInput | DealScalarWhereInput[]
+    OR?: DealScalarWhereInput[]
+    NOT?: DealScalarWhereInput | DealScalarWhereInput[]
+    id?: StringFilter<"Deal"> | string
+    title?: StringFilter<"Deal"> | string
+    description?: StringNullableFilter<"Deal"> | string | null
+    value?: DecimalFilter<"Deal"> | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFilter<"Deal"> | $Enums.CurrencyCode
+    expectedCloseDate?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    actualCloseDate?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    probability?: IntFilter<"Deal"> | number
+    source?: StringNullableFilter<"Deal"> | string | null
+    tags?: StringNullableListFilter<"Deal">
+    metadata?: JsonNullableFilter<"Deal">
+    createdAt?: DateTimeFilter<"Deal"> | Date | string
+    updatedAt?: DateTimeFilter<"Deal"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Deal"> | Date | string | null
+    tenantId?: StringFilter<"Deal"> | string
+    pipelineId?: StringFilter<"Deal"> | string
+    stageId?: StringFilter<"Deal"> | string
+    contactId?: StringNullableFilter<"Deal"> | string | null
+    organizationId?: StringNullableFilter<"Deal"> | string | null
+    assignedTo?: StringNullableFilter<"Deal"> | string | null
+  }
+
+  export type CrmActivityUpsertWithWhereUniqueWithoutTenantInput = {
+    where: CrmActivityWhereUniqueInput
+    update: XOR<CrmActivityUpdateWithoutTenantInput, CrmActivityUncheckedUpdateWithoutTenantInput>
+    create: XOR<CrmActivityCreateWithoutTenantInput, CrmActivityUncheckedCreateWithoutTenantInput>
+  }
+
+  export type CrmActivityUpdateWithWhereUniqueWithoutTenantInput = {
+    where: CrmActivityWhereUniqueInput
+    data: XOR<CrmActivityUpdateWithoutTenantInput, CrmActivityUncheckedUpdateWithoutTenantInput>
+  }
+
+  export type CrmActivityUpdateManyWithWhereWithoutTenantInput = {
+    where: CrmActivityScalarWhereInput
+    data: XOR<CrmActivityUpdateManyMutationInput, CrmActivityUncheckedUpdateManyWithoutTenantInput>
+  }
+
+  export type CrmActivityScalarWhereInput = {
+    AND?: CrmActivityScalarWhereInput | CrmActivityScalarWhereInput[]
+    OR?: CrmActivityScalarWhereInput[]
+    NOT?: CrmActivityScalarWhereInput | CrmActivityScalarWhereInput[]
+    id?: StringFilter<"CrmActivity"> | string
+    type?: EnumCrmActivityTypeFilter<"CrmActivity"> | $Enums.CrmActivityType
+    subject?: StringFilter<"CrmActivity"> | string
+    description?: StringNullableFilter<"CrmActivity"> | string | null
+    dueDate?: DateTimeNullableFilter<"CrmActivity"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"CrmActivity"> | Date | string | null
+    duration?: IntNullableFilter<"CrmActivity"> | number | null
+    outcome?: StringNullableFilter<"CrmActivity"> | string | null
+    metadata?: JsonNullableFilter<"CrmActivity">
+    createdAt?: DateTimeFilter<"CrmActivity"> | Date | string
+    updatedAt?: DateTimeFilter<"CrmActivity"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"CrmActivity"> | Date | string | null
+    tenantId?: StringFilter<"CrmActivity"> | string
+    contactId?: StringNullableFilter<"CrmActivity"> | string | null
+    dealId?: StringNullableFilter<"CrmActivity"> | string | null
+    organizationId?: StringNullableFilter<"CrmActivity"> | string | null
+  }
+
   export type ApiKeyCreateWithoutUserInput = {
     id?: string
     name: string
@@ -35801,6 +47432,11 @@ export namespace Prisma {
     tenantConfigs?: TenantConfigCreateNestedManyWithoutTenantInput
     translations?: TranslationCreateNestedManyWithoutTenantInput
     webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutUsersInput = {
@@ -35834,6 +47470,11 @@ export namespace Prisma {
     tenantConfigs?: TenantConfigUncheckedCreateNestedManyWithoutTenantInput
     translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
     webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutUsersInput = {
@@ -35884,6 +47525,62 @@ export namespace Prisma {
 
   export type FileCreateManyUploadedByInputEnvelope = {
     data: FileCreateManyUploadedByInput | FileCreateManyUploadedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DealCreateWithoutAssigneeInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutDealsInput
+    pipeline: PipelineCreateNestedOneWithoutDealsInput
+    stage: PipelineStageCreateNestedOneWithoutDealsInput
+    contact?: ContactCreateNestedOneWithoutDealsInput
+    organization?: OrganizationCreateNestedOneWithoutDealsInput
+    activities?: CrmActivityCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutAssigneeInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    pipelineId: string
+    stageId: string
+    contactId?: string | null
+    organizationId?: string | null
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutAssigneeInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutAssigneeInput, DealUncheckedCreateWithoutAssigneeInput>
+  }
+
+  export type DealCreateManyAssigneeInputEnvelope = {
+    data: DealCreateManyAssigneeInput | DealCreateManyAssigneeInput[]
     skipDuplicates?: boolean
   }
 
@@ -36052,6 +47749,11 @@ export namespace Prisma {
     tenantConfigs?: TenantConfigUpdateManyWithoutTenantNestedInput
     translations?: TranslationUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutUsersInput = {
@@ -36085,6 +47787,11 @@ export namespace Prisma {
     tenantConfigs?: TenantConfigUncheckedUpdateManyWithoutTenantNestedInput
     translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type FileUpsertWithWhereUniqueWithoutUploadedByInput = {
@@ -36101,6 +47808,22 @@ export namespace Prisma {
   export type FileUpdateManyWithWhereWithoutUploadedByInput = {
     where: FileScalarWhereInput
     data: XOR<FileUpdateManyMutationInput, FileUncheckedUpdateManyWithoutUploadedByInput>
+  }
+
+  export type DealUpsertWithWhereUniqueWithoutAssigneeInput = {
+    where: DealWhereUniqueInput
+    update: XOR<DealUpdateWithoutAssigneeInput, DealUncheckedUpdateWithoutAssigneeInput>
+    create: XOR<DealCreateWithoutAssigneeInput, DealUncheckedCreateWithoutAssigneeInput>
+  }
+
+  export type DealUpdateWithWhereUniqueWithoutAssigneeInput = {
+    where: DealWhereUniqueInput
+    data: XOR<DealUpdateWithoutAssigneeInput, DealUncheckedUpdateWithoutAssigneeInput>
+  }
+
+  export type DealUpdateManyWithWhereWithoutAssigneeInput = {
+    where: DealScalarWhereInput
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyWithoutAssigneeInput>
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -36128,6 +47851,7 @@ export namespace Prisma {
     userRoles?: UserRoleCreateNestedManyWithoutUserInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     uploadedFiles?: FileCreateNestedManyWithoutUploadedByInput
+    assignedDeals?: DealCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -36155,6 +47879,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     userRoles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     uploadedFiles?: FileUncheckedCreateNestedManyWithoutUploadedByInput
+    assignedDeals?: DealUncheckedCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -36198,6 +47923,7 @@ export namespace Prisma {
     userRoles?: UserRoleUpdateManyWithoutUserNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     uploadedFiles?: FileUpdateManyWithoutUploadedByNestedInput
+    assignedDeals?: DealUpdateManyWithoutAssigneeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -36225,6 +47951,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     userRoles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     uploadedFiles?: FileUncheckedUpdateManyWithoutUploadedByNestedInput
+    assignedDeals?: DealUncheckedUpdateManyWithoutAssigneeNestedInput
   }
 
   export type UserCreateWithoutApiKeysInput = {
@@ -36252,6 +47979,7 @@ export namespace Prisma {
     userRoles?: UserRoleCreateNestedManyWithoutUserInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     uploadedFiles?: FileCreateNestedManyWithoutUploadedByInput
+    assignedDeals?: DealCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserUncheckedCreateWithoutApiKeysInput = {
@@ -36279,6 +48007,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     userRoles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     uploadedFiles?: FileUncheckedCreateNestedManyWithoutUploadedByInput
+    assignedDeals?: DealUncheckedCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserCreateOrConnectWithoutApiKeysInput = {
@@ -36322,6 +48051,7 @@ export namespace Prisma {
     userRoles?: UserRoleUpdateManyWithoutUserNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     uploadedFiles?: FileUpdateManyWithoutUploadedByNestedInput
+    assignedDeals?: DealUpdateManyWithoutAssigneeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutApiKeysInput = {
@@ -36349,6 +48079,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     userRoles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     uploadedFiles?: FileUncheckedUpdateManyWithoutUploadedByNestedInput
+    assignedDeals?: DealUncheckedUpdateManyWithoutAssigneeNestedInput
   }
 
   export type RolePermissionCreateWithoutRoleInput = {
@@ -36406,6 +48137,11 @@ export namespace Prisma {
     translations?: TranslationCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutRolesInput = {
@@ -36439,6 +48175,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutRolesInput = {
@@ -36541,6 +48282,11 @@ export namespace Prisma {
     translations?: TranslationUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutRolesInput = {
@@ -36574,6 +48320,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserRoleUpsertWithWhereUniqueWithoutRoleInput = {
@@ -36826,6 +48577,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     uploadedFiles?: FileCreateNestedManyWithoutUploadedByInput
+    assignedDeals?: DealCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserUncheckedCreateWithoutUserRolesInput = {
@@ -36853,6 +48605,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     uploadedFiles?: FileUncheckedCreateNestedManyWithoutUploadedByInput
+    assignedDeals?: DealUncheckedCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserCreateOrConnectWithoutUserRolesInput = {
@@ -36939,6 +48692,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     uploadedFiles?: FileUpdateManyWithoutUploadedByNestedInput
+    assignedDeals?: DealUpdateManyWithoutAssigneeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserRolesInput = {
@@ -36966,6 +48720,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     uploadedFiles?: FileUncheckedUpdateManyWithoutUploadedByNestedInput
+    assignedDeals?: DealUncheckedUpdateManyWithoutAssigneeNestedInput
   }
 
   export type TenantCreateWithoutTenantConfigsInput = {
@@ -36999,6 +48754,11 @@ export namespace Prisma {
     translations?: TranslationCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTenantConfigsInput = {
@@ -37032,6 +48792,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTenantConfigsInput = {
@@ -37081,6 +48846,11 @@ export namespace Prisma {
     translations?: TranslationUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTenantConfigsInput = {
@@ -37114,6 +48884,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutFeatureFlagsInput = {
@@ -37147,6 +48922,11 @@ export namespace Prisma {
     translations?: TranslationCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFeatureFlagsInput = {
@@ -37180,6 +48960,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFeatureFlagsInput = {
@@ -37229,6 +49014,11 @@ export namespace Prisma {
     translations?: TranslationUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFeatureFlagsInput = {
@@ -37262,6 +49052,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TranslationCreateWithoutLocaleInput = {
@@ -37384,6 +49179,11 @@ export namespace Prisma {
     tenantConfigs?: TenantConfigCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutTranslationsInput = {
@@ -37417,6 +49217,11 @@ export namespace Prisma {
     tenantConfigs?: TenantConfigUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutTranslationsInput = {
@@ -37511,6 +49316,11 @@ export namespace Prisma {
     tenantConfigs?: TenantConfigUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutTranslationsInput = {
@@ -37544,6 +49354,11 @@ export namespace Prisma {
     tenantConfigs?: TenantConfigUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutCurrenciesInput = {
@@ -37577,6 +49392,11 @@ export namespace Prisma {
     translations?: TranslationCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutCurrenciesInput = {
@@ -37610,6 +49430,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutCurrenciesInput = {
@@ -37727,6 +49552,11 @@ export namespace Prisma {
     translations?: TranslationUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutCurrenciesInput = {
@@ -37760,6 +49590,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type ExchangeRateUpsertWithWhereUniqueWithoutBaseCurrencyInput = {
@@ -37903,6 +49738,11 @@ export namespace Prisma {
     translations?: TranslationCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutExchangeRatesInput = {
@@ -37936,6 +49776,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutExchangeRatesInput = {
@@ -38075,6 +49920,11 @@ export namespace Prisma {
     translations?: TranslationUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutExchangeRatesInput = {
@@ -38108,6 +49958,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateWithoutAuditLogsInput = {
@@ -38141,6 +49996,11 @@ export namespace Prisma {
     translations?: TranslationCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -38174,6 +50034,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -38206,6 +50071,7 @@ export namespace Prisma {
     userRoles?: UserRoleCreateNestedManyWithoutUserInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     uploadedFiles?: FileCreateNestedManyWithoutUploadedByInput
+    assignedDeals?: DealCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -38233,6 +50099,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     userRoles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     uploadedFiles?: FileUncheckedCreateNestedManyWithoutUploadedByInput
+    assignedDeals?: DealUncheckedCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -38282,6 +50149,11 @@ export namespace Prisma {
     translations?: TranslationUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -38315,6 +50187,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutAuditLogsInput = {
@@ -38353,6 +50230,7 @@ export namespace Prisma {
     userRoles?: UserRoleUpdateManyWithoutUserNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     uploadedFiles?: FileUpdateManyWithoutUploadedByNestedInput
+    assignedDeals?: DealUpdateManyWithoutAssigneeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -38380,6 +50258,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     userRoles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     uploadedFiles?: FileUncheckedUpdateManyWithoutUploadedByNestedInput
+    assignedDeals?: DealUncheckedUpdateManyWithoutAssigneeNestedInput
   }
 
   export type TenantCreateWithoutNotificationTemplatesInput = {
@@ -38413,6 +50292,11 @@ export namespace Prisma {
     translations?: TranslationCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNotificationTemplatesInput = {
@@ -38446,6 +50330,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNotificationTemplatesInput = {
@@ -38551,6 +50440,11 @@ export namespace Prisma {
     translations?: TranslationUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNotificationTemplatesInput = {
@@ -38584,6 +50478,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type NotificationUpsertWithWhereUniqueWithoutTemplateInput = {
@@ -38672,6 +50571,11 @@ export namespace Prisma {
     translations?: TranslationCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutNotificationsInput = {
@@ -38705,6 +50609,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutNotificationsInput = {
@@ -38737,6 +50646,7 @@ export namespace Prisma {
     userRoles?: UserRoleCreateNestedManyWithoutUserInput
     tenant: TenantCreateNestedOneWithoutUsersInput
     uploadedFiles?: FileCreateNestedManyWithoutUploadedByInput
+    assignedDeals?: DealCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -38764,6 +50674,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     userRoles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
     uploadedFiles?: FileUncheckedCreateNestedManyWithoutUploadedByInput
+    assignedDeals?: DealUncheckedCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -38858,6 +50769,11 @@ export namespace Prisma {
     translations?: TranslationUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutNotificationsInput = {
@@ -38891,6 +50807,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutNotificationsInput = {
@@ -38929,6 +50850,7 @@ export namespace Prisma {
     userRoles?: UserRoleUpdateManyWithoutUserNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
     uploadedFiles?: FileUpdateManyWithoutUploadedByNestedInput
+    assignedDeals?: DealUpdateManyWithoutAssigneeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -38956,6 +50878,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     userRoles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     uploadedFiles?: FileUncheckedUpdateManyWithoutUploadedByNestedInput
+    assignedDeals?: DealUncheckedUpdateManyWithoutAssigneeNestedInput
   }
 
   export type WebhookDeliveryCreateWithoutWebhookInput = {
@@ -39027,6 +50950,11 @@ export namespace Prisma {
     tenantConfigs?: TenantConfigCreateNestedManyWithoutTenantInput
     translations?: TranslationCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutWebhooksInput = {
@@ -39060,6 +50988,11 @@ export namespace Prisma {
     tenantConfigs?: TenantConfigUncheckedCreateNestedManyWithoutTenantInput
     translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutWebhooksInput = {
@@ -39143,6 +51076,11 @@ export namespace Prisma {
     tenantConfigs?: TenantConfigUpdateManyWithoutTenantNestedInput
     translations?: TranslationUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutWebhooksInput = {
@@ -39176,6 +51114,11 @@ export namespace Prisma {
     tenantConfigs?: TenantConfigUncheckedUpdateManyWithoutTenantNestedInput
     translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type WebhookCreateWithoutDeliveriesInput = {
@@ -39297,6 +51240,11 @@ export namespace Prisma {
     translations?: TranslationCreateNestedManyWithoutTenantInput
     users?: UserCreateNestedManyWithoutTenantInput
     webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateWithoutFilesInput = {
@@ -39330,6 +51278,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantCreateOrConnectWithoutFilesInput = {
@@ -39362,6 +51315,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     userRoles?: UserRoleCreateNestedManyWithoutUserInput
     tenant: TenantCreateNestedOneWithoutUsersInput
+    assignedDeals?: DealCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserUncheckedCreateWithoutUploadedFilesInput = {
@@ -39389,6 +51343,7 @@ export namespace Prisma {
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     userRoles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    assignedDeals?: DealUncheckedCreateNestedManyWithoutAssigneeInput
   }
 
   export type UserCreateOrConnectWithoutUploadedFilesInput = {
@@ -39438,6 +51393,11 @@ export namespace Prisma {
     translations?: TranslationUpdateManyWithoutTenantNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateWithoutFilesInput = {
@@ -39471,6 +51431,11 @@ export namespace Prisma {
     translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type UserUpsertWithoutUploadedFilesInput = {
@@ -39509,6 +51474,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     userRoles?: UserRoleUpdateManyWithoutUserNestedInput
     tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    assignedDeals?: DealUpdateManyWithoutAssigneeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUploadedFilesInput = {
@@ -39536,6 +51502,2499 @@ export namespace Prisma {
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     userRoles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    assignedDeals?: DealUncheckedUpdateManyWithoutAssigneeNestedInput
+  }
+
+  export type TenantCreateWithoutContactsInput = {
+    id?: string
+    slug: string
+    name: string
+    displayName?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    faviconUrl?: string | null
+    primaryDomain?: string | null
+    status?: $Enums.TenantStatus
+    defaultCurrency?: $Enums.CurrencyCode
+    defaultLocale?: $Enums.LocaleCode
+    supportedCurrencies?: TenantCreatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantCreatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    currencies?: CurrencyCreateNestedManyWithoutTenantInput
+    exchangeRates?: ExchangeRateCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    files?: FileCreateNestedManyWithoutTenantInput
+    notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    tenantConfigs?: TenantConfigCreateNestedManyWithoutTenantInput
+    translations?: TranslationCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutContactsInput = {
+    id?: string
+    slug: string
+    name: string
+    displayName?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    faviconUrl?: string | null
+    primaryDomain?: string | null
+    status?: $Enums.TenantStatus
+    defaultCurrency?: $Enums.CurrencyCode
+    defaultLocale?: $Enums.LocaleCode
+    supportedCurrencies?: TenantCreatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantCreatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    currencies?: CurrencyUncheckedCreateNestedManyWithoutTenantInput
+    exchangeRates?: ExchangeRateUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    files?: FileUncheckedCreateNestedManyWithoutTenantInput
+    notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    tenantConfigs?: TenantConfigUncheckedCreateNestedManyWithoutTenantInput
+    translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutContactsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutContactsInput, TenantUncheckedCreateWithoutContactsInput>
+  }
+
+  export type OrganizationCreateWithoutContactsInput = {
+    id?: string
+    name: string
+    legalName?: string | null
+    website?: string | null
+    industry?: string | null
+    size?: $Enums.OrganizationSize | null
+    revenue?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    logoUrl?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: string | null
+    email?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    tags?: OrganizationCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutOrganizationsInput
+    deals?: DealCreateNestedManyWithoutOrganizationInput
+    activities?: CrmActivityCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutContactsInput = {
+    id?: string
+    name: string
+    legalName?: string | null
+    website?: string | null
+    industry?: string | null
+    size?: $Enums.OrganizationSize | null
+    revenue?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    logoUrl?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: string | null
+    email?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    tags?: OrganizationCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    deals?: DealUncheckedCreateNestedManyWithoutOrganizationInput
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutContactsInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutContactsInput, OrganizationUncheckedCreateWithoutContactsInput>
+  }
+
+  export type DealCreateWithoutContactInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutDealsInput
+    pipeline: PipelineCreateNestedOneWithoutDealsInput
+    stage: PipelineStageCreateNestedOneWithoutDealsInput
+    organization?: OrganizationCreateNestedOneWithoutDealsInput
+    assignee?: UserCreateNestedOneWithoutAssignedDealsInput
+    activities?: CrmActivityCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutContactInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    pipelineId: string
+    stageId: string
+    organizationId?: string | null
+    assignedTo?: string | null
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutContactInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutContactInput, DealUncheckedCreateWithoutContactInput>
+  }
+
+  export type DealCreateManyContactInputEnvelope = {
+    data: DealCreateManyContactInput | DealCreateManyContactInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CrmActivityCreateWithoutContactInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutCrmActivitiesInput
+    deal?: DealCreateNestedOneWithoutActivitiesInput
+    organization?: OrganizationCreateNestedOneWithoutActivitiesInput
+  }
+
+  export type CrmActivityUncheckedCreateWithoutContactInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    dealId?: string | null
+    organizationId?: string | null
+  }
+
+  export type CrmActivityCreateOrConnectWithoutContactInput = {
+    where: CrmActivityWhereUniqueInput
+    create: XOR<CrmActivityCreateWithoutContactInput, CrmActivityUncheckedCreateWithoutContactInput>
+  }
+
+  export type CrmActivityCreateManyContactInputEnvelope = {
+    data: CrmActivityCreateManyContactInput | CrmActivityCreateManyContactInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutContactsInput = {
+    update: XOR<TenantUpdateWithoutContactsInput, TenantUncheckedUpdateWithoutContactsInput>
+    create: XOR<TenantCreateWithoutContactsInput, TenantUncheckedCreateWithoutContactsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutContactsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutContactsInput, TenantUncheckedUpdateWithoutContactsInput>
+  }
+
+  export type TenantUpdateWithoutContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    faviconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryDomain?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    defaultCurrency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    defaultLocale?: EnumLocaleCodeFieldUpdateOperationsInput | $Enums.LocaleCode
+    supportedCurrencies?: TenantUpdatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantUpdatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: StringFieldUpdateOperationsInput | string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    currencies?: CurrencyUpdateManyWithoutTenantNestedInput
+    exchangeRates?: ExchangeRateUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    files?: FileUpdateManyWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    tenantConfigs?: TenantConfigUpdateManyWithoutTenantNestedInput
+    translations?: TranslationUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    faviconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryDomain?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    defaultCurrency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    defaultLocale?: EnumLocaleCodeFieldUpdateOperationsInput | $Enums.LocaleCode
+    supportedCurrencies?: TenantUpdatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantUpdatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: StringFieldUpdateOperationsInput | string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    currencies?: CurrencyUncheckedUpdateManyWithoutTenantNestedInput
+    exchangeRates?: ExchangeRateUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    files?: FileUncheckedUpdateManyWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    tenantConfigs?: TenantConfigUncheckedUpdateManyWithoutTenantNestedInput
+    translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type OrganizationUpsertWithoutContactsInput = {
+    update: XOR<OrganizationUpdateWithoutContactsInput, OrganizationUncheckedUpdateWithoutContactsInput>
+    create: XOR<OrganizationCreateWithoutContactsInput, OrganizationUncheckedCreateWithoutContactsInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutContactsInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutContactsInput, OrganizationUncheckedUpdateWithoutContactsInput>
+  }
+
+  export type OrganizationUpdateWithoutContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    legalName?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableEnumOrganizationSizeFieldUpdateOperationsInput | $Enums.OrganizationSize | null
+    revenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: OrganizationUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutOrganizationsNestedInput
+    deals?: DealUpdateManyWithoutOrganizationNestedInput
+    activities?: CrmActivityUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutContactsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    legalName?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableEnumOrganizationSizeFieldUpdateOperationsInput | $Enums.OrganizationSize | null
+    revenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: OrganizationUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    deals?: DealUncheckedUpdateManyWithoutOrganizationNestedInput
+    activities?: CrmActivityUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type DealUpsertWithWhereUniqueWithoutContactInput = {
+    where: DealWhereUniqueInput
+    update: XOR<DealUpdateWithoutContactInput, DealUncheckedUpdateWithoutContactInput>
+    create: XOR<DealCreateWithoutContactInput, DealUncheckedCreateWithoutContactInput>
+  }
+
+  export type DealUpdateWithWhereUniqueWithoutContactInput = {
+    where: DealWhereUniqueInput
+    data: XOR<DealUpdateWithoutContactInput, DealUncheckedUpdateWithoutContactInput>
+  }
+
+  export type DealUpdateManyWithWhereWithoutContactInput = {
+    where: DealScalarWhereInput
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyWithoutContactInput>
+  }
+
+  export type CrmActivityUpsertWithWhereUniqueWithoutContactInput = {
+    where: CrmActivityWhereUniqueInput
+    update: XOR<CrmActivityUpdateWithoutContactInput, CrmActivityUncheckedUpdateWithoutContactInput>
+    create: XOR<CrmActivityCreateWithoutContactInput, CrmActivityUncheckedCreateWithoutContactInput>
+  }
+
+  export type CrmActivityUpdateWithWhereUniqueWithoutContactInput = {
+    where: CrmActivityWhereUniqueInput
+    data: XOR<CrmActivityUpdateWithoutContactInput, CrmActivityUncheckedUpdateWithoutContactInput>
+  }
+
+  export type CrmActivityUpdateManyWithWhereWithoutContactInput = {
+    where: CrmActivityScalarWhereInput
+    data: XOR<CrmActivityUpdateManyMutationInput, CrmActivityUncheckedUpdateManyWithoutContactInput>
+  }
+
+  export type TenantCreateWithoutOrganizationsInput = {
+    id?: string
+    slug: string
+    name: string
+    displayName?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    faviconUrl?: string | null
+    primaryDomain?: string | null
+    status?: $Enums.TenantStatus
+    defaultCurrency?: $Enums.CurrencyCode
+    defaultLocale?: $Enums.LocaleCode
+    supportedCurrencies?: TenantCreatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantCreatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    currencies?: CurrencyCreateNestedManyWithoutTenantInput
+    exchangeRates?: ExchangeRateCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    files?: FileCreateNestedManyWithoutTenantInput
+    notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    tenantConfigs?: TenantConfigCreateNestedManyWithoutTenantInput
+    translations?: TranslationCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutOrganizationsInput = {
+    id?: string
+    slug: string
+    name: string
+    displayName?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    faviconUrl?: string | null
+    primaryDomain?: string | null
+    status?: $Enums.TenantStatus
+    defaultCurrency?: $Enums.CurrencyCode
+    defaultLocale?: $Enums.LocaleCode
+    supportedCurrencies?: TenantCreatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantCreatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    currencies?: CurrencyUncheckedCreateNestedManyWithoutTenantInput
+    exchangeRates?: ExchangeRateUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    files?: FileUncheckedCreateNestedManyWithoutTenantInput
+    notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    tenantConfigs?: TenantConfigUncheckedCreateNestedManyWithoutTenantInput
+    translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutOrganizationsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutOrganizationsInput, TenantUncheckedCreateWithoutOrganizationsInput>
+  }
+
+  export type ContactCreateWithoutOrganizationInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    jobTitle?: string | null
+    department?: string | null
+    source?: string | null
+    status?: $Enums.ContactStatus
+    leadScore?: number
+    tags?: ContactCreatetagsInput | string[]
+    notes?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutContactsInput
+    deals?: DealCreateNestedManyWithoutContactInput
+    activities?: CrmActivityCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    jobTitle?: string | null
+    department?: string | null
+    source?: string | null
+    status?: $Enums.ContactStatus
+    leadScore?: number
+    tags?: ContactCreatetagsInput | string[]
+    notes?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    deals?: DealUncheckedCreateNestedManyWithoutContactInput
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactCreateOrConnectWithoutOrganizationInput = {
+    where: ContactWhereUniqueInput
+    create: XOR<ContactCreateWithoutOrganizationInput, ContactUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type ContactCreateManyOrganizationInputEnvelope = {
+    data: ContactCreateManyOrganizationInput | ContactCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DealCreateWithoutOrganizationInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutDealsInput
+    pipeline: PipelineCreateNestedOneWithoutDealsInput
+    stage: PipelineStageCreateNestedOneWithoutDealsInput
+    contact?: ContactCreateNestedOneWithoutDealsInput
+    assignee?: UserCreateNestedOneWithoutAssignedDealsInput
+    activities?: CrmActivityCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    pipelineId: string
+    stageId: string
+    contactId?: string | null
+    assignedTo?: string | null
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutOrganizationInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutOrganizationInput, DealUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type DealCreateManyOrganizationInputEnvelope = {
+    data: DealCreateManyOrganizationInput | DealCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CrmActivityCreateWithoutOrganizationInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutCrmActivitiesInput
+    contact?: ContactCreateNestedOneWithoutActivitiesInput
+    deal?: DealCreateNestedOneWithoutActivitiesInput
+  }
+
+  export type CrmActivityUncheckedCreateWithoutOrganizationInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    contactId?: string | null
+    dealId?: string | null
+  }
+
+  export type CrmActivityCreateOrConnectWithoutOrganizationInput = {
+    where: CrmActivityWhereUniqueInput
+    create: XOR<CrmActivityCreateWithoutOrganizationInput, CrmActivityUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type CrmActivityCreateManyOrganizationInputEnvelope = {
+    data: CrmActivityCreateManyOrganizationInput | CrmActivityCreateManyOrganizationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutOrganizationsInput = {
+    update: XOR<TenantUpdateWithoutOrganizationsInput, TenantUncheckedUpdateWithoutOrganizationsInput>
+    create: XOR<TenantCreateWithoutOrganizationsInput, TenantUncheckedCreateWithoutOrganizationsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutOrganizationsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutOrganizationsInput, TenantUncheckedUpdateWithoutOrganizationsInput>
+  }
+
+  export type TenantUpdateWithoutOrganizationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    faviconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryDomain?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    defaultCurrency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    defaultLocale?: EnumLocaleCodeFieldUpdateOperationsInput | $Enums.LocaleCode
+    supportedCurrencies?: TenantUpdatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantUpdatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: StringFieldUpdateOperationsInput | string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    currencies?: CurrencyUpdateManyWithoutTenantNestedInput
+    exchangeRates?: ExchangeRateUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    files?: FileUpdateManyWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    tenantConfigs?: TenantConfigUpdateManyWithoutTenantNestedInput
+    translations?: TranslationUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutOrganizationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    faviconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryDomain?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    defaultCurrency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    defaultLocale?: EnumLocaleCodeFieldUpdateOperationsInput | $Enums.LocaleCode
+    supportedCurrencies?: TenantUpdatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantUpdatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: StringFieldUpdateOperationsInput | string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    currencies?: CurrencyUncheckedUpdateManyWithoutTenantNestedInput
+    exchangeRates?: ExchangeRateUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    files?: FileUncheckedUpdateManyWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    tenantConfigs?: TenantConfigUncheckedUpdateManyWithoutTenantNestedInput
+    translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type ContactUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: ContactWhereUniqueInput
+    update: XOR<ContactUpdateWithoutOrganizationInput, ContactUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<ContactCreateWithoutOrganizationInput, ContactUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type ContactUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: ContactWhereUniqueInput
+    data: XOR<ContactUpdateWithoutOrganizationInput, ContactUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type ContactUpdateManyWithWhereWithoutOrganizationInput = {
+    where: ContactScalarWhereInput
+    data: XOR<ContactUpdateManyMutationInput, ContactUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type DealUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: DealWhereUniqueInput
+    update: XOR<DealUpdateWithoutOrganizationInput, DealUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<DealCreateWithoutOrganizationInput, DealUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type DealUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: DealWhereUniqueInput
+    data: XOR<DealUpdateWithoutOrganizationInput, DealUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type DealUpdateManyWithWhereWithoutOrganizationInput = {
+    where: DealScalarWhereInput
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type CrmActivityUpsertWithWhereUniqueWithoutOrganizationInput = {
+    where: CrmActivityWhereUniqueInput
+    update: XOR<CrmActivityUpdateWithoutOrganizationInput, CrmActivityUncheckedUpdateWithoutOrganizationInput>
+    create: XOR<CrmActivityCreateWithoutOrganizationInput, CrmActivityUncheckedCreateWithoutOrganizationInput>
+  }
+
+  export type CrmActivityUpdateWithWhereUniqueWithoutOrganizationInput = {
+    where: CrmActivityWhereUniqueInput
+    data: XOR<CrmActivityUpdateWithoutOrganizationInput, CrmActivityUncheckedUpdateWithoutOrganizationInput>
+  }
+
+  export type CrmActivityUpdateManyWithWhereWithoutOrganizationInput = {
+    where: CrmActivityScalarWhereInput
+    data: XOR<CrmActivityUpdateManyMutationInput, CrmActivityUncheckedUpdateManyWithoutOrganizationInput>
+  }
+
+  export type TenantCreateWithoutPipelinesInput = {
+    id?: string
+    slug: string
+    name: string
+    displayName?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    faviconUrl?: string | null
+    primaryDomain?: string | null
+    status?: $Enums.TenantStatus
+    defaultCurrency?: $Enums.CurrencyCode
+    defaultLocale?: $Enums.LocaleCode
+    supportedCurrencies?: TenantCreatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantCreatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    currencies?: CurrencyCreateNestedManyWithoutTenantInput
+    exchangeRates?: ExchangeRateCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    files?: FileCreateNestedManyWithoutTenantInput
+    notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    tenantConfigs?: TenantConfigCreateNestedManyWithoutTenantInput
+    translations?: TranslationCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutPipelinesInput = {
+    id?: string
+    slug: string
+    name: string
+    displayName?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    faviconUrl?: string | null
+    primaryDomain?: string | null
+    status?: $Enums.TenantStatus
+    defaultCurrency?: $Enums.CurrencyCode
+    defaultLocale?: $Enums.LocaleCode
+    supportedCurrencies?: TenantCreatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantCreatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    currencies?: CurrencyUncheckedCreateNestedManyWithoutTenantInput
+    exchangeRates?: ExchangeRateUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    files?: FileUncheckedCreateNestedManyWithoutTenantInput
+    notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    tenantConfigs?: TenantConfigUncheckedCreateNestedManyWithoutTenantInput
+    translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutPipelinesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutPipelinesInput, TenantUncheckedCreateWithoutPipelinesInput>
+  }
+
+  export type PipelineStageCreateWithoutPipelineInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deals?: DealCreateNestedManyWithoutStageInput
+  }
+
+  export type PipelineStageUncheckedCreateWithoutPipelineInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deals?: DealUncheckedCreateNestedManyWithoutStageInput
+  }
+
+  export type PipelineStageCreateOrConnectWithoutPipelineInput = {
+    where: PipelineStageWhereUniqueInput
+    create: XOR<PipelineStageCreateWithoutPipelineInput, PipelineStageUncheckedCreateWithoutPipelineInput>
+  }
+
+  export type PipelineStageCreateManyPipelineInputEnvelope = {
+    data: PipelineStageCreateManyPipelineInput | PipelineStageCreateManyPipelineInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DealCreateWithoutPipelineInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutDealsInput
+    stage: PipelineStageCreateNestedOneWithoutDealsInput
+    contact?: ContactCreateNestedOneWithoutDealsInput
+    organization?: OrganizationCreateNestedOneWithoutDealsInput
+    assignee?: UserCreateNestedOneWithoutAssignedDealsInput
+    activities?: CrmActivityCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutPipelineInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    stageId: string
+    contactId?: string | null
+    organizationId?: string | null
+    assignedTo?: string | null
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutPipelineInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutPipelineInput, DealUncheckedCreateWithoutPipelineInput>
+  }
+
+  export type DealCreateManyPipelineInputEnvelope = {
+    data: DealCreateManyPipelineInput | DealCreateManyPipelineInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutPipelinesInput = {
+    update: XOR<TenantUpdateWithoutPipelinesInput, TenantUncheckedUpdateWithoutPipelinesInput>
+    create: XOR<TenantCreateWithoutPipelinesInput, TenantUncheckedCreateWithoutPipelinesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutPipelinesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutPipelinesInput, TenantUncheckedUpdateWithoutPipelinesInput>
+  }
+
+  export type TenantUpdateWithoutPipelinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    faviconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryDomain?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    defaultCurrency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    defaultLocale?: EnumLocaleCodeFieldUpdateOperationsInput | $Enums.LocaleCode
+    supportedCurrencies?: TenantUpdatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantUpdatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: StringFieldUpdateOperationsInput | string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    currencies?: CurrencyUpdateManyWithoutTenantNestedInput
+    exchangeRates?: ExchangeRateUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    files?: FileUpdateManyWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    tenantConfigs?: TenantConfigUpdateManyWithoutTenantNestedInput
+    translations?: TranslationUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutPipelinesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    faviconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryDomain?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    defaultCurrency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    defaultLocale?: EnumLocaleCodeFieldUpdateOperationsInput | $Enums.LocaleCode
+    supportedCurrencies?: TenantUpdatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantUpdatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: StringFieldUpdateOperationsInput | string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    currencies?: CurrencyUncheckedUpdateManyWithoutTenantNestedInput
+    exchangeRates?: ExchangeRateUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    files?: FileUncheckedUpdateManyWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    tenantConfigs?: TenantConfigUncheckedUpdateManyWithoutTenantNestedInput
+    translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type PipelineStageUpsertWithWhereUniqueWithoutPipelineInput = {
+    where: PipelineStageWhereUniqueInput
+    update: XOR<PipelineStageUpdateWithoutPipelineInput, PipelineStageUncheckedUpdateWithoutPipelineInput>
+    create: XOR<PipelineStageCreateWithoutPipelineInput, PipelineStageUncheckedCreateWithoutPipelineInput>
+  }
+
+  export type PipelineStageUpdateWithWhereUniqueWithoutPipelineInput = {
+    where: PipelineStageWhereUniqueInput
+    data: XOR<PipelineStageUpdateWithoutPipelineInput, PipelineStageUncheckedUpdateWithoutPipelineInput>
+  }
+
+  export type PipelineStageUpdateManyWithWhereWithoutPipelineInput = {
+    where: PipelineStageScalarWhereInput
+    data: XOR<PipelineStageUpdateManyMutationInput, PipelineStageUncheckedUpdateManyWithoutPipelineInput>
+  }
+
+  export type PipelineStageScalarWhereInput = {
+    AND?: PipelineStageScalarWhereInput | PipelineStageScalarWhereInput[]
+    OR?: PipelineStageScalarWhereInput[]
+    NOT?: PipelineStageScalarWhereInput | PipelineStageScalarWhereInput[]
+    id?: StringFilter<"PipelineStage"> | string
+    name?: StringFilter<"PipelineStage"> | string
+    order?: IntFilter<"PipelineStage"> | number
+    probability?: IntFilter<"PipelineStage"> | number
+    color?: StringNullableFilter<"PipelineStage"> | string | null
+    createdAt?: DateTimeFilter<"PipelineStage"> | Date | string
+    updatedAt?: DateTimeFilter<"PipelineStage"> | Date | string
+    pipelineId?: StringFilter<"PipelineStage"> | string
+  }
+
+  export type DealUpsertWithWhereUniqueWithoutPipelineInput = {
+    where: DealWhereUniqueInput
+    update: XOR<DealUpdateWithoutPipelineInput, DealUncheckedUpdateWithoutPipelineInput>
+    create: XOR<DealCreateWithoutPipelineInput, DealUncheckedCreateWithoutPipelineInput>
+  }
+
+  export type DealUpdateWithWhereUniqueWithoutPipelineInput = {
+    where: DealWhereUniqueInput
+    data: XOR<DealUpdateWithoutPipelineInput, DealUncheckedUpdateWithoutPipelineInput>
+  }
+
+  export type DealUpdateManyWithWhereWithoutPipelineInput = {
+    where: DealScalarWhereInput
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyWithoutPipelineInput>
+  }
+
+  export type PipelineCreateWithoutPipelineStagesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isDefault?: boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutPipelinesInput
+    deals?: DealCreateNestedManyWithoutPipelineInput
+  }
+
+  export type PipelineUncheckedCreateWithoutPipelineStagesInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isDefault?: boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    deals?: DealUncheckedCreateNestedManyWithoutPipelineInput
+  }
+
+  export type PipelineCreateOrConnectWithoutPipelineStagesInput = {
+    where: PipelineWhereUniqueInput
+    create: XOR<PipelineCreateWithoutPipelineStagesInput, PipelineUncheckedCreateWithoutPipelineStagesInput>
+  }
+
+  export type DealCreateWithoutStageInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutDealsInput
+    pipeline: PipelineCreateNestedOneWithoutDealsInput
+    contact?: ContactCreateNestedOneWithoutDealsInput
+    organization?: OrganizationCreateNestedOneWithoutDealsInput
+    assignee?: UserCreateNestedOneWithoutAssignedDealsInput
+    activities?: CrmActivityCreateNestedManyWithoutDealInput
+  }
+
+  export type DealUncheckedCreateWithoutStageInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    pipelineId: string
+    contactId?: string | null
+    organizationId?: string | null
+    assignedTo?: string | null
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutDealInput
+  }
+
+  export type DealCreateOrConnectWithoutStageInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutStageInput, DealUncheckedCreateWithoutStageInput>
+  }
+
+  export type DealCreateManyStageInputEnvelope = {
+    data: DealCreateManyStageInput | DealCreateManyStageInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type PipelineUpsertWithoutPipelineStagesInput = {
+    update: XOR<PipelineUpdateWithoutPipelineStagesInput, PipelineUncheckedUpdateWithoutPipelineStagesInput>
+    create: XOR<PipelineCreateWithoutPipelineStagesInput, PipelineUncheckedCreateWithoutPipelineStagesInput>
+    where?: PipelineWhereInput
+  }
+
+  export type PipelineUpdateToOneWithWhereWithoutPipelineStagesInput = {
+    where?: PipelineWhereInput
+    data: XOR<PipelineUpdateWithoutPipelineStagesInput, PipelineUncheckedUpdateWithoutPipelineStagesInput>
+  }
+
+  export type PipelineUpdateWithoutPipelineStagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutPipelinesNestedInput
+    deals?: DealUpdateManyWithoutPipelineNestedInput
+  }
+
+  export type PipelineUncheckedUpdateWithoutPipelineStagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    deals?: DealUncheckedUpdateManyWithoutPipelineNestedInput
+  }
+
+  export type DealUpsertWithWhereUniqueWithoutStageInput = {
+    where: DealWhereUniqueInput
+    update: XOR<DealUpdateWithoutStageInput, DealUncheckedUpdateWithoutStageInput>
+    create: XOR<DealCreateWithoutStageInput, DealUncheckedCreateWithoutStageInput>
+  }
+
+  export type DealUpdateWithWhereUniqueWithoutStageInput = {
+    where: DealWhereUniqueInput
+    data: XOR<DealUpdateWithoutStageInput, DealUncheckedUpdateWithoutStageInput>
+  }
+
+  export type DealUpdateManyWithWhereWithoutStageInput = {
+    where: DealScalarWhereInput
+    data: XOR<DealUpdateManyMutationInput, DealUncheckedUpdateManyWithoutStageInput>
+  }
+
+  export type TenantCreateWithoutDealsInput = {
+    id?: string
+    slug: string
+    name: string
+    displayName?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    faviconUrl?: string | null
+    primaryDomain?: string | null
+    status?: $Enums.TenantStatus
+    defaultCurrency?: $Enums.CurrencyCode
+    defaultLocale?: $Enums.LocaleCode
+    supportedCurrencies?: TenantCreatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantCreatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    currencies?: CurrencyCreateNestedManyWithoutTenantInput
+    exchangeRates?: ExchangeRateCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    files?: FileCreateNestedManyWithoutTenantInput
+    notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    tenantConfigs?: TenantConfigCreateNestedManyWithoutTenantInput
+    translations?: TranslationCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutDealsInput = {
+    id?: string
+    slug: string
+    name: string
+    displayName?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    faviconUrl?: string | null
+    primaryDomain?: string | null
+    status?: $Enums.TenantStatus
+    defaultCurrency?: $Enums.CurrencyCode
+    defaultLocale?: $Enums.LocaleCode
+    supportedCurrencies?: TenantCreatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantCreatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    currencies?: CurrencyUncheckedCreateNestedManyWithoutTenantInput
+    exchangeRates?: ExchangeRateUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    files?: FileUncheckedCreateNestedManyWithoutTenantInput
+    notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    tenantConfigs?: TenantConfigUncheckedCreateNestedManyWithoutTenantInput
+    translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    crmActivities?: CrmActivityUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutDealsInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutDealsInput, TenantUncheckedCreateWithoutDealsInput>
+  }
+
+  export type PipelineCreateWithoutDealsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isDefault?: boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutPipelinesInput
+    pipelineStages?: PipelineStageCreateNestedManyWithoutPipelineInput
+  }
+
+  export type PipelineUncheckedCreateWithoutDealsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isDefault?: boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    pipelineStages?: PipelineStageUncheckedCreateNestedManyWithoutPipelineInput
+  }
+
+  export type PipelineCreateOrConnectWithoutDealsInput = {
+    where: PipelineWhereUniqueInput
+    create: XOR<PipelineCreateWithoutDealsInput, PipelineUncheckedCreateWithoutDealsInput>
+  }
+
+  export type PipelineStageCreateWithoutDealsInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    pipeline: PipelineCreateNestedOneWithoutPipelineStagesInput
+  }
+
+  export type PipelineStageUncheckedCreateWithoutDealsInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    pipelineId: string
+  }
+
+  export type PipelineStageCreateOrConnectWithoutDealsInput = {
+    where: PipelineStageWhereUniqueInput
+    create: XOR<PipelineStageCreateWithoutDealsInput, PipelineStageUncheckedCreateWithoutDealsInput>
+  }
+
+  export type ContactCreateWithoutDealsInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    jobTitle?: string | null
+    department?: string | null
+    source?: string | null
+    status?: $Enums.ContactStatus
+    leadScore?: number
+    tags?: ContactCreatetagsInput | string[]
+    notes?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutContactsInput
+    organization?: OrganizationCreateNestedOneWithoutContactsInput
+    activities?: CrmActivityCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactUncheckedCreateWithoutDealsInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    jobTitle?: string | null
+    department?: string | null
+    source?: string | null
+    status?: $Enums.ContactStatus
+    leadScore?: number
+    tags?: ContactCreatetagsInput | string[]
+    notes?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    organizationId?: string | null
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactCreateOrConnectWithoutDealsInput = {
+    where: ContactWhereUniqueInput
+    create: XOR<ContactCreateWithoutDealsInput, ContactUncheckedCreateWithoutDealsInput>
+  }
+
+  export type OrganizationCreateWithoutDealsInput = {
+    id?: string
+    name: string
+    legalName?: string | null
+    website?: string | null
+    industry?: string | null
+    size?: $Enums.OrganizationSize | null
+    revenue?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    logoUrl?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: string | null
+    email?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    tags?: OrganizationCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutOrganizationsInput
+    contacts?: ContactCreateNestedManyWithoutOrganizationInput
+    activities?: CrmActivityCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutDealsInput = {
+    id?: string
+    name: string
+    legalName?: string | null
+    website?: string | null
+    industry?: string | null
+    size?: $Enums.OrganizationSize | null
+    revenue?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    logoUrl?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: string | null
+    email?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    tags?: OrganizationCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    contacts?: ContactUncheckedCreateNestedManyWithoutOrganizationInput
+    activities?: CrmActivityUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutDealsInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutDealsInput, OrganizationUncheckedCreateWithoutDealsInput>
+  }
+
+  export type UserCreateWithoutAssignedDealsInput = {
+    id?: string
+    email: string
+    emailVerified?: boolean
+    phone?: string | null
+    phoneVerified?: boolean
+    passwordHash?: string | null
+    firstName: string
+    lastName: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    locale?: $Enums.LocaleCode
+    timezone?: string
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    apiKeys?: ApiKeyCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    userRoles?: UserRoleCreateNestedManyWithoutUserInput
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    uploadedFiles?: FileCreateNestedManyWithoutUploadedByInput
+  }
+
+  export type UserUncheckedCreateWithoutAssignedDealsInput = {
+    id?: string
+    email: string
+    emailVerified?: boolean
+    phone?: string | null
+    phoneVerified?: boolean
+    passwordHash?: string | null
+    firstName: string
+    lastName: string
+    displayName?: string | null
+    avatarUrl?: string | null
+    locale?: $Enums.LocaleCode
+    timezone?: string
+    status?: $Enums.UserStatus
+    lastLoginAt?: Date | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    apiKeys?: ApiKeyUncheckedCreateNestedManyWithoutUserInput
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    userRoles?: UserRoleUncheckedCreateNestedManyWithoutUserInput
+    uploadedFiles?: FileUncheckedCreateNestedManyWithoutUploadedByInput
+  }
+
+  export type UserCreateOrConnectWithoutAssignedDealsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAssignedDealsInput, UserUncheckedCreateWithoutAssignedDealsInput>
+  }
+
+  export type CrmActivityCreateWithoutDealInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutCrmActivitiesInput
+    contact?: ContactCreateNestedOneWithoutActivitiesInput
+    organization?: OrganizationCreateNestedOneWithoutActivitiesInput
+  }
+
+  export type CrmActivityUncheckedCreateWithoutDealInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    contactId?: string | null
+    organizationId?: string | null
+  }
+
+  export type CrmActivityCreateOrConnectWithoutDealInput = {
+    where: CrmActivityWhereUniqueInput
+    create: XOR<CrmActivityCreateWithoutDealInput, CrmActivityUncheckedCreateWithoutDealInput>
+  }
+
+  export type CrmActivityCreateManyDealInputEnvelope = {
+    data: CrmActivityCreateManyDealInput | CrmActivityCreateManyDealInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithoutDealsInput = {
+    update: XOR<TenantUpdateWithoutDealsInput, TenantUncheckedUpdateWithoutDealsInput>
+    create: XOR<TenantCreateWithoutDealsInput, TenantUncheckedCreateWithoutDealsInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutDealsInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutDealsInput, TenantUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type TenantUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    faviconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryDomain?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    defaultCurrency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    defaultLocale?: EnumLocaleCodeFieldUpdateOperationsInput | $Enums.LocaleCode
+    supportedCurrencies?: TenantUpdatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantUpdatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: StringFieldUpdateOperationsInput | string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    currencies?: CurrencyUpdateManyWithoutTenantNestedInput
+    exchangeRates?: ExchangeRateUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    files?: FileUpdateManyWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    tenantConfigs?: TenantConfigUpdateManyWithoutTenantNestedInput
+    translations?: TranslationUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    faviconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryDomain?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    defaultCurrency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    defaultLocale?: EnumLocaleCodeFieldUpdateOperationsInput | $Enums.LocaleCode
+    supportedCurrencies?: TenantUpdatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantUpdatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: StringFieldUpdateOperationsInput | string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    currencies?: CurrencyUncheckedUpdateManyWithoutTenantNestedInput
+    exchangeRates?: ExchangeRateUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    files?: FileUncheckedUpdateManyWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    tenantConfigs?: TenantConfigUncheckedUpdateManyWithoutTenantNestedInput
+    translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    crmActivities?: CrmActivityUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type PipelineUpsertWithoutDealsInput = {
+    update: XOR<PipelineUpdateWithoutDealsInput, PipelineUncheckedUpdateWithoutDealsInput>
+    create: XOR<PipelineCreateWithoutDealsInput, PipelineUncheckedCreateWithoutDealsInput>
+    where?: PipelineWhereInput
+  }
+
+  export type PipelineUpdateToOneWithWhereWithoutDealsInput = {
+    where?: PipelineWhereInput
+    data: XOR<PipelineUpdateWithoutDealsInput, PipelineUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type PipelineUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutPipelinesNestedInput
+    pipelineStages?: PipelineStageUpdateManyWithoutPipelineNestedInput
+  }
+
+  export type PipelineUncheckedUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    pipelineStages?: PipelineStageUncheckedUpdateManyWithoutPipelineNestedInput
+  }
+
+  export type PipelineStageUpsertWithoutDealsInput = {
+    update: XOR<PipelineStageUpdateWithoutDealsInput, PipelineStageUncheckedUpdateWithoutDealsInput>
+    create: XOR<PipelineStageCreateWithoutDealsInput, PipelineStageUncheckedCreateWithoutDealsInput>
+    where?: PipelineStageWhereInput
+  }
+
+  export type PipelineStageUpdateToOneWithWhereWithoutDealsInput = {
+    where?: PipelineStageWhereInput
+    data: XOR<PipelineStageUpdateWithoutDealsInput, PipelineStageUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type PipelineStageUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pipeline?: PipelineUpdateOneRequiredWithoutPipelineStagesNestedInput
+  }
+
+  export type PipelineStageUncheckedUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pipelineId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ContactUpsertWithoutDealsInput = {
+    update: XOR<ContactUpdateWithoutDealsInput, ContactUncheckedUpdateWithoutDealsInput>
+    create: XOR<ContactCreateWithoutDealsInput, ContactUncheckedCreateWithoutDealsInput>
+    where?: ContactWhereInput
+  }
+
+  export type ContactUpdateToOneWithWhereWithoutDealsInput = {
+    where?: ContactWhereInput
+    data: XOR<ContactUpdateWithoutDealsInput, ContactUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type ContactUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    leadScore?: IntFieldUpdateOperationsInput | number
+    tags?: ContactUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutContactsNestedInput
+    organization?: OrganizationUpdateOneWithoutContactsNestedInput
+    activities?: CrmActivityUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactUncheckedUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    leadScore?: IntFieldUpdateOperationsInput | number
+    tags?: ContactUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    activities?: CrmActivityUncheckedUpdateManyWithoutContactNestedInput
+  }
+
+  export type OrganizationUpsertWithoutDealsInput = {
+    update: XOR<OrganizationUpdateWithoutDealsInput, OrganizationUncheckedUpdateWithoutDealsInput>
+    create: XOR<OrganizationCreateWithoutDealsInput, OrganizationUncheckedCreateWithoutDealsInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutDealsInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutDealsInput, OrganizationUncheckedUpdateWithoutDealsInput>
+  }
+
+  export type OrganizationUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    legalName?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableEnumOrganizationSizeFieldUpdateOperationsInput | $Enums.OrganizationSize | null
+    revenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: OrganizationUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutOrganizationsNestedInput
+    contacts?: ContactUpdateManyWithoutOrganizationNestedInput
+    activities?: CrmActivityUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    legalName?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableEnumOrganizationSizeFieldUpdateOperationsInput | $Enums.OrganizationSize | null
+    revenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: OrganizationUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    contacts?: ContactUncheckedUpdateManyWithoutOrganizationNestedInput
+    activities?: CrmActivityUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type UserUpsertWithoutAssignedDealsInput = {
+    update: XOR<UserUpdateWithoutAssignedDealsInput, UserUncheckedUpdateWithoutAssignedDealsInput>
+    create: XOR<UserCreateWithoutAssignedDealsInput, UserUncheckedCreateWithoutAssignedDealsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAssignedDealsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAssignedDealsInput, UserUncheckedUpdateWithoutAssignedDealsInput>
+  }
+
+  export type UserUpdateWithoutAssignedDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    locale?: EnumLocaleCodeFieldUpdateOperationsInput | $Enums.LocaleCode
+    timezone?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    apiKeys?: ApiKeyUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    userRoles?: UserRoleUpdateManyWithoutUserNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    uploadedFiles?: FileUpdateManyWithoutUploadedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAssignedDealsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneVerified?: BoolFieldUpdateOperationsInput | boolean
+    passwordHash?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    locale?: EnumLocaleCodeFieldUpdateOperationsInput | $Enums.LocaleCode
+    timezone?: StringFieldUpdateOperationsInput | string
+    status?: EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    apiKeys?: ApiKeyUncheckedUpdateManyWithoutUserNestedInput
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    userRoles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
+    uploadedFiles?: FileUncheckedUpdateManyWithoutUploadedByNestedInput
+  }
+
+  export type CrmActivityUpsertWithWhereUniqueWithoutDealInput = {
+    where: CrmActivityWhereUniqueInput
+    update: XOR<CrmActivityUpdateWithoutDealInput, CrmActivityUncheckedUpdateWithoutDealInput>
+    create: XOR<CrmActivityCreateWithoutDealInput, CrmActivityUncheckedCreateWithoutDealInput>
+  }
+
+  export type CrmActivityUpdateWithWhereUniqueWithoutDealInput = {
+    where: CrmActivityWhereUniqueInput
+    data: XOR<CrmActivityUpdateWithoutDealInput, CrmActivityUncheckedUpdateWithoutDealInput>
+  }
+
+  export type CrmActivityUpdateManyWithWhereWithoutDealInput = {
+    where: CrmActivityScalarWhereInput
+    data: XOR<CrmActivityUpdateManyMutationInput, CrmActivityUncheckedUpdateManyWithoutDealInput>
+  }
+
+  export type TenantCreateWithoutCrmActivitiesInput = {
+    id?: string
+    slug: string
+    name: string
+    displayName?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    faviconUrl?: string | null
+    primaryDomain?: string | null
+    status?: $Enums.TenantStatus
+    defaultCurrency?: $Enums.CurrencyCode
+    defaultLocale?: $Enums.LocaleCode
+    supportedCurrencies?: TenantCreatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantCreatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    auditLogs?: AuditLogCreateNestedManyWithoutTenantInput
+    currencies?: CurrencyCreateNestedManyWithoutTenantInput
+    exchangeRates?: ExchangeRateCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagCreateNestedManyWithoutTenantInput
+    files?: FileCreateNestedManyWithoutTenantInput
+    notificationTemplates?: NotificationTemplateCreateNestedManyWithoutTenantInput
+    notifications?: NotificationCreateNestedManyWithoutTenantInput
+    roles?: RoleCreateNestedManyWithoutTenantInput
+    tenantConfigs?: TenantConfigCreateNestedManyWithoutTenantInput
+    translations?: TranslationCreateNestedManyWithoutTenantInput
+    users?: UserCreateNestedManyWithoutTenantInput
+    webhooks?: WebhookCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineCreateNestedManyWithoutTenantInput
+    deals?: DealCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutCrmActivitiesInput = {
+    id?: string
+    slug: string
+    name: string
+    displayName?: string | null
+    description?: string | null
+    logoUrl?: string | null
+    faviconUrl?: string | null
+    primaryDomain?: string | null
+    status?: $Enums.TenantStatus
+    defaultCurrency?: $Enums.CurrencyCode
+    defaultLocale?: $Enums.LocaleCode
+    supportedCurrencies?: TenantCreatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantCreatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    auditLogs?: AuditLogUncheckedCreateNestedManyWithoutTenantInput
+    currencies?: CurrencyUncheckedCreateNestedManyWithoutTenantInput
+    exchangeRates?: ExchangeRateUncheckedCreateNestedManyWithoutTenantInput
+    featureFlags?: FeatureFlagUncheckedCreateNestedManyWithoutTenantInput
+    files?: FileUncheckedCreateNestedManyWithoutTenantInput
+    notificationTemplates?: NotificationTemplateUncheckedCreateNestedManyWithoutTenantInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutTenantInput
+    roles?: RoleUncheckedCreateNestedManyWithoutTenantInput
+    tenantConfigs?: TenantConfigUncheckedCreateNestedManyWithoutTenantInput
+    translations?: TranslationUncheckedCreateNestedManyWithoutTenantInput
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    webhooks?: WebhookUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    organizations?: OrganizationUncheckedCreateNestedManyWithoutTenantInput
+    pipelines?: PipelineUncheckedCreateNestedManyWithoutTenantInput
+    deals?: DealUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutCrmActivitiesInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutCrmActivitiesInput, TenantUncheckedCreateWithoutCrmActivitiesInput>
+  }
+
+  export type ContactCreateWithoutActivitiesInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    jobTitle?: string | null
+    department?: string | null
+    source?: string | null
+    status?: $Enums.ContactStatus
+    leadScore?: number
+    tags?: ContactCreatetagsInput | string[]
+    notes?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutContactsInput
+    organization?: OrganizationCreateNestedOneWithoutContactsInput
+    deals?: DealCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactUncheckedCreateWithoutActivitiesInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    jobTitle?: string | null
+    department?: string | null
+    source?: string | null
+    status?: $Enums.ContactStatus
+    leadScore?: number
+    tags?: ContactCreatetagsInput | string[]
+    notes?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    organizationId?: string | null
+    deals?: DealUncheckedCreateNestedManyWithoutContactInput
+  }
+
+  export type ContactCreateOrConnectWithoutActivitiesInput = {
+    where: ContactWhereUniqueInput
+    create: XOR<ContactCreateWithoutActivitiesInput, ContactUncheckedCreateWithoutActivitiesInput>
+  }
+
+  export type DealCreateWithoutActivitiesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutDealsInput
+    pipeline: PipelineCreateNestedOneWithoutDealsInput
+    stage: PipelineStageCreateNestedOneWithoutDealsInput
+    contact?: ContactCreateNestedOneWithoutDealsInput
+    organization?: OrganizationCreateNestedOneWithoutDealsInput
+    assignee?: UserCreateNestedOneWithoutAssignedDealsInput
+  }
+
+  export type DealUncheckedCreateWithoutActivitiesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    pipelineId: string
+    stageId: string
+    contactId?: string | null
+    organizationId?: string | null
+    assignedTo?: string | null
+  }
+
+  export type DealCreateOrConnectWithoutActivitiesInput = {
+    where: DealWhereUniqueInput
+    create: XOR<DealCreateWithoutActivitiesInput, DealUncheckedCreateWithoutActivitiesInput>
+  }
+
+  export type OrganizationCreateWithoutActivitiesInput = {
+    id?: string
+    name: string
+    legalName?: string | null
+    website?: string | null
+    industry?: string | null
+    size?: $Enums.OrganizationSize | null
+    revenue?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    logoUrl?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: string | null
+    email?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    tags?: OrganizationCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenant: TenantCreateNestedOneWithoutOrganizationsInput
+    contacts?: ContactCreateNestedManyWithoutOrganizationInput
+    deals?: DealCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationUncheckedCreateWithoutActivitiesInput = {
+    id?: string
+    name: string
+    legalName?: string | null
+    website?: string | null
+    industry?: string | null
+    size?: $Enums.OrganizationSize | null
+    revenue?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    logoUrl?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: string | null
+    email?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    tags?: OrganizationCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    contacts?: ContactUncheckedCreateNestedManyWithoutOrganizationInput
+    deals?: DealUncheckedCreateNestedManyWithoutOrganizationInput
+  }
+
+  export type OrganizationCreateOrConnectWithoutActivitiesInput = {
+    where: OrganizationWhereUniqueInput
+    create: XOR<OrganizationCreateWithoutActivitiesInput, OrganizationUncheckedCreateWithoutActivitiesInput>
+  }
+
+  export type TenantUpsertWithoutCrmActivitiesInput = {
+    update: XOR<TenantUpdateWithoutCrmActivitiesInput, TenantUncheckedUpdateWithoutCrmActivitiesInput>
+    create: XOR<TenantCreateWithoutCrmActivitiesInput, TenantUncheckedCreateWithoutCrmActivitiesInput>
+    where?: TenantWhereInput
+  }
+
+  export type TenantUpdateToOneWithWhereWithoutCrmActivitiesInput = {
+    where?: TenantWhereInput
+    data: XOR<TenantUpdateWithoutCrmActivitiesInput, TenantUncheckedUpdateWithoutCrmActivitiesInput>
+  }
+
+  export type TenantUpdateWithoutCrmActivitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    faviconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryDomain?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    defaultCurrency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    defaultLocale?: EnumLocaleCodeFieldUpdateOperationsInput | $Enums.LocaleCode
+    supportedCurrencies?: TenantUpdatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantUpdatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: StringFieldUpdateOperationsInput | string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auditLogs?: AuditLogUpdateManyWithoutTenantNestedInput
+    currencies?: CurrencyUpdateManyWithoutTenantNestedInput
+    exchangeRates?: ExchangeRateUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUpdateManyWithoutTenantNestedInput
+    files?: FileUpdateManyWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUpdateManyWithoutTenantNestedInput
+    roles?: RoleUpdateManyWithoutTenantNestedInput
+    tenantConfigs?: TenantConfigUpdateManyWithoutTenantNestedInput
+    translations?: TranslationUpdateManyWithoutTenantNestedInput
+    users?: UserUpdateManyWithoutTenantNestedInput
+    webhooks?: WebhookUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUpdateManyWithoutTenantNestedInput
+    deals?: DealUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutCrmActivitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    displayName?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    faviconUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    primaryDomain?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumTenantStatusFieldUpdateOperationsInput | $Enums.TenantStatus
+    defaultCurrency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    defaultLocale?: EnumLocaleCodeFieldUpdateOperationsInput | $Enums.LocaleCode
+    supportedCurrencies?: TenantUpdatesupportedCurrenciesInput | $Enums.CurrencyCode[]
+    supportedLocales?: TenantUpdatesupportedLocalesInput | $Enums.LocaleCode[]
+    timezone?: StringFieldUpdateOperationsInput | string
+    settings?: JsonNullValueInput | InputJsonValue
+    metadata?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    auditLogs?: AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+    currencies?: CurrencyUncheckedUpdateManyWithoutTenantNestedInput
+    exchangeRates?: ExchangeRateUncheckedUpdateManyWithoutTenantNestedInput
+    featureFlags?: FeatureFlagUncheckedUpdateManyWithoutTenantNestedInput
+    files?: FileUncheckedUpdateManyWithoutTenantNestedInput
+    notificationTemplates?: NotificationTemplateUncheckedUpdateManyWithoutTenantNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutTenantNestedInput
+    roles?: RoleUncheckedUpdateManyWithoutTenantNestedInput
+    tenantConfigs?: TenantConfigUncheckedUpdateManyWithoutTenantNestedInput
+    translations?: TranslationUncheckedUpdateManyWithoutTenantNestedInput
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    webhooks?: WebhookUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    organizations?: OrganizationUncheckedUpdateManyWithoutTenantNestedInput
+    pipelines?: PipelineUncheckedUpdateManyWithoutTenantNestedInput
+    deals?: DealUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type ContactUpsertWithoutActivitiesInput = {
+    update: XOR<ContactUpdateWithoutActivitiesInput, ContactUncheckedUpdateWithoutActivitiesInput>
+    create: XOR<ContactCreateWithoutActivitiesInput, ContactUncheckedCreateWithoutActivitiesInput>
+    where?: ContactWhereInput
+  }
+
+  export type ContactUpdateToOneWithWhereWithoutActivitiesInput = {
+    where?: ContactWhereInput
+    data: XOR<ContactUpdateWithoutActivitiesInput, ContactUncheckedUpdateWithoutActivitiesInput>
+  }
+
+  export type ContactUpdateWithoutActivitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    leadScore?: IntFieldUpdateOperationsInput | number
+    tags?: ContactUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutContactsNestedInput
+    organization?: OrganizationUpdateOneWithoutContactsNestedInput
+    deals?: DealUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactUncheckedUpdateWithoutActivitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    leadScore?: IntFieldUpdateOperationsInput | number
+    tags?: ContactUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    deals?: DealUncheckedUpdateManyWithoutContactNestedInput
+  }
+
+  export type DealUpsertWithoutActivitiesInput = {
+    update: XOR<DealUpdateWithoutActivitiesInput, DealUncheckedUpdateWithoutActivitiesInput>
+    create: XOR<DealCreateWithoutActivitiesInput, DealUncheckedCreateWithoutActivitiesInput>
+    where?: DealWhereInput
+  }
+
+  export type DealUpdateToOneWithWhereWithoutActivitiesInput = {
+    where?: DealWhereInput
+    data: XOR<DealUpdateWithoutActivitiesInput, DealUncheckedUpdateWithoutActivitiesInput>
+  }
+
+  export type DealUpdateWithoutActivitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutDealsNestedInput
+    pipeline?: PipelineUpdateOneRequiredWithoutDealsNestedInput
+    stage?: PipelineStageUpdateOneRequiredWithoutDealsNestedInput
+    contact?: ContactUpdateOneWithoutDealsNestedInput
+    organization?: OrganizationUpdateOneWithoutDealsNestedInput
+    assignee?: UserUpdateOneWithoutAssignedDealsNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutActivitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type OrganizationUpsertWithoutActivitiesInput = {
+    update: XOR<OrganizationUpdateWithoutActivitiesInput, OrganizationUncheckedUpdateWithoutActivitiesInput>
+    create: XOR<OrganizationCreateWithoutActivitiesInput, OrganizationUncheckedCreateWithoutActivitiesInput>
+    where?: OrganizationWhereInput
+  }
+
+  export type OrganizationUpdateToOneWithWhereWithoutActivitiesInput = {
+    where?: OrganizationWhereInput
+    data: XOR<OrganizationUpdateWithoutActivitiesInput, OrganizationUncheckedUpdateWithoutActivitiesInput>
+  }
+
+  export type OrganizationUpdateWithoutActivitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    legalName?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableEnumOrganizationSizeFieldUpdateOperationsInput | $Enums.OrganizationSize | null
+    revenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: OrganizationUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutOrganizationsNestedInput
+    contacts?: ContactUpdateManyWithoutOrganizationNestedInput
+    deals?: DealUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutActivitiesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    legalName?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableEnumOrganizationSizeFieldUpdateOperationsInput | $Enums.OrganizationSize | null
+    revenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: OrganizationUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    contacts?: ContactUncheckedUpdateManyWithoutOrganizationNestedInput
+    deals?: DealUncheckedUpdateManyWithoutOrganizationNestedInput
   }
 
   export type AuditLogCreateManyTenantInput = {
@@ -39727,6 +54186,105 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     deletedAt?: Date | string | null
+  }
+
+  export type ContactCreateManyTenantInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    jobTitle?: string | null
+    department?: string | null
+    source?: string | null
+    status?: $Enums.ContactStatus
+    leadScore?: number
+    tags?: ContactCreatetagsInput | string[]
+    notes?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    organizationId?: string | null
+  }
+
+  export type OrganizationCreateManyTenantInput = {
+    id?: string
+    name: string
+    legalName?: string | null
+    website?: string | null
+    industry?: string | null
+    size?: $Enums.OrganizationSize | null
+    revenue?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    logoUrl?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: string | null
+    email?: string | null
+    gstNumber?: string | null
+    panNumber?: string | null
+    tags?: OrganizationCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+  }
+
+  export type PipelineCreateManyTenantInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isDefault?: boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+  }
+
+  export type DealCreateManyTenantInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    pipelineId: string
+    stageId: string
+    contactId?: string | null
+    organizationId?: string | null
+    assignedTo?: string | null
+  }
+
+  export type CrmActivityCreateManyTenantInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    contactId?: string | null
+    dealId?: string | null
+    organizationId?: string | null
   }
 
   export type AuditLogUpdateWithoutTenantInput = {
@@ -40223,6 +54781,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     userRoles?: UserRoleUpdateManyWithoutUserNestedInput
     uploadedFiles?: FileUpdateManyWithoutUploadedByNestedInput
+    assignedDeals?: DealUpdateManyWithoutAssigneeNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTenantInput = {
@@ -40250,6 +54809,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     userRoles?: UserRoleUncheckedUpdateManyWithoutUserNestedInput
     uploadedFiles?: FileUncheckedUpdateManyWithoutUploadedByNestedInput
+    assignedDeals?: DealUncheckedUpdateManyWithoutAssigneeNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutTenantInput = {
@@ -40324,6 +54884,319 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ContactUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    leadScore?: IntFieldUpdateOperationsInput | number
+    tags?: ContactUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    organization?: OrganizationUpdateOneWithoutContactsNestedInput
+    deals?: DealUpdateManyWithoutContactNestedInput
+    activities?: CrmActivityUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    leadScore?: IntFieldUpdateOperationsInput | number
+    tags?: ContactUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    deals?: DealUncheckedUpdateManyWithoutContactNestedInput
+    activities?: CrmActivityUncheckedUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    leadScore?: IntFieldUpdateOperationsInput | number
+    tags?: ContactUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type OrganizationUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    legalName?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableEnumOrganizationSizeFieldUpdateOperationsInput | $Enums.OrganizationSize | null
+    revenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: OrganizationUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contacts?: ContactUpdateManyWithoutOrganizationNestedInput
+    deals?: DealUpdateManyWithoutOrganizationNestedInput
+    activities?: CrmActivityUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    legalName?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableEnumOrganizationSizeFieldUpdateOperationsInput | $Enums.OrganizationSize | null
+    revenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: OrganizationUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contacts?: ContactUncheckedUpdateManyWithoutOrganizationNestedInput
+    deals?: DealUncheckedUpdateManyWithoutOrganizationNestedInput
+    activities?: CrmActivityUncheckedUpdateManyWithoutOrganizationNestedInput
+  }
+
+  export type OrganizationUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    legalName?: NullableStringFieldUpdateOperationsInput | string | null
+    website?: NullableStringFieldUpdateOperationsInput | string | null
+    industry?: NullableStringFieldUpdateOperationsInput | string | null
+    size?: NullableEnumOrganizationSizeFieldUpdateOperationsInput | $Enums.OrganizationSize | null
+    revenue?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    gstNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    panNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: OrganizationUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type PipelineUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pipelineStages?: PipelineStageUpdateManyWithoutPipelineNestedInput
+    deals?: DealUpdateManyWithoutPipelineNestedInput
+  }
+
+  export type PipelineUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pipelineStages?: PipelineStageUncheckedUpdateManyWithoutPipelineNestedInput
+    deals?: DealUncheckedUpdateManyWithoutPipelineNestedInput
+  }
+
+  export type PipelineUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isDefault?: BoolFieldUpdateOperationsInput | boolean
+    stages?: JsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type DealUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pipeline?: PipelineUpdateOneRequiredWithoutDealsNestedInput
+    stage?: PipelineStageUpdateOneRequiredWithoutDealsNestedInput
+    contact?: ContactUpdateOneWithoutDealsNestedInput
+    organization?: OrganizationUpdateOneWithoutDealsNestedInput
+    assignee?: UserUpdateOneWithoutAssignedDealsNestedInput
+    activities?: CrmActivityUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    activities?: CrmActivityUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CrmActivityUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contact?: ContactUpdateOneWithoutActivitiesNestedInput
+    deal?: DealUpdateOneWithoutActivitiesNestedInput
+    organization?: OrganizationUpdateOneWithoutActivitiesNestedInput
+  }
+
+  export type CrmActivityUncheckedUpdateWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CrmActivityUncheckedUpdateManyWithoutTenantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ApiKeyCreateManyUserInput = {
@@ -40412,6 +55285,28 @@ export namespace Prisma {
     updatedAt?: Date | string
     deletedAt?: Date | string | null
     tenantId: string
+  }
+
+  export type DealCreateManyAssigneeInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    pipelineId: string
+    stageId: string
+    contactId?: string | null
+    organizationId?: string | null
   }
 
   export type ApiKeyUpdateWithoutUserInput = {
@@ -40676,6 +55571,74 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DealUpdateWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutDealsNestedInput
+    pipeline?: PipelineUpdateOneRequiredWithoutDealsNestedInput
+    stage?: PipelineStageUpdateOneRequiredWithoutDealsNestedInput
+    contact?: ContactUpdateOneWithoutDealsNestedInput
+    organization?: OrganizationUpdateOneWithoutDealsNestedInput
+    activities?: CrmActivityUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    activities?: CrmActivityUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateManyWithoutAssigneeInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type RolePermissionCreateManyRoleInput = {
@@ -41058,6 +56021,728 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DealCreateManyContactInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    pipelineId: string
+    stageId: string
+    organizationId?: string | null
+    assignedTo?: string | null
+  }
+
+  export type CrmActivityCreateManyContactInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    dealId?: string | null
+    organizationId?: string | null
+  }
+
+  export type DealUpdateWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutDealsNestedInput
+    pipeline?: PipelineUpdateOneRequiredWithoutDealsNestedInput
+    stage?: PipelineStageUpdateOneRequiredWithoutDealsNestedInput
+    organization?: OrganizationUpdateOneWithoutDealsNestedInput
+    assignee?: UserUpdateOneWithoutAssignedDealsNestedInput
+    activities?: CrmActivityUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    activities?: CrmActivityUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateManyWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CrmActivityUpdateWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutCrmActivitiesNestedInput
+    deal?: DealUpdateOneWithoutActivitiesNestedInput
+    organization?: OrganizationUpdateOneWithoutActivitiesNestedInput
+  }
+
+  export type CrmActivityUncheckedUpdateWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CrmActivityUncheckedUpdateManyWithoutContactInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ContactCreateManyOrganizationInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    email?: string | null
+    phone?: string | null
+    mobile?: string | null
+    whatsapp?: string | null
+    jobTitle?: string | null
+    department?: string | null
+    source?: string | null
+    status?: $Enums.ContactStatus
+    leadScore?: number
+    tags?: ContactCreatetagsInput | string[]
+    notes?: string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+  }
+
+  export type DealCreateManyOrganizationInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    pipelineId: string
+    stageId: string
+    contactId?: string | null
+    assignedTo?: string | null
+  }
+
+  export type CrmActivityCreateManyOrganizationInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    contactId?: string | null
+    dealId?: string | null
+  }
+
+  export type ContactUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    leadScore?: IntFieldUpdateOperationsInput | number
+    tags?: ContactUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutContactsNestedInput
+    deals?: DealUpdateManyWithoutContactNestedInput
+    activities?: CrmActivityUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    leadScore?: IntFieldUpdateOperationsInput | number
+    tags?: ContactUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    deals?: DealUncheckedUpdateManyWithoutContactNestedInput
+    activities?: CrmActivityUncheckedUpdateManyWithoutContactNestedInput
+  }
+
+  export type ContactUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    mobile?: NullableStringFieldUpdateOperationsInput | string | null
+    whatsapp?: NullableStringFieldUpdateOperationsInput | string | null
+    jobTitle?: NullableStringFieldUpdateOperationsInput | string | null
+    department?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumContactStatusFieldUpdateOperationsInput | $Enums.ContactStatus
+    leadScore?: IntFieldUpdateOperationsInput | number
+    tags?: ContactUpdatetagsInput | string[]
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableJsonNullValueInput | InputJsonValue
+    socialLinks?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    lastContactedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type DealUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutDealsNestedInput
+    pipeline?: PipelineUpdateOneRequiredWithoutDealsNestedInput
+    stage?: PipelineStageUpdateOneRequiredWithoutDealsNestedInput
+    contact?: ContactUpdateOneWithoutDealsNestedInput
+    assignee?: UserUpdateOneWithoutAssignedDealsNestedInput
+    activities?: CrmActivityUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    activities?: CrmActivityUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CrmActivityUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutCrmActivitiesNestedInput
+    contact?: ContactUpdateOneWithoutActivitiesNestedInput
+    deal?: DealUpdateOneWithoutActivitiesNestedInput
+  }
+
+  export type CrmActivityUncheckedUpdateWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CrmActivityUncheckedUpdateManyWithoutOrganizationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    dealId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type PipelineStageCreateManyPipelineInput = {
+    id?: string
+    name: string
+    order: number
+    probability?: number
+    color?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DealCreateManyPipelineInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    stageId: string
+    contactId?: string | null
+    organizationId?: string | null
+    assignedTo?: string | null
+  }
+
+  export type PipelineStageUpdateWithoutPipelineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deals?: DealUpdateManyWithoutStageNestedInput
+  }
+
+  export type PipelineStageUncheckedUpdateWithoutPipelineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deals?: DealUncheckedUpdateManyWithoutStageNestedInput
+  }
+
+  export type PipelineStageUncheckedUpdateManyWithoutPipelineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    order?: IntFieldUpdateOperationsInput | number
+    probability?: IntFieldUpdateOperationsInput | number
+    color?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DealUpdateWithoutPipelineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutDealsNestedInput
+    stage?: PipelineStageUpdateOneRequiredWithoutDealsNestedInput
+    contact?: ContactUpdateOneWithoutDealsNestedInput
+    organization?: OrganizationUpdateOneWithoutDealsNestedInput
+    assignee?: UserUpdateOneWithoutAssignedDealsNestedInput
+    activities?: CrmActivityUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutPipelineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    activities?: CrmActivityUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateManyWithoutPipelineInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    stageId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DealCreateManyStageInput = {
+    id?: string
+    title: string
+    description?: string | null
+    value: Decimal | DecimalJsLike | number | string
+    currency?: $Enums.CurrencyCode
+    expectedCloseDate?: Date | string | null
+    actualCloseDate?: Date | string | null
+    probability?: number
+    source?: string | null
+    tags?: DealCreatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    pipelineId: string
+    contactId?: string | null
+    organizationId?: string | null
+    assignedTo?: string | null
+  }
+
+  export type DealUpdateWithoutStageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutDealsNestedInput
+    pipeline?: PipelineUpdateOneRequiredWithoutDealsNestedInput
+    contact?: ContactUpdateOneWithoutDealsNestedInput
+    organization?: OrganizationUpdateOneWithoutDealsNestedInput
+    assignee?: UserUpdateOneWithoutAssignedDealsNestedInput
+    activities?: CrmActivityUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateWithoutStageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    activities?: CrmActivityUncheckedUpdateManyWithoutDealNestedInput
+  }
+
+  export type DealUncheckedUpdateManyWithoutStageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    value?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    currency?: EnumCurrencyCodeFieldUpdateOperationsInput | $Enums.CurrencyCode
+    expectedCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    actualCloseDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    probability?: IntFieldUpdateOperationsInput | number
+    source?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: DealUpdatetagsInput | string[]
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    pipelineId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CrmActivityCreateManyDealInput = {
+    id?: string
+    type: $Enums.CrmActivityType
+    subject: string
+    description?: string | null
+    dueDate?: Date | string | null
+    completedAt?: Date | string | null
+    duration?: number | null
+    outcome?: string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    deletedAt?: Date | string | null
+    tenantId: string
+    contactId?: string | null
+    organizationId?: string | null
+  }
+
+  export type CrmActivityUpdateWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenant?: TenantUpdateOneRequiredWithoutCrmActivitiesNestedInput
+    contact?: ContactUpdateOneWithoutActivitiesNestedInput
+    organization?: OrganizationUpdateOneWithoutActivitiesNestedInput
+  }
+
+  export type CrmActivityUncheckedUpdateWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type CrmActivityUncheckedUpdateManyWithoutDealInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    type?: EnumCrmActivityTypeFieldUpdateOperationsInput | $Enums.CrmActivityType
+    subject?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    dueDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    duration?: NullableIntFieldUpdateOperationsInput | number | null
+    outcome?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    tenantId?: StringFieldUpdateOperationsInput | string
+    contactId?: NullableStringFieldUpdateOperationsInput | string | null
+    organizationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
 
 
   /**
@@ -41095,6 +56780,26 @@ export namespace Prisma {
      * @deprecated Use WebhookCountOutputTypeDefaultArgs instead
      */
     export type WebhookCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = WebhookCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ContactCountOutputTypeDefaultArgs instead
+     */
+    export type ContactCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ContactCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OrganizationCountOutputTypeDefaultArgs instead
+     */
+    export type OrganizationCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OrganizationCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PipelineCountOutputTypeDefaultArgs instead
+     */
+    export type PipelineCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PipelineCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PipelineStageCountOutputTypeDefaultArgs instead
+     */
+    export type PipelineStageCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PipelineStageCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use DealCountOutputTypeDefaultArgs instead
+     */
+    export type DealCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DealCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use TenantDefaultArgs instead
      */
@@ -41179,6 +56884,30 @@ export namespace Prisma {
      * @deprecated Use FileDefaultArgs instead
      */
     export type FileArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = FileDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ContactDefaultArgs instead
+     */
+    export type ContactArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ContactDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OrganizationDefaultArgs instead
+     */
+    export type OrganizationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OrganizationDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PipelineDefaultArgs instead
+     */
+    export type PipelineArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PipelineDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PipelineStageDefaultArgs instead
+     */
+    export type PipelineStageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PipelineStageDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use DealDefaultArgs instead
+     */
+    export type DealArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = DealDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use CrmActivityDefaultArgs instead
+     */
+    export type CrmActivityArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = CrmActivityDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vashundhara-config
+  namespace: vashundhara
+  labels:
+    app: vashundhara
+data:
+  NODE_ENV: "production"
+  API_PREFIX: "api"
+  API_VERSION: "1"
+  LOG_LEVEL: "info"
+  CORS_ORIGIN: "https://vashundharafoundation.org,https://app.vashundharafoundation.org,https://admin.vashundharafoundation.org"
+  # Feature flags
+  FEATURE_FLAG_PROVIDER: "database"
+  # i18n
+  DEFAULT_LOCALE: "en"
+  SUPPORTED_LOCALES: "en,hi,bn,ta,te,mr,gu,kn,ml,or,pa,as,ur"
+  # Currency
+  DEFAULT_CURRENCY: "INR"
+  SUPPORTED_CURRENCIES: "USD,INR,EUR,GBP,JPY,CAD,AUD,SGD,AED,SAR"
+  BASE_CURRENCY: "USD"

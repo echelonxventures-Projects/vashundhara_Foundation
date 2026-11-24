@@ -40,6 +40,18 @@ model Tenant {
   translations          Translation[]
   users                 User[]
   webhooks              Webhook[]
+  contacts              Contact[]
+  organizations         Organization[]
+  pipelines             Pipeline[]
+  deals                 Deal[]
+  crmActivities         CrmActivity[]
+  volunteers            Volunteer[]
+  shifts                Shift[]
+  shiftAssignments      ShiftAssignment[]
+  skills                Skill[]
+  volunteerSkills       VolunteerSkill[]
+  hoursLogs             HoursLog[]
+  availabilities        Availability[]
 
   @@index([status])
   @@index([primaryDomain])
@@ -73,6 +85,7 @@ model User {
   userRoles     UserRole[]
   tenant        Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   uploadedFiles File[]         @relation("FileUploadedBy")
+  assignedDeals Deal[]         @relation("DealAssignee")
 
   @@index([tenantId, status])
   @@index([email])
@@ -468,6 +481,431 @@ model File {
   @@map("files")
 }
 
+// ============================================
+// CRM Models
+// ============================================
+
+model Contact {
+  id              String    @id @default(uuid())
+  firstName       String
+  lastName        String
+  email           String?   @db.Citext
+  phone           String?
+  mobile          String?
+  whatsapp        String?
+  jobTitle        String?
+  department      String?
+  source          String?
+  status          ContactStatus @default(NEW)
+  leadScore       Int       @default(0)
+  tags            String[]  @default([])
+  notes           String?
+  address         Json?
+  socialLinks     Json?
+  metadata        Json?
+  lastContactedAt DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+  tenantId        String
+  organizationId  String?
+  tenant          Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  organization    Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  deals           Deal[]
+  activities      CrmActivity[]
+
+  @@unique([email, tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, organizationId])
+  @@index([tenantId, email])
+  @@index([tenantId, phone])
+  @@index([tenantId, mobile])
+  @@index([tenantId, createdAt])
+  @@map("contacts")
+}
+
+model Organization {
+  id           String          @id @default(uuid())
+  name         String
+  legalName    String?
+  website      String?
+  industry     String?
+  size         OrganizationSize?
+  revenue      Decimal?        @db.Decimal(18, 2)
+  description  String?
+  logoUrl      String?
+  address      Json?
+  phone        String?
+  email        String?         @db.Citext
+  gstNumber    String?
+  panNumber    String?
+  tags         String[]        @default([])
+  metadata     Json?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  deletedAt    DateTime?
+  tenantId     String
+  tenant       Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  contacts     Contact[]
+  deals        Deal[]
+  activities   CrmActivity[]
+
+  @@index([tenantId, name])
+  @@index([tenantId, industry])
+  @@index([tenantId, email])
+  @@index([tenantId, gstNumber])
+  @@index([tenantId, createdAt])
+  @@map("organizations")
+}
+
+model Pipeline {
+  id          String          @id @default(uuid())
+  name        String
+  description String?
+  isDefault   Boolean         @default(false)
+  stages      Json            @default("[]")
+  metadata    Json?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  deletedAt   DateTime?
+  tenantId    String
+  tenant      Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  pipelineStages PipelineStage[]
+  deals       Deal[]
+
+  @@unique([name, tenantId])
+  @@index([tenantId, isDefault])
+  @@index([tenantId, createdAt])
+  @@map("pipelines")
+}
+
+model PipelineStage {
+  id          String    @id @default(uuid())
+  name        String
+  order       Int
+  probability Int       @default(0)
+  color       String?   @default("#6366f1")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  pipelineId  String
+  pipeline    Pipeline  @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  deals       Deal[]
+
+  @@unique([name, pipelineId])
+  @@index([pipelineId, order])
+  @@map("pipeline_stages")
+}
+
+model Deal {
+  id                  String      @id @default(uuid())
+  title               String
+  description         String?
+  value               Decimal     @db.Decimal(18, 2)
+  currency            CurrencyCode @default(INR)
+  expectedCloseDate   DateTime?
+  actualCloseDate     DateTime?
+  probability         Int         @default(10)
+  source              String?
+  tags                String[]    @default([])
+  metadata            Json?
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+  deletedAt           DateTime?
+  tenantId            String
+  pipelineId          String
+  stageId             String
+  contactId           String?
+  organizationId      String?
+  assignedTo          String?
+  tenant              Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  pipeline            Pipeline    @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  stage               PipelineStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  contact             Contact?    @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  organization        Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  assignee            User?       @relation("DealAssignee", fields: [assignedTo], references: [id], onDelete: SetNull)
+  activities          CrmActivity[]
+
+  @@index([tenantId, pipelineId])
+  @@index([tenantId, stageId])
+  @@index([tenantId, contactId])
+  @@index([tenantId, organizationId])
+  @@index([tenantId, assignedTo])
+  @@index([tenantId, expectedCloseDate])
+  @@index([tenantId, createdAt])
+  @@map("deals")
+}
+
+model CrmActivity {
+  id              String            @id @default(uuid())
+  type            CrmActivityType
+  subject         String
+  description     String?
+  dueDate         DateTime?
+  completedAt     DateTime?
+  duration        Int?
+  outcome         String?
+  metadata        Json?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?
+  tenantId        String
+  contactId       String?
+  dealId          String?
+  organizationId  String?
+  tenant          Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  contact         Contact?          @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  deal            Deal?             @relation(fields: [dealId], references: [id], onDelete: SetNull)
+  organization    Organization?     @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, type])
+  @@index([tenantId, contactId])
+  @@index([tenantId, dealId])
+  @@index([tenantId, dueDate])
+  @@index([tenantId, completedAt])
+  @@index([tenantId, createdAt])
+  @@map("crm_activities")
+}
+
+// ============================================
+// Volunteer Models
+// ============================================
+
+model Volunteer {
+  id              String    @id @default(uuid())
+  userId          String?   @unique
+  firstName       String
+  lastName        String
+  email           String    @db.Citext
+  phone           String?
+  mobile          String?
+  whatsapp        String?
+  dateOfBirth     DateTime?
+  gender          Gender?
+  address         Json?
+  emergencyContact Json?
+  occupation      String?
+  employer        String?
+  education       String?
+  skills          String[]  @default([])
+  interests       String[]  @default([])
+  languages       String[]  @default([])
+  availability    Json?
+  status          VolunteerStatus @default(ACTIVE)
+  joinDate        DateTime?
+  source          String?
+  referralSource  String?
+  tags            String[]  @default([])
+  notes           String?
+  documents       Json      @default("[]")
+  metadata        Json?
+  totalHours      Int       @default(0)
+  totalShifts     Int       @default(0)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+  tenantId        String
+  tenant          Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  shiftAssignments ShiftAssignment[]
+  volunteerSkills VolunteerSkill[]
+  hoursLogs       HoursLog[]
+  availabilities  Availability[]
+
+  @@unique([email, tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, userId])
+  @@index([tenantId, skills])
+  @@index([tenantId, interests])
+  @@index([tenantId, createdAt])
+  @@map("volunteers")
+}
+
+model Shift {
+  id               String    @id @default(uuid())
+  title            String
+  description      String?
+  location         String?
+  startDateTime    DateTime
+  endDateTime      DateTime
+  timezone         String    @default("Asia/Kolkata")
+  maxVolunteers    Int       @default(10)
+  requiredSkills   String[]  @default([])
+  requiredRoles    String[]  @default([])
+  isRecurring      Boolean   @default(false)
+  recurrenceRule   String?
+  status           ShiftStatus @default(DRAFT)
+  contactPerson    String?
+  contactPhone     String?
+  contactEmail     String?   @db.Citext
+  tags             String[]  @default([])
+  metadata         Json?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  deletedAt        DateTime?
+  tenantId         String
+  tenant           Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  assignments      ShiftAssignment[]
+  hoursLogs        HoursLog[]
+
+  @@index([tenantId, status])
+  @@index([tenantId, startDateTime])
+  @@index([tenantId, location])
+  @@index([tenantId, createdAt])
+  @@map("shifts")
+}
+
+model ShiftAssignment {
+  id              String    @id @default(uuid())
+  shiftId         String
+  volunteerId     String
+  status          AssignmentStatus @default(REGISTERED)
+  role            String?
+  checkInTime     DateTime?
+  checkOutTime    DateTime?
+  hoursCredited   Int       @default(0)
+  notes           String?
+  metadata        Json?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+  tenantId        String
+  shift           Shift     @relation(fields: [shiftId], references: [id], onDelete: Cascade)
+  volunteer       Volunteer @relation(fields: [volunteerId], references: [id], onDelete: Cascade)
+  tenant          Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([shiftId, volunteerId])
+  @@index([tenantId, shiftId])
+  @@index([tenantId, volunteerId])
+  @@index([tenantId, status])
+  @@index([tenantId, createdAt])
+  @@map("shift_assignments")
+}
+
+model Skill {
+  id              String    @id @default(uuid())
+  name            String
+  category        String?
+  description     String?
+  isCertifiable   Boolean   @default(false)
+  certificationUrl String?
+  tags            String[]  @default([])
+  metadata        Json?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+  tenantId        String
+  tenant          Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  volunteerSkills VolunteerSkill[]
+
+  @@unique([name, tenantId])
+  @@index([tenantId, category])
+  @@index([tenantId, createdAt])
+  @@map("skills")
+}
+
+model VolunteerSkill {
+  id              String    @id @default(uuid())
+  volunteerId     String
+  skillId         String
+  proficiency     ProficiencyLevel @default(BEGINNER)
+  certified       Boolean   @default(false)
+  certifiedAt     DateTime?
+  certificationUrl String?
+  verifiedBy      String?
+  verifiedAt      DateTime?
+  notes           String?
+  metadata        Json?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  volunteer       Volunteer @relation(fields: [volunteerId], references: [id], onDelete: Cascade)
+  skill           Skill     @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@unique([volunteerId, skillId])
+  @@index([volunteerId])
+  @@index([skillId])
+  @@map("volunteer_skills")
+}
+
+model HoursLog {
+  id              String    @id @default(uuid())
+  volunteerId     String
+  shiftId         String?
+  date            DateTime
+  hours           Int
+  description     String?
+  activityType    ActivityType @default(SHIFT)
+  location        String?
+  verifiedBy      String?
+  verifiedAt      DateTime?
+  status          HoursLogStatus @default(PENDING)
+  tags            String[]  @default([])
+  metadata        Json?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+  tenantId        String
+  volunteer       Volunteer @relation(fields: [volunteerId], references: [id], onDelete: Cascade)
+  shift           Shift?    @relation(fields: [shiftId], references: [id], onDelete: SetNull)
+  tenant          Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, volunteerId])
+  @@index([tenantId, shiftId])
+  @@index([tenantId, date])
+  @@index([tenantId, status])
+  @@index([tenantId, activityType])
+  @@index([tenantId, createdAt])
+  @@map("hours_logs")
+}
+
+model Availability {
+  id              String    @id @default(uuid())
+  volunteerId     String
+  dayOfWeek       Int
+  startTime       String
+  endTime         String
+  timezone        String    @default("Asia/Kolkata")
+  isRecurring     Boolean   @default(true)
+  validFrom       DateTime?
+  validUntil      DateTime?
+  notes           String?
+  metadata        Json?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+  tenantId        String
+  volunteer       Volunteer @relation(fields: [volunteerId], references: [id], onDelete: Cascade)
+  tenant          Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, volunteerId])
+  @@index([tenantId, dayOfWeek])
+  @@map("availabilities")
+}
+
+enum ContactStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  UNQUALIFIED
+  CONVERTED
+}
+
+enum OrganizationSize {
+  STARTUP
+  SMALL
+  MEDIUM
+  LARGE
+  ENTERPRISE
+}
+
+enum CrmActivityType {
+  CALL
+  EMAIL
+  MEETING
+  NOTE
+  TASK
+  WHATSAPP
+  LINKEDIN
+}
+
 enum TenantStatus {
   ACTIVE
   SUSPENDED
@@ -592,4 +1030,59 @@ enum WebhookStatus {
   COMPLETED
   FAILED
   RETRYING
+}
+
+enum VolunteerStatus {
+  ACTIVE
+  INACTIVE
+  ON_HOLD
+  BLACKLISTED
+  ALUMNI
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+  PREFER_NOT_TO_SAY
+}
+
+enum ShiftStatus {
+  DRAFT
+  PUBLISHED
+  FULL
+  CANCELLED
+  COMPLETED
+}
+
+enum AssignmentStatus {
+  REGISTERED
+  CONFIRMED
+  ATTENDED
+  NO_SHOW
+  CANCELLED
+  WAITLISTED
+}
+
+enum ProficiencyLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+enum ActivityType {
+  SHIFT
+  TRAINING
+  MEETING
+  ADMIN
+  OUTREACH
+  FUNDRAISING
+  OTHER
+}
+
+enum HoursLogStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }

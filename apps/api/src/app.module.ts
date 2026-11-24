@@ -22,6 +22,7 @@ import { RoleModule } from './modules/role/role.module';
 import { TenantModule } from './modules/tenant/tenant.module';
 import { UserModule } from './modules/user/user.module';
 import { WebhookModule } from './modules/webhook/webhook.module';
+import { CrmModule } from './modules/crm/crm.module';
 
 @Module({
   imports: [
@@ -58,7 +59,8 @@ import { WebhookModule } from './modules/webhook/webhook.module';
     NotificationModule,
     FileModule,
     WebhookModule,
-    HealthModule
+    HealthModule,
+    CrmModule
   ]
 })
 export class AppModule {}

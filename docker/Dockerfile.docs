@@ -1,0 +1,57 @@
+# Docs Dockerfile - Multi-stage build for Next.js Documentation
+FROM node:20-alpine AS base
+
+FROM base AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
+COPY apps/docs/package.json ./apps/docs/
+
+RUN corepack enable pnpm && pnpm install --frozen-lockfile
+
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+RUN corepack enable pnpm && pnpm build --filter=@vashundhara-foundation/docs
+
+FROM base AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder --chown=nextjs:nodejs /app/apps/docs/public ./apps/docs/public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/docs/.next/standalone ./apps/docs/
+COPY --from=builder --chown=nextjs:nodejs /app/apps/docs/.next/static ./apps/docs/.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/apps/docs/package.json ./apps/docs/package.json
+
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=deps --chown=nextjs:nodejs /app/apps/docs/node_modules ./apps/docs/node_modules
+
+USER nextjs
+
+EXPOSE 3003
+
+ENV PORT=3003
+ENV HOSTNAME="0.0.0.0"
+
+CMD ["node", "apps/docs/server.js"]
+
+FROM base AS development
+WORKDIR /app
+
+ENV NODE_ENV=development
+
+RUN corepack enable pnpm
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+EXPOSE 3003
+
+CMD ["pnpm", "--filter=@vashundhara-foundation/docs", "dev"]

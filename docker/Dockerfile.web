@@ -1,0 +1,86 @@
+# Web Dockerfile - Multi-stage build for Next.js
+FROM node:20-alpine AS base
+
+# Install dependencies only when needed
+FROM base AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+# Copy package files
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
+COPY apps/web/package.json ./apps/web/
+COPY packages/*/package.json ./packages/
+
+# Install dependencies
+RUN corepack enable pnpm && pnpm install --frozen-lockfile
+
+# Builder stage
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+# Build shared packages first
+RUN corepack enable pnpm && pnpm build --filter=@vashundhara-foundation/database
+RUN pnpm build --filter=@vashundhara-foundation/shared
+RUN pnpm build --filter=@vashundhara-foundation/auth
+RUN pnpm build --filter=@vashundhara-foundation/feature-flags
+RUN pnpm build --filter=@vashundhara-foundation/i18n
+RUN pnpm build --filter=@vashundhara-foundation/ui
+RUN pnpm build --filter=@vashundhara-foundation/config
+
+# Build web app
+RUN pnpm build --filter=@vashundhara-foundation/web
+
+# Production stage
+FROM base AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Copy built files
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./apps/web/
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
+
+# Copy package.json for next start
+COPY --from=builder --chown=nextjs:nodejs /app/apps/web/package.json ./apps/web/package.json
+
+# Copy shared packages
+COPY --from=builder --chown=nextjs:nodejs /app/packages/shared/dist ./packages/shared/dist
+COPY --from=builder --chown=nextjs:nodejs /app/packages/auth/dist ./packages/auth/dist
+COPY --from=builder --chown=nextjs:nodejs /app/packages/feature-flags/dist ./packages/feature-flags/dist
+COPY --from=builder --chown=nextjs:nodejs /app/packages/i18n/dist ./packages/i18n/dist
+COPY --from=builder --chown=nextjs:nodejs /app/packages/ui/dist ./packages/ui/dist
+
+# Copy node_modules from deps (production only)
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=deps --chown=nextjs:nodejs /app/apps/web/node_modules ./apps/web/node_modules
+
+USER nextjs
+
+EXPOSE 3001
+
+ENV PORT=3001
+ENV HOSTNAME="0.0.0.0"
+
+CMD ["node", "apps/web/server.js"]
+
+# Development stage
+FROM base AS development
+WORKDIR /app
+
+ENV NODE_ENV=development
+
+RUN corepack enable pnpm
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+EXPOSE 3001
+
+CMD ["pnpm", "--filter=@vashundhara-foundation/web", "dev"]

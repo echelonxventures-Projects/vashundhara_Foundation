@@ -40,6 +40,11 @@ model Tenant {
   translations          Translation[]
   users                 User[]
   webhooks              Webhook[]
+  contacts              Contact[]
+  organizations         Organization[]
+  pipelines             Pipeline[]
+  deals                 Deal[]
+  crmActivities         CrmActivity[]
 
   @@index([status])
   @@index([primaryDomain])
@@ -73,6 +78,7 @@ model User {
   userRoles     UserRole[]
   tenant        Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   uploadedFiles File[]         @relation("FileUploadedBy")
+  assignedDeals Deal[]         @relation("DealAssignee")
 
   @@index([tenantId, status])
   @@index([email])
@@ -466,6 +472,217 @@ model File {
   @@index([tenantId, mimeType])
   @@index([checksum])
   @@map("files")
+}
+
+// ============================================
+// CRM Models
+// ============================================
+
+model Contact {
+  id              String        @id @default(uuid())
+  firstName       String
+  lastName        String
+  email           String?       @db.Citext
+  phone           String?
+  mobile          String?
+  whatsapp        String?
+  jobTitle        String?
+  department      String?
+  source          String?
+  status          ContactStatus @default(NEW)
+  leadScore       Int           @default(0)
+  tags            String[]      @default([])
+  notes           String?
+  address         Json?
+  socialLinks     Json?
+  metadata        Json?
+  lastContactedAt DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  deletedAt       DateTime?
+  tenantId        String
+  organizationId  String?
+  tenant          Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  organization    Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  deals           Deal[]
+  activities      CrmActivity[]
+
+  @@unique([email, tenantId])
+  @@index([tenantId, status])
+  @@index([tenantId, organizationId])
+  @@index([tenantId, email])
+  @@index([tenantId, phone])
+  @@index([tenantId, mobile])
+  @@index([tenantId, createdAt])
+  @@map("contacts")
+}
+
+model Organization {
+  id          String            @id @default(uuid())
+  name        String
+  legalName   String?
+  website     String?
+  industry    String?
+  size        OrganizationSize?
+  revenue     Decimal?          @db.Decimal(18, 2)
+  description String?
+  logoUrl     String?
+  address     Json?
+  phone       String?
+  email       String?           @db.Citext
+  gstNumber   String?
+  panNumber   String?
+  tags        String[]          @default([])
+  metadata    Json?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  deletedAt   DateTime?
+  tenantId    String
+  tenant      Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  contacts    Contact[]
+  deals       Deal[]
+  activities  CrmActivity[]
+
+  @@index([tenantId, name])
+  @@index([tenantId, industry])
+  @@index([tenantId, email])
+  @@index([tenantId, gstNumber])
+  @@index([tenantId, createdAt])
+  @@map("organizations")
+}
+
+model Pipeline {
+  id             String          @id @default(uuid())
+  name           String
+  description    String?
+  isDefault      Boolean         @default(false)
+  stages         Json            @default("[]")
+  metadata       Json?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  deletedAt      DateTime?
+  tenantId       String
+  tenant         Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  pipelineStages PipelineStage[]
+  deals          Deal[]
+
+  @@unique([name, tenantId])
+  @@index([tenantId, isDefault])
+  @@index([tenantId, createdAt])
+  @@map("pipelines")
+}
+
+model PipelineStage {
+  id          String   @id @default(uuid())
+  name        String
+  order       Int
+  probability Int      @default(0)
+  color       String?  @default("#6366f1")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  pipelineId  String
+  pipeline    Pipeline @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  deals       Deal[]
+
+  @@unique([name, pipelineId])
+  @@index([pipelineId, order])
+  @@map("pipeline_stages")
+}
+
+model Deal {
+  id                String        @id @default(uuid())
+  title             String
+  description       String?
+  value             Decimal       @db.Decimal(18, 2)
+  currency          CurrencyCode  @default(INR)
+  expectedCloseDate DateTime?
+  actualCloseDate   DateTime?
+  probability       Int           @default(10)
+  source            String?
+  tags              String[]      @default([])
+  metadata          Json?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  deletedAt         DateTime?
+  tenantId          String
+  pipelineId        String
+  stageId           String
+  contactId         String?
+  organizationId    String?
+  assignedTo        String?
+  tenant            Tenant        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  pipeline          Pipeline      @relation(fields: [pipelineId], references: [id], onDelete: Cascade)
+  stage             PipelineStage @relation(fields: [stageId], references: [id], onDelete: Cascade)
+  contact           Contact?      @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  organization      Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  assignee          User?         @relation("DealAssignee", fields: [assignedTo], references: [id], onDelete: SetNull)
+  activities        CrmActivity[]
+
+  @@index([tenantId, pipelineId])
+  @@index([tenantId, stageId])
+  @@index([tenantId, contactId])
+  @@index([tenantId, organizationId])
+  @@index([tenantId, assignedTo])
+  @@index([tenantId, expectedCloseDate])
+  @@index([tenantId, createdAt])
+  @@map("deals")
+}
+
+model CrmActivity {
+  id             String          @id @default(uuid())
+  type           CrmActivityType
+  subject        String
+  description    String?
+  dueDate        DateTime?
+  completedAt    DateTime?
+  duration       Int?
+  outcome        String?
+  metadata       Json?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  deletedAt      DateTime?
+  tenantId       String
+  contactId      String?
+  dealId         String?
+  organizationId String?
+  tenant         Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  contact        Contact?        @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  deal           Deal?           @relation(fields: [dealId], references: [id], onDelete: SetNull)
+  organization   Organization?   @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, type])
+  @@index([tenantId, contactId])
+  @@index([tenantId, dealId])
+  @@index([tenantId, dueDate])
+  @@index([tenantId, completedAt])
+  @@index([tenantId, createdAt])
+  @@map("crm_activities")
+}
+
+enum ContactStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  UNQUALIFIED
+  CONVERTED
+}
+
+enum OrganizationSize {
+  STARTUP
+  SMALL
+  MEDIUM
+  LARGE
+  ENTERPRISE
+}
+
+enum CrmActivityType {
+  CALL
+  EMAIL
+  MEETING
+  NOTE
+  TASK
+  WHATSAPP
+  LINKEDIN
 }
 
 enum TenantStatus {

@@ -443,6 +443,121 @@ exports.Prisma.FileScalarFieldEnum = {
   uploadedById: 'uploadedById'
 };
 
+exports.Prisma.ContactScalarFieldEnum = {
+  id: 'id',
+  firstName: 'firstName',
+  lastName: 'lastName',
+  email: 'email',
+  phone: 'phone',
+  mobile: 'mobile',
+  whatsapp: 'whatsapp',
+  jobTitle: 'jobTitle',
+  department: 'department',
+  source: 'source',
+  status: 'status',
+  leadScore: 'leadScore',
+  tags: 'tags',
+  notes: 'notes',
+  address: 'address',
+  socialLinks: 'socialLinks',
+  metadata: 'metadata',
+  lastContactedAt: 'lastContactedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId',
+  organizationId: 'organizationId'
+};
+
+exports.Prisma.OrganizationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  legalName: 'legalName',
+  website: 'website',
+  industry: 'industry',
+  size: 'size',
+  revenue: 'revenue',
+  description: 'description',
+  logoUrl: 'logoUrl',
+  address: 'address',
+  phone: 'phone',
+  email: 'email',
+  gstNumber: 'gstNumber',
+  panNumber: 'panNumber',
+  tags: 'tags',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.PipelineScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  isDefault: 'isDefault',
+  stages: 'stages',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId'
+};
+
+exports.Prisma.PipelineStageScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  order: 'order',
+  probability: 'probability',
+  color: 'color',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  pipelineId: 'pipelineId'
+};
+
+exports.Prisma.DealScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  value: 'value',
+  currency: 'currency',
+  expectedCloseDate: 'expectedCloseDate',
+  actualCloseDate: 'actualCloseDate',
+  probability: 'probability',
+  source: 'source',
+  tags: 'tags',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId',
+  pipelineId: 'pipelineId',
+  stageId: 'stageId',
+  contactId: 'contactId',
+  organizationId: 'organizationId',
+  assignedTo: 'assignedTo'
+};
+
+exports.Prisma.CrmActivityScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  subject: 'subject',
+  description: 'description',
+  dueDate: 'dueDate',
+  completedAt: 'completedAt',
+  duration: 'duration',
+  outcome: 'outcome',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  tenantId: 'tenantId',
+  contactId: 'contactId',
+  dealId: 'dealId',
+  organizationId: 'organizationId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -598,6 +713,32 @@ exports.WebhookStatus = exports.$Enums.WebhookStatus = {
   RETRYING: 'RETRYING'
 };
 
+exports.ContactStatus = exports.$Enums.ContactStatus = {
+  NEW: 'NEW',
+  CONTACTED: 'CONTACTED',
+  QUALIFIED: 'QUALIFIED',
+  UNQUALIFIED: 'UNQUALIFIED',
+  CONVERTED: 'CONVERTED'
+};
+
+exports.OrganizationSize = exports.$Enums.OrganizationSize = {
+  STARTUP: 'STARTUP',
+  SMALL: 'SMALL',
+  MEDIUM: 'MEDIUM',
+  LARGE: 'LARGE',
+  ENTERPRISE: 'ENTERPRISE'
+};
+
+exports.CrmActivityType = exports.$Enums.CrmActivityType = {
+  CALL: 'CALL',
+  EMAIL: 'EMAIL',
+  MEETING: 'MEETING',
+  NOTE: 'NOTE',
+  TASK: 'TASK',
+  WHATSAPP: 'WHATSAPP',
+  LINKEDIN: 'LINKEDIN'
+};
+
 exports.Prisma.ModelName = {
   Tenant: 'Tenant',
   User: 'User',
@@ -619,7 +760,13 @@ exports.Prisma.ModelName = {
   Notification: 'Notification',
   Webhook: 'Webhook',
   WebhookDelivery: 'WebhookDelivery',
-  File: 'File'
+  File: 'File',
+  Contact: 'Contact',
+  Organization: 'Organization',
+  Pipeline: 'Pipeline',
+  PipelineStage: 'PipelineStage',
+  Deal: 'Deal',
+  CrmActivity: 'CrmActivity'
 };
 
 /**

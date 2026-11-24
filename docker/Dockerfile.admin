@@ -1,0 +1,72 @@
+# Admin Dockerfile - Multi-stage build for Next.js Admin Dashboard
+FROM node:20-alpine AS base
+
+FROM base AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
+COPY apps/admin/package.json ./apps/admin/
+COPY packages/*/package.json ./packages/
+
+RUN corepack enable pnpm && pnpm install --frozen-lockfile
+
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+RUN corepack enable pnpm && pnpm build --filter=@vashundhara-foundation/database
+RUN pnpm build --filter=@vashundhara-foundation/shared
+RUN pnpm build --filter=@vashundhara-foundation/auth
+RUN pnpm build --filter=@vashundhara-foundation/feature-flags
+RUN pnpm build --filter=@vashundhara-foundation/i18n
+RUN pnpm build --filter=@vashundhara-foundation/ui
+RUN pnpm build --filter=@vashundhara-foundation/config
+
+RUN pnpm build --filter=@vashundhara-foundation/admin
+
+FROM base AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder --chown=nextjs:nodejs /app/apps/admin/public ./apps/admin/public
+COPY --from=builder --chown=nextjs:nodejs /app/apps/admin/.next/standalone ./apps/admin/
+COPY --from=builder --chown=nextjs:nodejs /app/apps/admin/.next/static ./apps/admin/.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/apps/admin/package.json ./apps/admin/package.json
+
+COPY --from=builder --chown=nextjs:nodejs /app/packages/shared/dist ./packages/shared/dist
+COPY --from=builder --chown=nextjs:nodejs /app/packages/auth/dist ./packages/auth/dist
+COPY --from=builder --chown=nextjs:nodejs /app/packages/feature-flags/dist ./packages/feature-flags/dist
+COPY --from=builder --chown=nextjs:nodejs /app/packages/i18n/dist ./packages/i18n/dist
+COPY --from=builder --chown=nextjs:nodejs /app/packages/ui/dist ./packages/ui/dist
+
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=deps --chown=nextjs:nodejs /app/apps/admin/node_modules ./apps/admin/node_modules
+
+USER nextjs
+
+EXPOSE 3002
+
+ENV PORT=3002
+ENV HOSTNAME="0.0.0.0"
+
+CMD ["node", "apps/admin/server.js"]
+
+FROM base AS development
+WORKDIR /app
+
+ENV NODE_ENV=development
+
+RUN corepack enable pnpm
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+EXPOSE 3002
+
+CMD ["pnpm", "--filter=@vashundhara-foundation/admin", "dev"]
