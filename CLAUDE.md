@@ -44,6 +44,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Use `crudController` for ordinary records. Its schemas must not use `.default()`.
 - Side effects (email, webhooks, scans) go through `JobsService.enqueue` with the transaction client.
 - Changing money code: keep the row lock, the idempotency check and the balanced journal, and extend `test/money.e2e.ts`.
+- PDFs: draw all text with `TextPdf` (`common/pdf/pdf-text.ts`), never `doc.text`. PDFKit's own shaper fails on several Indian scripts.
 - User-facing text on public and account pages goes in `packages/i18n/locales`; English and Hindi must be complete.
 
 ## Git

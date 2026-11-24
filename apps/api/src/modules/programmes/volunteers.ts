@@ -3,7 +3,6 @@ import { ApiTags } from '@nestjs/swagger';
 import { ActivityType, Gender, Prisma, ProficiencyLevel, ShiftStatus, VolunteerStatus } from '@prisma/client';
 import { randomToken } from '@vashundhara-foundation/auth';
 import type { Response } from 'express';
-import PDFDocument from 'pdfkit';
 import { z } from 'zod';
 import { AuditService } from '../../common/audit/audit.service';
 import { requireTenant, requireUser, runAsTenant } from '../../common/context/context';
@@ -11,6 +10,7 @@ import { crudController } from '../../common/crud/crud';
 import { TenantResolver } from '../../common/http/context.middleware';
 import { Can, PageQuery, Paging, Public, SelfService, ZBody, ZQuery } from '../../common/http/decorators';
 import { JobsService } from '../../common/jobs/jobs.module';
+import { TextPdf } from '../../common/pdf/pdf-text';
 import { PrismaService } from '../../common/prisma/prisma.module';
 import { NotificationsService } from '../notifications/notifications.module';
 
@@ -241,18 +241,19 @@ export class VolunteeringController implements OnModuleInit {
     const c = await this.prisma.certificate.findFirst({ where: { code, revokedAt: null }, include: { volunteer: true } });
     if (!c) throw new NotFoundException('No certificate has this code');
     const t = requireTenant();
-    const latin = (v: string) => v.normalize('NFKD').replace(/[^\x20-\x7E\xA0-\xFF]/g, '').trim() || '-';
-    res.setHeader('content-type', 'application/pdf').setHeader('content-disposition', `attachment; filename="certificate-${c.code}.pdf"`);
-    const doc = new PDFDocument({ size: 'A4', layout: 'landscape', margin: 60 });
-    doc.pipe(res);
+    const pdf = await TextPdf.create({ size: 'A4', layout: 'landscape', margin: 60, info: { Title: c.title, Author: t.displayName ?? t.name } });
+    const { doc } = pdf;
+    const mid = (text: string, size: number, color: string, gap: number, bold = false) => pdf.text(text, { size, color, gap, bold, align: 'center' });
     doc.lineWidth(2).rect(30, 30, 782, 535).stroke('#2f6b4a');
-    doc.fillColor('#2f6b4a').fontSize(16).text(latin(t.displayName ?? t.name), { align: 'center' }).moveDown(2);
-    doc.fillColor('#111').fontSize(32).text(latin(c.title), { align: 'center' }).moveDown(1);
-    doc.fontSize(14).text('Presented to', { align: 'center' }).moveDown(0.5);
-    doc.fontSize(26).text(latin(`${c.volunteer.firstName} ${c.volunteer.lastName}`), { align: 'center' }).moveDown(0.8);
-    doc.fontSize(14).text(`for ${Number(c.hours)} hours of volunteer service`, { align: 'center' }).moveDown(3);
-    doc.fontSize(10).fillColor('#555').text(`Issued ${c.issuedAt.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' })}   Verify at ${this.tenants.url(t)}/${t.defaultLocale}/verify/${c.code}`, { align: 'center' });
-    doc.end();
+    doc.y = 130;
+    mid(t.displayName ?? t.name, 16, '#2f6b4a', 28);
+    mid(c.title, 32, '#111', 18, true);
+    mid('Presented to', 14, '#111', 6);
+    mid(`${c.volunteer.firstName} ${c.volunteer.lastName}`, 26, '#111', 14);
+    mid(`for ${Number(c.hours)} hours of volunteer service`, 14, '#111', 36);
+    mid(`Issued ${c.issuedAt.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' })}. Verify at ${this.tenants.url(t)}/${t.defaultLocale}/verify/${c.code}`, 10, '#555', 0);
+    const body = await pdf.buffer();
+    res.setHeader('content-type', 'application/pdf').setHeader('content-disposition', `attachment; filename="certificate-${c.code}.pdf"`).send(body);
   }
 }
 @Module({ controllers: [VolunteeringController, Volunteers, Shifts, Skills] })

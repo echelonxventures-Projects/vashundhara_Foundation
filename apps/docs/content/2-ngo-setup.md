@@ -25,3 +25,7 @@
 ## Foreign donations
 
 Refused by default. They open only when the NGO has a valid FCRA number, a platform administrator has recorded the check, and a separate FCRA payment account is connected.
+
+## Receipts and certificates
+
+Names, addresses and campaign titles print in all 13 languages of the platform, including Urdu right to left. The fixed wording stays in English. Receipts issued earlier print correctly when downloaded again, because the original name was stored.
