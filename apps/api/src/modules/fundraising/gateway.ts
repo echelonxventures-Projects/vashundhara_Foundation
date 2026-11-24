@@ -65,6 +65,7 @@ class Mock implements Gateway {
   readonly code = 'MOCK' as const;
   static payments = new Map<string, GatewayPayment>();
   constructor(readonly keyId: string, private readonly secret: string, private readonly webhookSecret: string) {}
+  sign(v: string) { return hmacSha256(v, this.secret); }
   async createOrder() { return `order_${randomToken(9)}`; }
   verifyCheckout(o: string, p: string, s: string) { return safeEqual(hmacSha256(`${o}|${p}`, this.secret), s); }
   verifySubscription(sub: string, p: string, s: string) { return safeEqual(hmacSha256(`${p}|${sub}`, this.secret), s); }

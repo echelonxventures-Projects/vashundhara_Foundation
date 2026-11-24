@@ -1,9 +1,11 @@
-import { BadRequestException, Controller, Get, Headers, HttpCode, Module, NotFoundException, Param, Post, Put, Query, RawBodyRequest, Req } from '@nestjs/common';
+import { BadRequestException, Controller, Get, Headers, HttpCode, Inject, Module, NotFoundException, Param, Post, Put, Query, RawBodyRequest, Req } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CampaignStatus, PaymentMethod, Prisma, SubscriptionInterval } from '@prisma/client';
+import { randomToken } from '@vashundhara-foundation/auth';
 import { PAN_REGEX } from '@vashundhara-foundation/shared';
 import type { Request } from 'express';
 import { z } from 'zod';
+import { ENV, Env } from '../../env';
 import { AuditService } from '../../common/audit/audit.service';
 import { getCtx, requireTenant, requireUser } from '../../common/context/context';
 import { parseCsv, toCsv } from '../../common/crud/csv';
@@ -13,7 +15,7 @@ import { PrismaService } from '../../common/prisma/prisma.module';
 import { Email, Slug } from '../auth/auth.module';
 import { SystemModule } from '../system/system.module';
 import { DonationsService } from './donations.service';
-import { GatewayService } from './gateway';
+import { GatewayService, mockPayments } from './gateway';
 import { ReceiptsController, ReceiptsService } from './receipts';
 
 const Pan = z.string().trim().toUpperCase().regex(PAN_REGEX, 'PAN is not valid');
@@ -24,6 +26,7 @@ const Give = z.object({ amountMinor: Amount, campaignSlug: z.string().max(60).op
 const Confirm = z.object({ token: z.string().max(100), paymentId: z.string().max(60), signature: z.string().max(200) });
 const SubConfirm = z.object({ paymentId: z.string().max(60), signature: z.string().max(200) });
 
+const MockPay = z.object({ orderId: z.string().max(60).optional(), subscriptionId: z.string().max(60).optional(), amountMinor: Amount });
 const RAISED = { status: { in: ['COMPLETED', 'PARTIALLY_REFUNDED'] as ('COMPLETED' | 'PARTIALLY_REFUNDED')[] } };
 
 @ApiTags('public')
@@ -71,6 +74,21 @@ export class PaymentWebhooksController {
     if (!code || !req.rawBody || !signature || !eventId) throw new BadRequestException('Not a valid webhook');
     if (getCtx()?.tenant?.slug !== slug) throw new NotFoundException('Unknown organisation');
     return this.donations.receive(code, req.rawBody, signature, eventId);
+  }
+}
+
+/** Stands in for the payment popup in development and automated tests. Refuses to exist in production. */
+@Controller('dev')
+export class MockPayController {
+  constructor(private readonly prisma: PrismaService, private readonly gateways: GatewayService, @Inject(ENV) private readonly env: Env) {}
+  @Post('mock-pay') @Public() @HttpCode(200)
+  async pay(@ZBody(MockPay) b: z.infer<typeof MockPay>) {
+    if (this.env.NODE_ENV === 'production') throw new NotFoundException();
+    const g = await this.gateways.byProvider('MOCK', 'DOMESTIC');
+    const paymentId = `pay_${randomToken(9)}`;
+    mockPayments.set(paymentId, { id: paymentId, orderId: b.orderId ?? null, amountMinor: b.amountMinor, currency: 'INR', status: 'captured', feeMinor: 0 });
+    const signature = (g as unknown as { sign(v: string): string }).sign(b.orderId ? `${b.orderId}|${paymentId}` : `${paymentId}|${b.subscriptionId}`);
+    return { paymentId, signature };
   }
 }
 
@@ -213,7 +231,7 @@ export class MyGivingController {
 @Module({
   imports: [SystemModule],
   providers: [GatewayService, DonationsService, ReceiptsService],
-  controllers: [PublicGivingController, PaymentWebhooksController, CampaignsController, DonorsController, DonorToolsController, DonationsController, SubscriptionsController, MyGivingController, ReceiptsController],
+  controllers: [...(process.env.NODE_ENV === 'production' ? [] : [MockPayController]), PublicGivingController, PaymentWebhooksController, CampaignsController, DonorsController, DonorToolsController, DonationsController, SubscriptionsController, MyGivingController, ReceiptsController],
   exports: [DonationsService, ReceiptsService, GatewayService]
 })
 export class FundraisingModule {}
