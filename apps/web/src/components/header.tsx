@@ -32,15 +32,15 @@ export function Header({ name, logoUrl, locales, items }: { name: string; logoUr
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-bg">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:p-3 focus:bg-surface">{t('common.skip')}</a>
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-2">
+      <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-4 py-2">
         <Link href="/" className="flex items-center gap-2 text-lg font-bold">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={logoUrl ?? '/icon.svg'} alt="" width={36} height={36} className="rounded-lg" />{name}
         </Link>
-        <nav aria-label={t('common.menu')} className="hidden flex-wrap items-center gap-1 lg:flex">{links}</nav>
-        <button type="button" className="btn btn-outline lg:hidden" aria-expanded={open} aria-controls="mnav" onClick={() => setOpen(!open)}>{t('common.menu')}</button>
+        <nav aria-label={t('common.menu')} className="hidden items-center gap-1 whitespace-nowrap xl:flex">{links}</nav>
+        <button type="button" className="btn btn-outline xl:hidden" aria-expanded={open} aria-controls="mnav" onClick={() => setOpen(!open)}>{t('common.menu')}</button>
       </div>
-      {open && <nav id="mnav" aria-label={t('common.menu')} className="flex flex-col gap-2 border-t border-line px-4 py-3 lg:hidden">{links}</nav>}
+      {open && <nav id="mnav" aria-label={t('common.menu')} className="flex flex-col gap-2 border-t border-line px-4 py-3 xl:hidden">{links}</nav>}
     </header>
   );
 }

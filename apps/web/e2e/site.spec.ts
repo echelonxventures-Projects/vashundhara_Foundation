@@ -95,6 +95,7 @@ test('sign in, protected pages, and sign out', async ({ page }) => {
   await page.goto('/en/staff');
   await expect(page.getByText('no staff access')).toBeVisible();
   for (const p of ['giving', 'volunteering', 'support', 'learning', 'notifications', 'profile', 'security', 'privacy']) { await page.goto(`/en/account/${p}`); await expect(page.getByRole('heading', { level: 1 })).toBeVisible(); await page.waitForLoadState('networkidle'); await clean(page, p); }
+  expect(await page.locator('header').evaluate((h) => h.getBoundingClientRect().height)).toBeLessThan(80);
   await page.getByRole('button', { name: 'Sign out' }).first().click();
   await page.goto('/en/account');
   await expect(page).toHaveURL(/login/);
