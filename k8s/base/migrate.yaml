@@ -1,0 +1,18 @@
+# Jobs cannot be changed in place: the deploy script deletes the old one first.
+apiVersion: batch/v1
+kind: Job
+metadata: { name: migrate, labels: { stage: pre } }
+spec:
+  backoffLimit: 2
+  template:
+    metadata: { labels: { app: migrate } }
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      securityContext: { runAsNonRoot: true, runAsUser: 1000 }
+      containers:
+        - name: migrate
+          image: vf-api
+          workingDir: /app/packages/database
+          command: [sh, -c, './node_modules/.bin/prisma migrate deploy && ./node_modules/.bin/tsx prisma/seed.ts']
+          envFrom: [{ configMapRef: { name: vf-config } }, { secretRef: { name: vf-api-secrets } }]

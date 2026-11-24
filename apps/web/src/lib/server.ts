@@ -13,7 +13,7 @@ export const serverApi = cache(async <T>(path: string): Promise<T | null> => {
   const h = await headers();
   const host = h.get('host') ?? 'localhost';
   try {
-    const r = await fetch(`${BASE}/api/v1/${path}`, { headers: proxyHeaders(host, clientIp(h)), cache: 'no-store', signal: AbortSignal.timeout(8000) });
+    const r = await fetch(`${BASE}/api/v1/${path}`, { headers: { ...proxyHeaders(host, clientIp(h)), 'x-vf-ssr': '1' }, cache: 'no-store', signal: AbortSignal.timeout(8000) });
     return r.ok ? ((await r.json()) as T) : null;
   } catch {
     return null;

@@ -33,6 +33,8 @@ export interface Ctx {
   sessionId?: string;
   roles: string[];
   permissions: Set<string>;
+  /** A page read made by our own web server while rendering. */
+  internal?: boolean;
   /** Bypasses tenant scoping. Only set through runAsSystem(). */
   system?: boolean;
 }

@@ -22,9 +22,9 @@
     "db:studio": "pnpm --filter @vashundhara-foundation/database db:studio",
     "db:reset": "pnpm --filter @vashundhara-foundation/database db:reset",
     "generate:module": "tsx tooling/generators/module.ts",
-    "prepare": "husky",
+    "prepare": "husky || true",
     "format:check": "prettier --check \"**/*.{ts,tsx,json,md,yml,yaml}\"",
-    "import:wordpress": "tsx tooling/scripts/wpress-import.ts",
+    "import:wordpress": "pnpm --filter @vashundhara-foundation/database exec tsx scripts/wpress-import.ts",
     "db:create-admin": "pnpm --filter @vashundhara-foundation/database db:create-admin"
   },
   "devDependencies": {

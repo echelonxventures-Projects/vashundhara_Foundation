@@ -6,5 +6,5 @@ it('neutralises formulas and quotes', () => {
   expect(csvCell('a"b,c')).toBe('"a""b,c"');
 });
 it('round trips', () => {
-  expect(parseCsv('﻿' + toCsv(['a', 'b'], [{ a: 'x,\n"y"', b: 2 }]))).toEqual([{ a: 'x,\n"y"', b: '2' }]);
+  expect(parseCsv('\uFEFF' + toCsv(['a', 'b'], [{ a: 'x,\n"y"', b: 2 }]))).toEqual([{ a: 'x,\n"y"', b: '2' }]);
 });

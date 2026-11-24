@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: worker, labels: { app: worker } }
+spec:
+  replicas: 2
+  selector: { matchLabels: { app: worker } }
+  strategy: { rollingUpdate: { maxSurge: 1, maxUnavailable: 0 } }
+  template:
+    metadata: { labels: { app: worker } }
+    spec:
+      securityContext: { runAsNonRoot: true, runAsUser: 1000, seccompProfile: { type: RuntimeDefault } }
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 40
+      containers:
+        - name: worker
+          image: vf-api
+          securityContext: { allowPrivilegeEscalation: false, capabilities: { drop: [ALL] } }
+          ports: [{ containerPort: 3000, name: http }]
+          envFrom: [{ configMapRef: { name: vf-config } }, { secretRef: { name: vf-api-secrets } }]
+          env: [{ name: WORKER_ENABLED, value: 'true' }]
+          resources: { requests: { cpu: 200m, memory: 384Mi }, limits: { memory: 1Gi } }
+          startupProbe: { httpGet: { path: /health/live, port: 3000 }, periodSeconds: 3, failureThreshold: 40 }
+          livenessProbe: { httpGet: { path: /health/live, port: 3000 }, periodSeconds: 15 }
+          readinessProbe: { httpGet: { path: /health/ready, port: 3000 }, periodSeconds: 5 }
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: { name: worker }
+spec: { minAvailable: 1, selector: { matchLabels: { app: worker } } }

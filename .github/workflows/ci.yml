@@ -1,342 +1,89 @@
-name: CI/CD Pipeline
-
+name: CI
 on:
-  push:
-    branches: [main, develop]
-    tags: ['v*']
+  push: { branches: [master, main], tags: ['v*'] }
   pull_request:
-    branches: [main, develop]
   workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Deploy environment'
-        required: true
-        default: 'staging'
-        type: choice
-        options:
-          - staging
-          - production
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
-  NODE_VERSION: '20'
-  PNPM_VERSION: '9'
-
+    inputs: { environment: { type: choice, options: [staging, production], default: staging } }
+permissions: { contents: read }
+concurrency: { group: 'ci-${{ github.ref }}', cancel-in-progress: "${{ github.event_name == 'pull_request' }}" }
 jobs:
-  # ============================================
-  # LINT & TYPECHECK
-  # ============================================
-  lint-and-typecheck:
-    name: Lint & Typecheck
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Run lint
-        run: pnpm lint
-
-      - name: Run typecheck
-        run: pnpm typecheck
-
-      - name: Check formatting
-        run: pnpm format --check
-
-  # ============================================
-  # UNIT TESTS
-  # ============================================
-  unit-tests:
-    name: Unit Tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Generate Prisma Client
-        run: pnpm db:generate
-
-      - name: Run unit tests
-        run: pnpm test
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/vashundhara_test
-          REDIS_URL: redis://localhost:6379
-          JWT_SECRET: test-secret-key-for-testing-only
-          BETTER_AUTH_SECRET: test-secret-key-for-testing-only
-          BETTER_AUTH_URL: http://localhost:3000
-
-      - name: Upload coverage
-        uses: codecov/codecov-action@v4
-        with:
-          files: ./coverage/lcov.info
-          fail_ci_if_error: false
-
-  # ============================================
-  # E2E TESTS
-  # ============================================
-  e2e-tests:
-    name: E2E Tests
+  test:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     services:
       postgres:
         image: postgres:16-alpine
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: vashundhara_test
-        ports: 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U postgres -d vashundhara_test"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        env: { POSTGRES_USER: vf, POSTGRES_PASSWORD: vf, POSTGRES_DB: vf_test }
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U vf" --health-interval 5s --health-retries 10
       redis:
         image: redis:7-alpine
-        ports: 6379:6379
-        options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
+        ports: ['6379:6379']
+    env:
+      DATABASE_URL: postgresql://vf:vf@localhost:5432/vf_test
+      TEST_DATABASE_URL: postgresql://vf:vf@localhost:5432/vf_test
+      REDIS_URL: redis://localhost:6379
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: ${{ env.PNPM_VERSION }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Generate Prisma Client
-        run: pnpm db:generate
-
-      - name: Run migrations
-        run: pnpm db:migrate deploy
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/vashundhara_test
-
-      - name: Seed database
-        run: pnpm db:seed
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/vashundhara_test
-
-      - name: Build applications
-        run: pnpm build
-
-      - name: Start API server
-        run: |
-          cd apps/api
-          pnpm start:prod &
-          sleep 10
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/vashundhara_test
-          REDIS_URL: redis://localhost:6379
-          JWT_SECRET: test-secret-key-for-testing-only
-          BETTER_AUTH_SECRET: test-secret-key-for-testing-only
-          BETTER_AUTH_URL: http://localhost:3000
-          PORT: 3000
-
-      - name: Start Web server
-        run: |
-          cd apps/web
-          pnpm start &
-          sleep 10
-        env:
-          NEXT_PUBLIC_API_URL: http://localhost:3000
-          PORT: 3001
-
-      - name: Run E2E tests
-        run: pnpm test:e2e
-        env:
-          PLAYWRIGHT_BASE_URL: http://localhost:3001
-          API_URL: http://localhost:3000
-
-      - name: Upload E2E artifacts
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm audit --prod --audit-level high
+      - run: pnpm build
+      - run: pnpm lint && pnpm typecheck && pnpm test
+      - run: pnpm db:migrate:deploy
+      - name: Schema and migrations must match
+        run: pnpm --filter @vashundhara-foundation/database exec prisma migrate diff --from-url "$DATABASE_URL" --to-schema-datamodel prisma/schema.prisma --exit-code
+      - run: pnpm --filter @vashundhara-foundation/api test:e2e
+      - run: cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/ && cp -r apps/web/public apps/web/.next/standalone/apps/web/
+      - run: pnpm --filter @vashundhara-foundation/web exec playwright install --with-deps chromium
+      - run: redis-cli -h localhost flushall || true
+      - run: pnpm --filter @vashundhara-foundation/web test:e2e
+      - uses: actions/upload-artifact@v4
         if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: e2e-results
-          path: |
-            apps/web/test-results/
-            apps/api/test-results/
-          retention-days: 7
-
-  # ============================================
-  # BUILD DOCKER IMAGES
-  # ============================================
-  build-images:
-    name: Build Docker Images
-    needs: [lint-and-typecheck, unit-tests]
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        with: { name: browser-tests, path: apps/web/test-results, retention-days: 7 }
+  images:
+    needs: test
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    strategy:
-      matrix:
-        app: [api, web, admin, docs]
+    permissions: { contents: read, packages: write }
+    strategy: { matrix: { app: [api, web, admin, docs] } }
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ matrix.app }}
-          tags: |
-            type=ref,event=branch
-            type=ref,event=pr
-            type=semver,pattern={{version}}
-            type=semver,pattern={{major}}.{{minor}}
-            type=sha
-            type=raw,value=latest,enable={{is_default_branch}}
-
-      - name: Build and push
-        uses: docker/build-push-action@v5
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with: { registry: ghcr.io, username: '${{ github.actor }}', password: '${{ secrets.GITHUB_TOKEN }}' }
+      - id: name
+        run: echo "image=ghcr.io/${GITHUB_REPOSITORY,,}/${{ matrix.app }}:${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+      - uses: docker/build-push-action@v6
         with:
           context: .
-          file: docker/Dockerfile.${{ matrix.app }}
+          file: docker/Dockerfile.${{ matrix.app == 'api' && 'api' || 'next' }}
+          build-args: APP=${{ matrix.app }}
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          target: runner
-          platforms: linux/amd64,linux/arm64
-
-  # ============================================
-  # DEPLOY TO STAGING
-  # ============================================
-  deploy-staging:
-    name: Deploy to Staging
-    needs: [build-images, e2e-tests]
-    if: github.ref == 'refs/heads/develop' || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'staging')
+          tags: ${{ steps.name.outputs.image }}
+          cache-from: type=gha,scope=${{ matrix.app }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.app }}
+  deploy:
+    needs: images
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
-    environment: staging
-    permissions:
-      contents: read
-      packages: read
-      id-token: write
+    environment: ${{ github.event.inputs.environment || 'production' }}
+    env: { TARGET: "${{ github.event.inputs.environment || 'production' }}" }
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Configure kubectl
-        uses: azure/k8s-set-context@v4
-        with:
-          kubeconfig: ${{ secrets.KUBECONFIG_STAGING }}
-
-      - name: Deploy to staging
+      - uses: actions/checkout@v4
+      - uses: azure/setup-kubectl@v4
+      - uses: azure/k8s-set-context@v4
+        with: { kubeconfig: '${{ secrets.KUBECONFIG }}' }
+      - name: Migrate, then roll out
         run: |
-          kubectl set image deployment/api api=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/api:latest -n vashundhara-staging
-          kubectl set image deployment/web web=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/web:latest -n vashundhara-staging
-          kubectl set image deployment/admin admin=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/admin:latest -n vashundhara-staging
-          kubectl set image deployment/docs docs=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/docs:latest -n vashundhara-staging
-
-      - name: Wait for rollout
-        run: |
-          kubectl rollout status deployment/api -n vashundhara-staging --timeout=300s
-          kubectl rollout status deployment/web -n vashundhara-staging --timeout=300s
-          kubectl rollout status deployment/admin -n vashundhara-staging --timeout=300s
-          kubectl rollout status deployment/docs -n vashundhara-staging --timeout=300s
-
-      - name: Run smoke tests
-        run: |
-          curl -f https://api.staging.vashundharafoundation.org/health
-          curl -f https://app.staging.vashundharafoundation.org/health
-
-  # ============================================
-  # DEPLOY TO PRODUCTION
-  # ============================================
-  deploy-production:
-    name: Deploy to Production
-    needs: [build-images, e2e-tests]
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production')
-    runs-on: ubuntu-latest
-    environment: production
-    permissions:
-      contents: read
-      packages: read
-      id-token: write
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Configure kubectl
-        uses: azure/k8s-set-context@v4
-        with:
-          kubeconfig: ${{ secrets.KUBECONFIG_PROD }}
-
-      - name: Deploy to production
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          kubectl set image deployment/api api=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/api:${VERSION} -n vashundhara
-          kubectl set image deployment/web web=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/web:${VERSION} -n vashundhara
-          kubectl set image deployment/admin admin=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/admin:${VERSION} -n vashundhara
-          kubectl set image deployment/docs docs=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/docs:${VERSION} -n vashundhara
-
-      - name: Wait for rollout
-        run: |
-          kubectl rollout status deployment/api -n vashundhara --timeout=300s
-          kubectl rollout status deployment/web -n vashundhara --timeout=300s
-          kubectl rollout status deployment/admin -n vashundhara --timeout=300s
-          kubectl rollout status deployment/docs -n vashundhara --timeout=300s
-
-      - name: Run smoke tests
-        run: |
-          curl -f https://api.vashundharafoundation.org/health
-          curl -f https://app.vashundharafoundation.org/health
-          curl -f https://admin.vashundharafoundation.org/health
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/v')
-        with:
-          generate_release_notes: true
+          set -euo pipefail
+          sed -i "s/replace-me/${GITHUB_SHA}/" k8s/overlays/$TARGET/kustomization.yaml
+          NS=$(awk '/^namespace:/{print $2}' k8s/overlays/$TARGET/kustomization.yaml)
+          kubectl kustomize k8s/overlays/$TARGET > all.yaml
+          kubectl -n "$NS" delete job migrate --ignore-not-found --wait
+          kubectl apply -f all.yaml -l stage=pre
+          kubectl -n "$NS" wait --for=condition=complete job/migrate --timeout=300s
+          kubectl apply -f all.yaml -l stage!=pre
+          for d in api worker web admin docs; do kubectl -n "$NS" rollout status deploy/$d --timeout=300s; done

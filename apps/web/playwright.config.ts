@@ -1,5 +1,5 @@
 import { defineConfig } from '@playwright/test';
-/** Needs a seeded test database: see docs/OPERATIONS.md. Never point it at real data. */
+/** Needs a seeded test database: see apps/docs/content/1-getting-started.md. Never point it at real data. */
 export default defineConfig({
   testDir: './e2e', timeout: 60_000, workers: 1, retries: process.env.CI ? 1 : 0, reporter: [['list']],
   use: { baseURL: 'http://localhost:3101', trace: 'retain-on-failure', screenshot: 'only-on-failure' },

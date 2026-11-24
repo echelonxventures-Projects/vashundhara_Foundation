@@ -135,7 +135,7 @@ export class VolunteeringController implements OnModuleInit {
   async leave(@Param('id') id: string) {
     const v = await this.me();
     await this.prisma.$transaction(async (tx) => {
-      await tx.$queryRaw`SELECT id FROM shifts WHERE id = ${id} FOR UPDATE`;
+      await tx.$queryRaw`SELECT id FROM shifts WHERE id = ${id} AND "tenantId" = ${requireTenant().id} FOR UPDATE`;
       const { count } = await tx.shiftAssignment.updateMany({ where: { shiftId: id, volunteerId: v.id, status: { in: ['REGISTERED', 'CONFIRMED', 'WAITLISTED'] }, shift: { startDateTime: { gt: new Date() } } }, data: { status: 'CANCELLED' } });
       if (!count) throw new BadRequestException('You cannot leave this shift');
       const next = await tx.shiftAssignment.findFirst({ where: { shiftId: id, status: 'WAITLISTED' }, orderBy: { updatedAt: 'asc' } });

@@ -72,7 +72,7 @@ export class ContextMiddleware implements NestMiddleware {
       const tenant = hook ? await this.tenants.bySlug(hook) : await this.tenants.resolve(host, req.headers['x-tenant-slug'] as string | undefined);
       const ctx: Ctx = {
         requestId, ip, userAgent: req.headers['user-agent']?.slice(0, 300),
-        tenant: tenant ?? undefined, roles: [], permissions: new Set()
+        tenant: tenant ?? undefined, internal: trusted && req.method === 'GET' && req.headers['x-vf-ssr'] === '1', roles: [], permissions: new Set()
       };
       runWithCtx(ctx, () => next());
     } catch (e) {

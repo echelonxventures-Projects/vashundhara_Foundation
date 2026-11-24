@@ -1,86 +1,23 @@
-# API Dockerfile - Multi-stage build for NestJS
-FROM node:20-alpine AS base
-
-# Install dependencies only when needed
-FROM base AS deps
-RUN apk add --no-cache libc6-compat openssl
+FROM node:22-alpine AS base
+RUN apk add --no-cache openssl && corepack enable
 WORKDIR /app
 
-# Copy package files
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
-COPY apps/api/package.json ./apps/api/
-COPY packages/*/package.json ./packages/
+FROM base AS build
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json tsconfig.base.json ./
+COPY apps/api/package.json apps/api/
+COPY packages packages
+RUN pnpm install --frozen-lockfile --filter "@vashundhara-foundation/api..." --filter vashundhara-foundation
+COPY apps/api apps/api
+RUN pnpm turbo run build --filter=@vashundhara-foundation/api
+# Keep only production dependencies, then regenerate the database client into them.
+RUN rm -rf node_modules apps/*/node_modules packages/*/node_modules \
+ && CI=true pnpm install --prod --frozen-lockfile --ignore-scripts --filter "@vashundhara-foundation/api..." \
+ && pnpm rebuild @prisma/engines prisma esbuild \
+ && pnpm --filter @vashundhara-foundation/database exec prisma generate
 
-# Install dependencies
-RUN corepack enable pnpm && pnpm install --frozen-lockfile
-
-# Generate Prisma client
-COPY packages/database/prisma ./packages/database/prisma
-RUN cd packages/database && pnpm db:generate
-
-# Builder stage
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-
-# Build packages first
-RUN corepack enable pnpm && pnpm build --filter=@vashundhara-foundation/database
-RUN pnpm build --filter=@vashundhara-foundation/shared
-RUN pnpm build --filter=@vashundhara-foundation/auth
-RUN pnpm build --filter=@vashundhara-foundation/feature-flags
-RUN pnpm build --filter=@vashundhara-foundation/i18n
-RUN pnpm build --filter=@vashundhara-foundation/ui
-RUN pnpm build --filter=@vashundhara-foundation/config
-
-# Build API
-RUN pnpm build --filter=@vashundhara-foundation/api
-
-# Production stage
 FROM base AS runner
-WORKDIR /app
-
 ENV NODE_ENV=production
-
-# Create non-root user
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nestjs
-
-# Copy built files
-COPY --from=builder --chown=nestjs:nodejs /app/apps/api/dist ./apps/api/dist
-COPY --from=builder --chown=nestjs:nodejs /app/apps/api/package.json ./apps/api/package.json
-COPY --from=builder --chown=nestjs:nodejs /app/packages/database/dist ./packages/database/dist
-COPY --from=builder --chown=nestjs:nodejs /app/packages/database/prisma ./packages/database/prisma
-COPY --from=builder --chown=nestjs:nodejs /app/packages/shared/dist ./packages/shared/dist
-COPY --from=builder --chown=nestjs:nodejs /app/packages/auth/dist ./packages/auth/dist
-COPY --from=builder --chown=nestjs:nodejs /app/packages/feature-flags/dist ./packages/feature-flags/dist
-COPY --from=builder --chown=nestjs:nodejs /app/packages/i18n/dist ./packages/i18n/dist
-COPY --from=builder --chown=nestjs:nodejs /app/packages/ui/dist ./packages/ui/dist
-COPY --from=builder --chown=nestjs:nodejs /app/packages/config/dist ./packages/config/dist
-
-# Copy node_modules from deps (production only)
-COPY --from=deps --chown=nestjs:nodejs /app/node_modules ./node_modules
-COPY --from=deps --chown=nestjs:nodejs /app/apps/api/node_modules ./apps/api/node_modules
-
-USER nestjs
-
+COPY --from=build --chown=node:node /app /app
+USER node
 EXPOSE 3000
-
-ENV PORT=3000
-
 CMD ["node", "apps/api/dist/main.js"]
-
-# Development stage
-FROM base AS development
-WORKDIR /app
-
-ENV NODE_ENV=development
-
-RUN corepack enable pnpm
-
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-
-EXPOSE 3000
-
-CMD ["pnpm", "--filter=@vashundhara-foundation/api", "start:dev"]

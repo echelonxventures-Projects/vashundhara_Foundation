@@ -21,7 +21,9 @@ export class RateGuard implements CanActivate {
     const req = ec.switchToHttp().getRequest<Request>();
     const ctx = getCtx();
     const rule = this.reflector.getAllAndOverride<{ limit: number; seconds: number; field?: string }>(RATE, [ec.getHandler(), ec.getClass()]);
-    const { limit, seconds, field } = rule ?? { limit: 600, seconds: 60, field: undefined };
+    if (!rule && ctx?.internal) return true;
+    // Generous, because mobile networks put many people behind one address. Sensitive routes set their own limit.
+    const { limit, seconds, field } = rule ?? { limit: 3000, seconds: 60, field: undefined };
     const name = rule ? `${ec.getClass().name}.${ec.getHandler().name}` : 'all';
     const subjects = [`ip:${ctx?.ip ?? 'unknown'}`];
     const account = field && (req.body as Record<string, unknown> | undefined)?.[field];

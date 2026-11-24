@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: { name: vf-config, labels: { stage: pre } }
+data:
+  NODE_ENV: production
+  PORT: '3000'
+  ROOT_DOMAIN: example.invalid
+  APP_URL: https://example.invalid
+  CORS_ORIGIN: https://example.invalid
+  DEFAULT_TENANT_SLUG: vashundhara
+  API_INTERNAL_URL: http://api:3000
+  TRUST_PROXY_HOPS: '1'
+  EMAIL_FROM: no-reply@example.invalid
+  S3_REGION: ap-south-1
+  CLAMAV_HOST: clamav

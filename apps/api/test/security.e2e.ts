@@ -64,6 +64,12 @@ describe('accounts', () => {
     for (let i = 0; i < 24; i++) codes.push((await as('alpha')('post', 'auth/login', { email: 'ghost@alpha.org', password: 'nope' })).status);
     expect(codes).toContain(429);
   });
+  it('page-render traffic does not use up a visitor\'s allowance, but sign-in limits always apply', async () => {
+    for (let i = 0; i < 24; i++) await request(http).get('/api/v1/tenant/public').set('x-vf-host', 'alpha.ngo.test').set('x-vf-ip', '9.9.9.9').set('x-vf-ssr', '1');
+    const codes: number[] = [];
+    for (let i = 0; i < 24; i++) codes.push((await request(http).post('/api/v1/auth/login').set('x-vf-ip', '9.9.9.9').set('x-vf-ssr', '1').send({ email: 'ghost2@alpha.org', password: 'nope' })).status);
+    expect(codes).toContain(429);
+  });
   it('locks an account after ten wrong passwords, even from many addresses', async () => {
     await person('lock@alpha.org', alpha.id, ['donor']);
     for (let i = 0; i < 10; i++) { await clearLimits(); await as('alpha')('post', 'auth/login', { email: 'lock@alpha.org', password: 'nope' }); }
