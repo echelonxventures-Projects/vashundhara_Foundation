@@ -142,9 +142,15 @@ importers:
       '@vashundhara-foundation/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      bidi-js:
+        specifier: 1.1.0
+        version: 1.1.0
       cookie-parser:
         specifier: ^1.4.7
         version: 1.4.7
+      harfbuzzjs:
+        specifier: 0.10.3
+        version: 0.10.3
       helmet:
         specifier: ^8.1.0
         version: 8.3.0
@@ -3568,6 +3574,9 @@ packages:
 
   graphemer@1.4.0:
     resolution: {integrity: sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==}
+
+  harfbuzzjs@0.10.3:
+    resolution: {integrity: sha512-GJnLUrgLMadlMYrBGEXwYEimObbysy3prWT4HyPpFQERvgTU/OZ+ReUlEPOum6w4RBtFXzXiCCmECOr4sz3qwQ==}
 
   has-bigints@1.1.0:
     resolution: {integrity: sha512-R3pbpkcIqv2Pm3dUwgjclDRVmWpTJW2DcMzcIhEXEx1oh/CEMObMm3KLmRJOdvhM7o4uQBnwr8pzRK2sJWIqfg==}
@@ -7472,7 +7481,6 @@ snapshots:
   bidi-js@1.1.0:
     dependencies:
       require-from-string: 2.0.2
-    optional: true
 
   binary-extensions@2.3.0: {}
 
@@ -8647,6 +8655,8 @@ snapshots:
   graceful-fs@4.2.12: {}
 
   graphemer@1.4.0: {}
+
+  harfbuzzjs@0.10.3: {}
 
   has-bigints@1.1.0: {}
 

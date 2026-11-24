@@ -112,6 +112,20 @@ describe('80G', () => {
     expect((await db.receipt.findFirstOrThrow({ where: { donationId: small.id } })).kind).toBe('SECTION_80G');
     await balanced();
   });
+  it('prints names in Indian scripts on receipts, reissued and void ones included', async () => {
+    const pdf = async (call: ReturnType<typeof as>, path: string) => (await call('get', path).buffer(true).parse((r: any, cb: any) => { const c: Buffer[] = []; r.on('data', (x: Buffer) => c.push(x)); r.on('end', () => cb(null, Buffer.concat(c))); })).body as Buffer;
+    for (const [fullName, font] of [['श्री कृष्ण द्विवेदी', 'NotoSansDevanagari'], ['ਗੁਰਪ੍ਰੀਤ ਸਿੰਘ', 'NotoSansGurmukhi'], ['കൃഷ്ണൻ ട്രസ്റ്റ്', 'NotoSansMalayalam'], ['محمد عبداللہ', 'NotoNaskhArabic']]) {
+      const d = (await give({ wants80G: true, donor: { ...donor, email: `n${++n}@example.org`, fullName, pan: 'ABCDE1234F', address: { line: `${fullName} मार्ग 12` } } })).body;
+      await pay(d);
+      const out = await pdf(as('alpha'), `receipts/public/${d.donationId}?token=${d.token}`);
+      expect(out.subarray(0, 5).toString(), fullName).toBe('%PDF-');
+      expect(out.toString('latin1'), fullName).toContain(`+${font}-Regular`);
+      const r = await db.receipt.findFirstOrThrow({ where: { donationId: d.donationId } });
+      expect((await admin('post', `receipts/${r.id}/reissue`, { reason: 'Name corrected' })).status).toBeLessThan(300);
+      const gone = await pdf(admin, `receipts/${r.id}/pdf`);
+      expect(gone.toString('latin1')).toContain(`+${font}-Regular`);
+    }
+  });
   it('serves the PDF only with the private link', async () => {
     const d = (await give()).body;
     await pay(d);

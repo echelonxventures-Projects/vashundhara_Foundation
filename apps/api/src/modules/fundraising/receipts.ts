@@ -4,12 +4,12 @@ import { Prisma, ReceiptKind } from '@prisma/client';
 import { FieldCipher, safeEqual } from '@vashundhara-foundation/auth';
 import { CASH_80G_LIMIT_MINOR, fiscalYear, formatMinor, rupeesInWords } from '@vashundhara-foundation/shared';
 import type { Response } from 'express';
-import PDFDocument from 'pdfkit';
 import { z } from 'zod';
 import { ENV, Env } from '../../env';
 import { AuditService } from '../../common/audit/audit.service';
 import { requireTenant, requireUser } from '../../common/context/context';
 import { Can, PageQuery, Paging, Public, SelfService, ZBody, ZQuery } from '../../common/http/decorators';
+import { TextPdf } from '../../common/pdf/pdf-text';
 import { PrismaService } from '../../common/prisma/prisma.module';
 
 const PREFIX: Record<ReceiptKind, string> = { GENERAL: 'R', SECTION_80G: '80G', FCRA: 'FC' };
@@ -59,45 +59,47 @@ export class ReceiptsService {
   async pdf(receipt: { number: string; kind: ReceiptKind; status: string; issuedAt: Date; snapshot: Prisma.JsonValue; tenantId: string }): Promise<Buffer> {
     const s = receipt.snapshot as unknown as Snapshot;
     const pan = s.donor.panEnc ? this.cipher.decrypt(s.donor.panEnc, `pan:${receipt.tenantId}`) : null;
-    const doc = new PDFDocument({ size: 'A4', margin: 56, info: { Title: `Receipt ${receipt.number}`, Author: s.ngo.name } });
-    const chunks: Buffer[] = [];
-    doc.on('data', (c: Buffer) => chunks.push(c));
-    const done = new Promise<Buffer>((r) => doc.on('end', () => r(Buffer.concat(chunks))));
-    // Built-in PDF fonts only cover Latin text.
-    const latin = (v: string) => v.normalize('NFKD').replace(/[^\x20-\x7E\xA0-\xFF]/g, '').trim() || '-';
-    const amount = formatMinor(s.donation.amountMinor, s.donation.currency as 'INR').replace('₹', 'Rs. ');
+    const pdf = await TextPdf.create({ size: 'A4', margin: 56, info: { Title: `Receipt ${receipt.number}`, Author: s.ngo.name } });
+    const { doc } = pdf;
+    const amount = formatMinor(s.donation.amountMinor, s.donation.currency as 'INR');
     if (receipt.status === 'VOID') {
-      doc.save().rotate(-35, { origin: [300, 420] }).fontSize(110).fillColor('#e5b8b8').text('VOID', 130, 360).restore().fillColor('black');
-      doc.x = 56; doc.y = 56;
+      doc.save().rotate(-35, { origin: [300, 420] });
+      pdf.text('VOID', { x: 130, y: 230, width: 400, size: 110, color: '#e5b8b8', bold: true });
+      doc.restore();
+      doc.y = 56;
     }
-    doc.font('Helvetica-Bold').fontSize(18).text(latin(s.ngo.name));
-    doc.font('Helvetica').fontSize(9).fillColor('#444').text(latin(s.ngo.address));
-    doc.text([s.ngo.registrationNo && `Reg. No. ${s.ngo.registrationNo}`, s.ngo.pan && `PAN ${s.ngo.pan}`].filter(Boolean).join('   '));
-    doc.moveDown(1.5).fillColor('black').font('Helvetica-Bold').fontSize(14).text(receipt.kind === 'SECTION_80G' ? 'Donation receipt (Section 80G)' : receipt.kind === 'FCRA' ? 'Foreign contribution receipt' : 'Donation receipt');
-    doc.moveDown(0.8).fontSize(10);
+    const grey = '#444';
+    pdf.text(s.ngo.name, { size: 18, bold: true });
+    if (s.ngo.address) pdf.text(s.ngo.address, { size: 9, color: grey });
+    const ids = [s.ngo.registrationNo && `Reg. No. ${s.ngo.registrationNo}`, s.ngo.pan && `PAN ${s.ngo.pan}`].filter(Boolean).join(', ');
+    if (ids) pdf.text(ids, { size: 9, color: grey });
+    doc.y += 18;
+    pdf.text(receipt.kind === 'SECTION_80G' ? 'Donation receipt (Section 80G)' : receipt.kind === 'FCRA' ? 'Foreign contribution receipt' : 'Donation receipt', { size: 14, bold: true, gap: 10 });
     const rows: [string, string][] = [
       ['Receipt number', receipt.number], ['Date of donation', new Date(s.donation.date).toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', day: '2-digit', month: 'long', year: 'numeric' })],
-      ['Received from', latin(s.donor.name)], ...(s.donor.address ? [['Address', latin(s.donor.address)] as [string, string]] : []), ...(pan ? [['Donor PAN', pan] as [string, string]] : []),
+      ['Received from', s.donor.name], ...(s.donor.address ? [['Address', s.donor.address] as [string, string]] : []), ...(pan ? [['Donor PAN', pan] as [string, string]] : []),
       ['Amount', amount], ...(s.donation.currency === 'INR' ? [['In words', rupeesInWords(s.donation.amountMinor)] as [string, string]] : []),
-      ['Payment method', s.donation.method.replace(/_/g, ' ').toLowerCase()], ...(s.donation.reference ? [['Reference', latin(s.donation.reference)] as [string, string]] : []),
-      ...(s.donation.campaign ? [['Towards', latin(s.donation.campaign)] as [string, string]] : [])
+      ['Payment method', s.donation.method.replace(/_/g, ' ').toLowerCase()], ...(s.donation.reference ? [['Reference', s.donation.reference] as [string, string]] : []),
+      ...(s.donation.campaign ? [['Towards', s.donation.campaign] as [string, string]] : [])
     ];
     for (const [k, v] of rows) {
-      const y = doc.y;
-      doc.font('Helvetica-Bold').text(k, 56, y, { width: 130 });
-      doc.font('Helvetica').text(v, 190, y, { width: 345 });
-      doc.moveDown(0.4);
+      const { y } = doc;
+      const page = doc.page;
+      pdf.text(k, { x: 56, y, width: 130, size: 10, bold: true });
+      const label = doc.y;
+      pdf.text(v, { x: 190, y: doc.page === page ? y : doc.page.margins.top, width: 349, size: 10 });
+      doc.y = Math.max(doc.y, doc.page === page ? label : 0) + 4;
     }
-    doc.x = 56;
-    doc.moveDown(1).fontSize(9);
-    if (receipt.kind === 'SECTION_80G') doc.text(`This donation is eligible for deduction under section 80G of the Income-tax Act, 1961, subject to its conditions. 80G registration: ${s.ngo.reg80G}. Form 10BE is issued separately after the annual filing.`);
-    if (receipt.kind === 'FCRA') doc.text(`Received under the Foreign Contribution (Regulation) Act. FCRA registration: ${s.ngo.fcraNo}.`);
-    if (receipt.kind === 'GENERAL') doc.text('This receipt does not by itself make the donation eligible for a tax deduction.');
-    doc.moveDown(2).font('Helvetica-Bold').text(`For ${latin(s.ngo.name)}`);
-    if (s.ngo.signatoryName) doc.font('Helvetica').moveDown(1.5).text(`${latin(s.ngo.signatoryName)}${s.ngo.signatoryTitle ? `, ${latin(s.ngo.signatoryTitle)}` : ''}`);
-    doc.moveDown(1).fillColor('#666').fontSize(8).text('Computer generated receipt.');
-    doc.end();
-    return done;
+    doc.y += 12;
+    if (receipt.kind === 'SECTION_80G') pdf.text(`This donation is eligible for deduction under section 80G of the Income-tax Act, 1961, subject to its conditions. 80G registration: ${s.ngo.reg80G}. Form 10BE is issued separately after the annual filing.`, { x: 56, size: 9 });
+    if (receipt.kind === 'FCRA') pdf.text(`Received under the Foreign Contribution (Regulation) Act. FCRA registration: ${s.ngo.fcraNo}.`, { x: 56, size: 9 });
+    if (receipt.kind === 'GENERAL') pdf.text('This receipt does not by itself make the donation eligible for a tax deduction.', { x: 56, size: 9 });
+    doc.y += 22;
+    pdf.text(`For ${s.ngo.name}`, { x: 56, size: 9, bold: true });
+    if (s.ngo.signatoryName) { doc.y += 14; pdf.text(`${s.ngo.signatoryName}${s.ngo.signatoryTitle ? `, ${s.ngo.signatoryTitle}` : ''}`, { x: 56, size: 9 }); }
+    doc.y += 10;
+    pdf.text('Computer generated receipt.', { x: 56, size: 8, color: '#666' });
+    return pdf.buffer();
   }
   async send(res: Response, r: Parameters<ReceiptsService['pdf']>[0]) {
     const body = await this.pdf(r);

@@ -70,6 +70,9 @@ describe('volunteers', () => {
     const cert = (await admin('post', 'volunteering/certificates', { volunteerId: a.volunteerId, title: 'Thank you' })).body;
     expect((await as('alpha')('get', `volunteering/certificates/${cert.code}/verify`)).body).toMatchObject({ valid: true, hours: 4.5 });
     expect((await as('beta')('get', `volunteering/certificates/${cert.code}/verify`)).status).toBe(404);
+    await db.volunteer.update({ where: { id: a.volunteerId }, data: { firstName: 'ਗੁਰਪ੍ਰੀਤ', lastName: 'द्विवेदी' } });
+    const pdf = (await as('alpha')('get', `volunteering/certificates/${cert.code}/pdf`).buffer(true).parse((r: any, cb: any) => { const c: Buffer[] = []; r.on('data', (x: Buffer) => c.push(x)); r.on('end', () => cb(null, Buffer.concat(c))); })).body as Buffer;
+    for (const f of ['NotoSansGurmukhi', 'NotoSansDevanagari']) expect(pdf.toString('latin1')).toContain(`+${f}-Regular`);
   });
 });
 
