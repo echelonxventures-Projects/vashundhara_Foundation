@@ -1,0 +1,595 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id                    String                 @id @default(uuid())
+  slug                  String                 @unique @db.Citext
+  name                  String
+  displayName           String?
+  description           String?
+  logoUrl               String?
+  faviconUrl            String?
+  primaryDomain         String?                @unique
+  status                TenantStatus           @default(PENDING_SETUP)
+  defaultCurrency       CurrencyCode           @default(INR)
+  defaultLocale         LocaleCode             @default(en)
+  supportedCurrencies   CurrencyCode[]         @default([INR])
+  supportedLocales      LocaleCode[]           @default([en])
+  timezone              String                 @default("Asia/Kolkata")
+  settings              Json                   @default("{}")
+  metadata              Json                   @default("{}")
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  deletedAt             DateTime?
+  auditLogs             AuditLog[]
+  currencies            Currency[]
+  exchangeRates         ExchangeRate[]
+  featureFlags          FeatureFlag[]
+  files                 File[]
+  notificationTemplates NotificationTemplate[]
+  notifications         Notification[]
+  roles                 Role[]
+  tenantConfigs         TenantConfig[]         @relation("TenantConfigs")
+  translations          Translation[]
+  users                 User[]
+  webhooks              Webhook[]
+
+  @@index([status])
+  @@index([primaryDomain])
+  @@map("tenants")
+}
+
+model User {
+  id            String         @id @default(uuid())
+  email         String         @unique @db.Citext
+  emailVerified Boolean        @default(false)
+  phone         String?        @unique
+  phoneVerified Boolean        @default(false)
+  passwordHash  String?
+  firstName     String
+  lastName      String
+  displayName   String?
+  avatarUrl     String?
+  locale        LocaleCode     @default(en)
+  timezone      String         @default("Asia/Kolkata")
+  status        UserStatus     @default(PENDING_VERIFICATION)
+  lastLoginAt   DateTime?
+  metadata      Json           @default("{}")
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  deletedAt     DateTime?
+  tenantId      String
+  apiKeys       ApiKey[]
+  auditLogs     AuditLog[]
+  notifications Notification[]
+  sessions      Session[]
+  userRoles     UserRole[]
+  tenant        Tenant         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  uploadedFiles File[]         @relation("FileUploadedBy")
+
+  @@index([tenantId, status])
+  @@index([email])
+  @@map("users")
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  userId       String
+  token        String   @unique
+  refreshToken String?  @unique
+  ipAddress    String?
+  userAgent    String?
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([token])
+  @@index([refreshToken])
+  @@index([expiresAt])
+  @@map("sessions")
+}
+
+model ApiKey {
+  id          String    @id @default(uuid())
+  userId      String
+  name        String
+  keyHash     String    @unique
+  keyPrefix   String
+  permissions String[]  @default([])
+  expiresAt   DateTime?
+  lastUsedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([keyHash])
+  @@map("api_keys")
+}
+
+model Role {
+  id          String           @id @default(uuid())
+  name        String
+  displayName String
+  description String?
+  scope       RoleScope        @default(TENANT)
+  isSystem    Boolean          @default(false)
+  priority    Int              @default(0)
+  metadata    Json             @default("{}")
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  deletedAt   DateTime?
+  tenantId    String?
+  permissions RolePermission[]
+  tenant      Tenant?          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  userRoles   UserRole[]
+
+  @@unique([name, tenantId, scope])
+  @@index([tenantId, scope])
+  @@map("roles")
+}
+
+model Permission {
+  id          String           @id @default(uuid())
+  resource    String
+  action      PermissionAction
+  description String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  roles       RolePermission[]
+
+  @@unique([resource, action])
+  @@index([resource])
+  @@map("permissions")
+}
+
+model RolePermission {
+  id           String     @id @default(uuid())
+  roleId       String
+  permissionId String
+  conditions   Json?
+  createdAt    DateTime   @default(now())
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@unique([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+model UserRole {
+  id         String    @id @default(uuid())
+  userId     String
+  roleId     String
+  assignedBy String?
+  assignedAt DateTime  @default(now())
+  expiresAt  DateTime?
+  role       Role      @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, roleId])
+  @@index([userId])
+  @@index([roleId])
+  @@map("user_roles")
+}
+
+model SystemConfig {
+  id               String   @id @default(uuid())
+  key              String   @unique
+  value            Json
+  description      String?
+  category         String
+  isPublic         Boolean  @default(false)
+  isEditable       Boolean  @default(true)
+  validationSchema Json?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([category])
+  @@map("system_configs")
+}
+
+model TenantConfig {
+  id           String   @id @default(uuid())
+  tenantId     String
+  key          String
+  value        Json
+  description  String?
+  category     String
+  isOverridden Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  tenant       Tenant   @relation("TenantConfigs", fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, key])
+  @@index([tenantId, category])
+  @@map("tenant_configs")
+}
+
+model FeatureFlag {
+  id                String          @id @default(uuid())
+  key               String
+  name              String
+  description       String?
+  type              FeatureFlagType @default(BOOLEAN)
+  defaultValue      Json
+  isEnabled         Boolean         @default(false)
+  rolloutPercentage Int             @default(0)
+  targetingRules    Json?
+  metadata          Json            @default("{}")
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  deletedAt         DateTime?
+  tenantId          String?
+  tenant            Tenant?         @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([key, tenantId])
+  @@index([tenantId, isEnabled])
+  @@map("feature_flags")
+}
+
+model Locale {
+  id           String        @id @default(uuid())
+  code         LocaleCode    @unique
+  name         String
+  nativeName   String
+  rtl          Boolean       @default(false)
+  dateFormat   String        @default("dd/MM/yyyy")
+  timeFormat   String        @default("HH:mm")
+  numberFormat Json          @default("{}")
+  pluralRules  Json          @default("{}")
+  isActive     Boolean       @default(true)
+  isSystem     Boolean       @default(false)
+  sortOrder    Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  translations Translation[]
+
+  @@map("locales")
+}
+
+model Translation {
+  id         String   @id @default(uuid())
+  namespace  String
+  key        String
+  value      String
+  context    String?
+  isReviewed Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  tenantId   String?
+  localeId   String
+  locale     Locale   @relation(fields: [localeId], references: [id], onDelete: Cascade)
+  tenant     Tenant?  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([namespace, key, localeId, tenantId])
+  @@index([namespace, localeId, tenantId])
+  @@index([tenantId])
+  @@map("translations")
+}
+
+model Currency {
+  id                  String         @id @default(uuid())
+  code                CurrencyCode   @unique
+  symbol              String
+  symbolPosition      String         @default("prefix")
+  decimals            Int            @default(2)
+  name                String
+  namePlural          String
+  isActive            Boolean        @default(true)
+  isBase              Boolean        @default(false)
+  formatting          Json           @default("{}")
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+  tenantId            String?
+  tenant              Tenant?        @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  baseExchangeRates   ExchangeRate[] @relation("BaseCurrency")
+  targetExchangeRates ExchangeRate[] @relation("TargetCurrency")
+
+  @@unique([code, tenantId])
+  @@index([tenantId, isActive])
+  @@map("currencies")
+}
+
+model ExchangeRate {
+  id               String    @id @default(uuid())
+  baseCurrencyId   String
+  targetCurrencyId String
+  rate             Decimal   @db.Decimal(18, 8)
+  source           String    @default("exchangerate-api.com")
+  fetchedAt        DateTime  @default(now())
+  validFrom        DateTime  @default(now())
+  validUntil       DateTime?
+  isManual         Boolean   @default(false)
+  tenantId         String?
+  baseCurrency     Currency  @relation("BaseCurrency", fields: [baseCurrencyId], references: [id], onDelete: Cascade)
+  targetCurrency   Currency  @relation("TargetCurrency", fields: [targetCurrencyId], references: [id], onDelete: Cascade)
+  tenant           Tenant?   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([baseCurrencyId, targetCurrencyId, validFrom, tenantId])
+  @@index([tenantId, baseCurrencyId, targetCurrencyId])
+  @@index([validFrom, validUntil])
+  @@map("exchange_rates")
+}
+
+model AuditLog {
+  id            String      @id @default(uuid())
+  action        AuditAction
+  resource      String
+  resourceId    String?
+  resourceType  String?
+  oldValues     Json?
+  newValues     Json?
+  metadata      Json        @default("{}")
+  ipAddress     String?
+  userAgent     String?
+  correlationId String?
+  createdAt     DateTime    @default(now())
+  tenantId      String
+  userId        String?
+  tenant        Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user          User?       @relation(fields: [userId], references: [id])
+
+  @@index([tenantId, createdAt])
+  @@index([tenantId, resource, resourceId])
+  @@index([tenantId, userId, createdAt])
+  @@index([correlationId])
+  @@map("audit_logs")
+}
+
+model NotificationTemplate {
+  id            String              @id @default(uuid())
+  key           String              @unique
+  name          String
+  description   String?
+  channel       NotificationChannel
+  subject       String?
+  content       String
+  contentHtml   String?
+  locale        LocaleCode          @default(en)
+  variables     Json                @default("[]")
+  isActive      Boolean             @default(true)
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  tenantId      String?
+  tenant        Tenant?             @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  notifications Notification[]
+
+  @@index([tenantId, channel, isActive])
+  @@map("notification_templates")
+}
+
+model Notification {
+  id            String                @id @default(uuid())
+  templateId    String?
+  channel       NotificationChannel
+  recipient     String
+  subject       String?
+  content       String
+  contentHtml   String?
+  status        NotificationStatus    @default(PENDING)
+  priority      Int                   @default(0)
+  scheduledAt   DateTime?
+  sentAt        DateTime?
+  deliveredAt   DateTime?
+  failedAt      DateTime?
+  failureReason String?
+  retryCount    Int                   @default(0)
+  maxRetries    Int                   @default(3)
+  metadata      Json                  @default("{}")
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+  tenantId      String
+  userId        String?
+  template      NotificationTemplate? @relation(fields: [templateId], references: [id])
+  tenant        Tenant                @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user          User?                 @relation(fields: [userId], references: [id])
+
+  @@index([tenantId, status, scheduledAt])
+  @@index([tenantId, userId, createdAt])
+  @@index([templateId])
+  @@map("notifications")
+}
+
+model Webhook {
+  id           String            @id @default(uuid())
+  name         String
+  url          String
+  secret       String
+  events       WebhookEvent[]
+  isActive     Boolean           @default(true)
+  timeoutMs    Int               @default(30000)
+  maxRetries   Int               @default(3)
+  retryDelayMs Int               @default(1000)
+  headers      Json              @default("{}")
+  metadata     Json              @default("{}")
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  deletedAt    DateTime?
+  tenantId     String
+  deliveries   WebhookDelivery[]
+  tenant       Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, isActive])
+  @@map("webhooks")
+}
+
+model WebhookDelivery {
+  id             String        @id @default(uuid())
+  webhookId      String
+  event          WebhookEvent
+  payload        Json
+  responseStatus Int?
+  responseBody   String?
+  status         WebhookStatus @default(PENDING)
+  attempt        Int           @default(1)
+  error          String?
+  nextRetryAt    DateTime?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  webhook        Webhook       @relation(fields: [webhookId], references: [id], onDelete: Cascade)
+
+  @@index([webhookId, status, nextRetryAt])
+  @@index([status, nextRetryAt])
+  @@map("webhook_deliveries")
+}
+
+model File {
+  id           String    @id @default(uuid())
+  filename     String
+  originalName String
+  mimeType     String
+  size         BigInt
+  path         String
+  bucket       String
+  checksum     String
+  metadata     Json      @default("{}")
+  isPublic     Boolean   @default(false)
+  expiresAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+  tenantId     String
+  uploadedById String?
+  tenant       Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  uploadedBy   User?     @relation("FileUploadedBy", fields: [uploadedById], references: [id], onDelete: SetNull)
+
+  @@index([tenantId, createdAt])
+  @@index([tenantId, mimeType])
+  @@index([checksum])
+  @@map("files")
+}
+
+enum TenantStatus {
+  ACTIVE
+  SUSPENDED
+  PENDING_SETUP
+  ARCHIVED
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  PENDING_VERIFICATION
+  SUSPENDED
+  DELETED
+}
+
+enum RoleScope {
+  SYSTEM
+  TENANT
+}
+
+enum PermissionAction {
+  CREATE
+  READ
+  UPDATE
+  DELETE
+  MANAGE
+  EXPORT
+  IMPORT
+}
+
+enum CurrencyCode {
+  USD
+  INR
+  EUR
+  GBP
+  JPY
+  CAD
+  AUD
+  SGD
+  AED
+  SAR
+}
+
+enum LocaleCode {
+  en
+  hi
+  bn
+  ta
+  te
+  mr
+  gu
+  kn
+  ml
+  or
+  pa
+  as
+  ur
+}
+
+enum FeatureFlagType {
+  BOOLEAN
+  STRING
+  NUMBER
+  JSON
+}
+
+enum AuditAction {
+  CREATE
+  READ
+  UPDATE
+  DELETE
+  LOGIN
+  LOGOUT
+  EXPORT
+  IMPORT
+  FAILED_LOGIN
+  PASSWORD_CHANGE
+  PERMISSION_CHANGE
+  CONFIG_CHANGE
+}
+
+enum NotificationChannel {
+  EMAIL
+  SMS
+  PUSH
+  IN_APP
+  WEBHOOK
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  DELIVERED
+  FAILED
+  BOUNCED
+}
+
+enum WebhookEvent {
+  TENANT_CREATED
+  TENANT_UPDATED
+  TENANT_DELETED
+  USER_CREATED
+  USER_UPDATED
+  USER_DELETED
+  DONATION_CREATED
+  DONATION_COMPLETED
+  DONATION_FAILED
+  DONATION_REFUNDED
+  SUBSCRIPTION_CREATED
+  SUBSCRIPTION_UPDATED
+  SUBSCRIPTION_CANCELLED
+  PAYMENT_SUCCEEDED
+  PAYMENT_FAILED
+  INVOICE_GENERATED
+  INVOICE_PAID
+  INVOICE_OVERDUE
+}
+
+enum WebhookStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  RETRYING
+}
