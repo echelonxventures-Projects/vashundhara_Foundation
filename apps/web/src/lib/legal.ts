@@ -1,0 +1,13 @@
+import type { Tenant } from './server';
+/** Starting drafts describing what the platform actually does. Each NGO should have them reviewed and publish its own. */
+export function defaultPage(slug: string, t: Tenant): { title: string; body: string } | null {
+  const org = t.legalName ?? t.name;
+  const contact = t.settings.contactEmail ? `Write to ${t.settings.contactEmail}.` : 'Use the contact page.';
+  switch (slug) {
+    case 'about': return { title: `About ${t.name}`, body: t.settings.about ?? t.description ?? `${t.name} will publish its story here soon.` };
+    case 'privacy': return { title: 'Privacy notice', body: `${org} decides how your information is used on this site.\n\n## What we collect\n\nWhat you type into our forms: name, contact details, donations, and, only if you ask for an 80G receipt, your PAN and address. Students, volunteers and people asking for support give the extra details shown on those forms. We also keep sign-in records (IP address and browser) for security.\n\n## Why\n\nTo process donations and receipts, run our programmes, answer you, meet legal duties, and, only with your consent, send news.\n\n## Who sees it\n\nOur authorised staff; Razorpay, which processes payments; and the companies that host this service and deliver our email and text messages. We do not sell it. Card details never reach us.\n\n## How long\n\nDonation and receipt records are kept for as long as tax law requires. Other details are kept while you use our services and removed on request.\n\n## Children\n\nStudents under 18 need a parent's or guardian's consent.\n\n## Your choices\n\nSigned-in people can download their data, change consent and ask for deletion under My account, My data. ${contact}\n\n## Cookies\n\nWe use only the cookies needed to keep you signed in and remember your language. There is no advertising or tracking.` };
+    case 'terms': return { title: 'Terms of use', body: `By using this site you agree to these terms with ${org}.\n\n- Give accurate information and keep your password private.\n- Do not misuse the site or try to reach other people's data.\n- Donations are voluntary gifts and are used for our charitable purposes.\n- 80G receipts are given only when the law allows and the details you gave are correct.\n\nIndian law applies. ${contact}` };
+    case 'refunds': return { title: 'Refunds and cancellations', body: `If you donated by mistake, tell us as soon as you can with your receipt number. ${contact} If we approve the refund, it returns to the original payment method and the receipt is cancelled or replaced.\n\nYou can stop a recurring donation at any time under My account, My giving.` };
+    default: return null;
+  }
+}

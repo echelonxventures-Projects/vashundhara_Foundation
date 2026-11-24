@@ -1,29 +1,32 @@
 {
   "name": "@vashundhara-foundation/database",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "prisma generate && tsc -p tsconfig.json",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:migrate:create": "prisma migrate dev --create-only",
     "db:migrate:deploy": "prisma migrate deploy",
-    "db:seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts",
+    "db:seed": "tsx prisma/seed.ts",
     "db:studio": "prisma studio",
     "db:reset": "prisma migrate reset --force",
-    "lint": "eslint src --ext .ts",
-    "typecheck": "tsc --noEmit",
-    "build": "tsc"
+    "db:create-admin": "tsx prisma/create-admin.ts"
   },
   "dependencies": {
-    "@prisma/client": "^5.12.0"
+    "@prisma/client": "~6.19.0",
+    "prisma": "~6.19.0",
+    "@vashundhara-foundation/shared": "workspace:*",
+    "@vashundhara-foundation/auth": "workspace:*",
+    "tsx": "^4.20.0"
   },
   "devDependencies": {
-    "@types/node": "^20.12.0",
-    "eslint": "^8.57.0",
-    "prisma": "^5.12.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "@types/node": "^22.10.0",
+    "typescript": "~5.9.0",
+    "eslint": "^8.57.0"
   }
 }

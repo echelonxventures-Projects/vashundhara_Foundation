@@ -1,64 +1,49 @@
-/**
- * Vashundhara Foundation API - Root Module
- */
-
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { ThrottlerModule } from '@nestjs/throttler';
-
+import { Global, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { JwtModule } from '@nestjs/jwt';
+import { AuditModule } from './common/audit/audit.service';
+import { ContextMiddleware, TenantResolver } from './common/http/context.middleware';
+import { ErrorsFilter } from './common/http/errors.filter';
+import { AuthGuard, RateGuard } from './common/http/guards';
+import { JobsModule } from './common/jobs/jobs.module';
 import { PrismaModule } from './common/prisma/prisma.module';
 import { RedisModule } from './common/redis/redis.module';
-import { AuditModule } from './modules/audit/audit.module';
+import { StructureCoreModule } from './common/structure/structure.service';
+import { ENV, Env, loadEnv } from './env';
 import { AuthModule } from './modules/auth/auth.module';
-import { ConfigModule as AppConfigModule } from './modules/config/config.module';
-import { CurrencyModule } from './modules/currency/currency.module';
-import { FeatureFlagModule } from './modules/feature-flag/feature-flag.module';
-import { FileModule } from './modules/file/file.module';
-import { HealthModule } from './modules/health/health.module';
-import { I18nModule } from './modules/i18n/i18n.module';
-import { NotificationModule } from './modules/notification/notification.module';
-import { PermissionModule } from './modules/permission/permission.module';
-import { RoleModule } from './modules/role/role.module';
-import { TenantModule } from './modules/tenant/tenant.module';
-import { UserModule } from './modules/user/user.module';
-import { WebhookModule } from './modules/webhook/webhook.module';
+import { ContentModule } from './modules/content/content.module';
+import { CrmModule } from './modules/crm/crm.module';
+import { EngagementModule } from './modules/engagement/engagement.module';
+import { FilesModule } from './modules/files/files.module';
+import { FinanceModule } from './modules/finance/finance.module';
+import { FundraisingModule } from './modules/fundraising/fundraising.module';
+import { LearningModule } from './modules/learning/learning.module';
+import { MembersModule } from './modules/members/members.module';
+import { NotificationsModule } from './modules/notifications/notifications.module';
+import { PlatformModule } from './modules/platform/platform.module';
+import { PrivacyModule } from './modules/privacy/privacy.module';
+import { ProgrammesModule } from './modules/programmes/programmes.module';
+import { StructureModule } from './modules/structure/structure.module';
+import { SystemModule } from './modules/system/system.module';
+
+@Global()
+@Module({ providers: [{ provide: ENV, useFactory: () => loadEnv() }, TenantResolver], exports: [ENV, TenantResolver] })
+class CoreModule {}
 
 @Module({
   imports: [
-    // Configuration
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: ['.env.local', '.env'],
-      cache: true
+    CoreModule, PrismaModule, RedisModule, AuditModule, JobsModule, StructureCoreModule,
+    JwtModule.registerAsync({
+      global: true, inject: [ENV],
+      useFactory: (env: Env) => ({ secret: env.JWT_SECRET, signOptions: { issuer: 'vf', audience: 'vf', algorithm: 'HS256' }, verifyOptions: { issuer: 'vf', audience: 'vf', algorithms: ['HS256'] } })
     }),
-
-    // Rate Limiting
-    ThrottlerModule.forRoot([
-      {
-        ttl: 60000,
-        limit: 100
-      }
-    ]),
-
-    // Core Modules
-    PrismaModule,
-    RedisModule,
-
-    // Feature Modules
-    AuthModule,
-    TenantModule,
-    UserModule,
-    RoleModule,
-    PermissionModule,
-    AppConfigModule,
-    I18nModule,
-    CurrencyModule,
-    FeatureFlagModule,
-    AuditModule,
-    NotificationModule,
-    FileModule,
-    WebhookModule,
-    HealthModule
-  ]
+    NotificationsModule, AuthModule, FilesModule, MembersModule, SystemModule, FundraisingModule, FinanceModule, CrmModule,
+    ProgrammesModule, LearningModule, EngagementModule, ContentModule, PrivacyModule, PlatformModule, StructureModule
+  ],
+  providers: [{ provide: APP_GUARD, useClass: RateGuard }, { provide: APP_GUARD, useClass: AuthGuard }, { provide: APP_FILTER, useClass: ErrorsFilter }]
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(ContextMiddleware).forRoutes('{*path}');
+  }
+}

@@ -1,0 +1,29 @@
+# A second line of defence beside the managed database's own point-in-time recovery.
+apiVersion: batch/v1
+kind: CronJob
+metadata: { name: backup }
+spec:
+  schedule: '30 20 * * *'
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      template:
+        metadata: { labels: { app: backup } }
+        spec:
+          restartPolicy: Never
+          automountServiceAccountToken: false
+          volumes: [{ name: work, emptyDir: {} }]
+          initContainers:
+            - name: dump
+              image: postgres:16-alpine
+              command: [sh, -c, 'set -e; pg_dump --format=custom --no-owner "$DATABASE_URL" > /work/db.dump; pg_restore --list /work/db.dump > /dev/null']
+              env: [{ name: DATABASE_URL, valueFrom: { secretKeyRef: { name: vf-backup-secrets, key: DATABASE_URL } } }]
+              volumeMounts: [{ name: work, mountPath: /work }]
+          containers:
+            - name: upload
+              image: amazon/aws-cli:2.22.0
+              command: [sh, -c, 'aws s3 cp /work/db.dump "s3://$BACKUP_BUCKET/db/$(date -u +%Y/%m/%d-%H%M).dump" --sse aws:kms --only-show-errors']
+              envFrom: [{ secretRef: { name: vf-backup-secrets } }]
+              volumeMounts: [{ name: work, mountPath: /work }]

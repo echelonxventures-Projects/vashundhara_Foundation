@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: clamav, labels: { app: clamav } }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: clamav } }
+  template:
+    metadata: { labels: { app: clamav } }
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - name: clamav
+          image: clamav/clamav:1.4
+          ports: [{ containerPort: 3310 }]
+          resources: { requests: { cpu: 200m, memory: 1536Mi }, limits: { memory: 3Gi } }
+          readinessProbe: { tcpSocket: { port: 3310 }, periodSeconds: 10, failureThreshold: 60 }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: clamav }
+spec: { selector: { app: clamav }, ports: [{ port: 3310 }] }

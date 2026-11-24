@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: vf
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-dns
+    nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+    nginx.ingress.kubernetes.io/proxy-body-size: 4m
+    nginx.ingress.kubernetes.io/limit-rps: '50'
+spec:
+  ingressClassName: nginx
+  # The wildcard needs a cert-manager issuer that uses a DNS-01 solver.
+  tls: [{ hosts: ['vashundharafoundation.org', '*.vashundharafoundation.org'], secretName: vf-tls }]
+  rules:
+    - host: 'vashundharafoundation.org'
+      http: { paths: [{ path: /, pathType: Prefix, backend: { service: { name: web, port: { number: 3000 } } } }] }
+    - host: 'www.vashundharafoundation.org'
+      http: { paths: [{ path: /, pathType: Prefix, backend: { service: { name: web, port: { number: 3000 } } } }] }
+    - host: '*.vashundharafoundation.org'
+      http: { paths: [{ path: /, pathType: Prefix, backend: { service: { name: web, port: { number: 3000 } } } }] }
+    - host: 'admin.vashundharafoundation.org'
+      http: { paths: [{ path: /, pathType: Prefix, backend: { service: { name: admin, port: { number: 3000 } } } }] }
+    - host: 'docs.vashundharafoundation.org'
+      http: { paths: [{ path: /, pathType: Prefix, backend: { service: { name: docs, port: { number: 3000 } } } }] }
+    - host: 'api.vashundharafoundation.org'
+      http: { paths: [{ path: /api, pathType: Prefix, backend: { service: { name: api, port: { number: 3000 } } } }] }

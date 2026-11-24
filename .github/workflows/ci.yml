@@ -1,0 +1,89 @@
+name: CI
+on:
+  push: { branches: [master, main], tags: ['v*'] }
+  pull_request:
+  workflow_dispatch:
+    inputs: { environment: { type: choice, options: [staging, production], default: staging } }
+permissions: { contents: read }
+concurrency: { group: 'ci-${{ github.ref }}', cancel-in-progress: "${{ github.event_name == 'pull_request' }}" }
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: { POSTGRES_USER: vf, POSTGRES_PASSWORD: vf, POSTGRES_DB: vf_test }
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U vf" --health-interval 5s --health-retries 10
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+    env:
+      DATABASE_URL: postgresql://vf:vf@localhost:5432/vf_test
+      TEST_DATABASE_URL: postgresql://vf:vf@localhost:5432/vf_test
+      REDIS_URL: redis://localhost:6379
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm audit --prod --audit-level high
+      - run: pnpm build
+      - run: pnpm lint && pnpm typecheck && pnpm test
+      - run: pnpm db:migrate:deploy
+      - name: Schema and migrations must match
+        run: pnpm --filter @vashundhara-foundation/database exec prisma migrate diff --from-url "$DATABASE_URL" --to-schema-datamodel prisma/schema.prisma --exit-code
+      - run: pnpm --filter @vashundhara-foundation/api test:e2e
+      - run: cp -r apps/web/.next/static apps/web/.next/standalone/apps/web/.next/ && cp -r apps/web/public apps/web/.next/standalone/apps/web/
+      - run: pnpm --filter @vashundhara-foundation/web exec playwright install --with-deps chromium
+      - run: redis-cli -h localhost flushall || true
+      - run: pnpm --filter @vashundhara-foundation/web test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with: { name: browser-tests, path: apps/web/test-results, retention-days: 7 }
+  images:
+    needs: test
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions: { contents: read, packages: write }
+    strategy: { matrix: { app: [api, web, admin, docs] } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with: { registry: ghcr.io, username: '${{ github.actor }}', password: '${{ secrets.GITHUB_TOKEN }}' }
+      - id: name
+        run: echo "image=ghcr.io/${GITHUB_REPOSITORY,,}/${{ matrix.app }}:${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile.${{ matrix.app == 'api' && 'api' || 'next' }}
+          build-args: APP=${{ matrix.app }}
+          push: true
+          tags: ${{ steps.name.outputs.image }}
+          cache-from: type=gha,scope=${{ matrix.app }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.app }}
+  deploy:
+    needs: images
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'production' }}
+    env: { TARGET: "${{ github.event.inputs.environment || 'production' }}" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-kubectl@v4
+      - uses: azure/k8s-set-context@v4
+        with: { kubeconfig: '${{ secrets.KUBECONFIG }}' }
+      - name: Migrate, then roll out
+        run: |
+          set -euo pipefail
+          sed -i "s/replace-me/${GITHUB_SHA}/" k8s/overlays/$TARGET/kustomization.yaml
+          NS=$(awk '/^namespace:/{print $2}' k8s/overlays/$TARGET/kustomization.yaml)
+          kubectl kustomize k8s/overlays/$TARGET > all.yaml
+          kubectl -n "$NS" delete job migrate --ignore-not-found --wait
+          kubectl apply -f all.yaml -l stage=pre
+          kubectl -n "$NS" wait --for=condition=complete job/migrate --timeout=300s
+          kubectl apply -f all.yaml -l stage!=pre
+          for d in api worker web admin docs; do kubectl -n "$NS" rollout status deploy/$d --timeout=300s; done

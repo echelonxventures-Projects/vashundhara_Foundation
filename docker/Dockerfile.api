@@ -1,0 +1,23 @@
+FROM node:22-alpine AS base
+RUN apk add --no-cache openssl && corepack enable
+WORKDIR /app
+
+FROM base AS build
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json tsconfig.base.json ./
+COPY apps/api/package.json apps/api/
+COPY packages packages
+RUN pnpm install --frozen-lockfile --filter "@vashundhara-foundation/api..." --filter vashundhara-foundation
+COPY apps/api apps/api
+RUN pnpm turbo run build --filter=@vashundhara-foundation/api
+# Keep only production dependencies, then regenerate the database client into them.
+RUN rm -rf node_modules apps/*/node_modules packages/*/node_modules \
+ && CI=true pnpm install --prod --frozen-lockfile --ignore-scripts --filter "@vashundhara-foundation/api..." \
+ && pnpm rebuild @prisma/engines prisma esbuild \
+ && pnpm --filter @vashundhara-foundation/database exec prisma generate
+
+FROM base AS runner
+ENV NODE_ENV=production
+COPY --from=build --chown=node:node /app /app
+USER node
+EXPOSE 3000
+CMD ["node", "apps/api/dist/main.js"]
