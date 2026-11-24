@@ -1,11 +1,13 @@
 'use client';
 import { formatMinor, toMinor, type Permission } from '@vashundhara-foundation/shared';
-import { api, Badge, del, Dialog, Empty, Feedback, Field, Loading, Notice, Pager, post, put, saveText, Table, uploadFile, useAction, useApi } from '@vashundhara-foundation/ui';
-import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { api, ApiError, Badge, del, Dialog, Empty, Feedback, Field, Loading, Notice, Pager, post, put, saveText, StructureEditor, Table, uploadFile, useAction, useApi } from '@vashundhara-foundation/ui';
+import { createContext, ReactNode, useContext, useEffect, useMemo, useState } from 'react';
 import { Link, usePathname, useRouter } from '@/i18n/routing';
 import { Check, TextArea, TextField, values } from './forms';
 import { useSession } from './session';
-import { F, R, STAFF } from './staff-config';
+import { F, MyStructure, NO_STRUCTURE, R, STAFF, ownField, tableScreen, withStructure } from './staff-config';
+
+const StructureCtx = createContext<{ s: MyStructure; reload: () => Promise<void> }>({ s: NO_STRUCTURE, reload: async () => undefined });
 
 const rupees = (m: unknown) => formatMinor(Number(m ?? 0));
 const dig = (o: any, p: string) => p.split('.').reduce((x, k) => x?.[k], o);
@@ -22,6 +24,25 @@ function cellValue(key: string, r: any): ReactNode {
   return s.length > 90 ? `${s.slice(0, 90)}…` : s;
 }
 const cell = (key: string) => (r: any) => cellValue(key, r);
+/** A list cell for one of the NGO's own fields. */
+function ownCell(f: F, r: any, refs: Record<string, string>): ReactNode {
+  const c = f.custom!;
+  const v = r.custom?.[c.key];
+  if (v === null || v === undefined || v === '') return <span className="text-muted">-</span>;
+  const name = (x: string) => c.choices?.find((y) => y.value === x)?.label ?? x;
+  switch (c.type) {
+    case 'bool': return v ? 'Yes' : 'No';
+    case 'select': return name(v);
+    case 'multi': return v.map(name).join(', ');
+    case 'money': return rupees(v);
+    case 'ref': return refs[v] ?? 'Linked record';
+    case 'file': return <button type="button" className="underline" onClick={() => void api(`files/${v}/download`).then((x) => window.location.assign(x.url)).catch((e: ApiError) => window.alert(e.message))}>Open file</button>;
+    case 'url': return <a className="underline" href={v} target="_blank" rel="noopener noreferrer nofollow">Open link</a>;
+    case 'date': return new Date(`${v}T12:00:00Z`).toLocaleDateString('en-IN', { dateStyle: 'medium', timeZone: 'UTC' });
+    case 'datetime': return new Date(v).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' });
+    default: { const s = String(v); return s.length > 90 ? `${s.slice(0, 90)}…` : s; }
+  }
+}
 
 const SPECIAL: { href: string; title: string; group: string; perm: Permission }[] = [
   { href: 'donations', title: 'Donations', group: 'Fundraising', perm: 'donations:read' }, { href: 'finance', title: 'Finance', group: 'Fundraising', perm: 'finance:read' }, { href: 'monitoring', title: 'Monitoring', group: 'Programmes', perm: 'programmes:read' },
@@ -34,15 +55,18 @@ export function StaffShell({ children }: { children: ReactNode }) {
   const router = useRouter();
   const path = usePathname();
   const flags = useApi<Record<string, unknown>>('feature-flags/evaluate');
+  const mine = useApi<MyStructure>(me?.permissions.length ? 'structure' : null);
+  const structure = mine.data ?? NO_STRUCTURE;
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState('');
   const [hits, setHits] = useState<{ type: string; id: string; title: string }[]>([]);
   useEffect(() => { if (!loading && !me?.user) router.replace(`/login?next=${encodeURIComponent(path)}`); }, [loading, me, path, router]);
   useEffect(() => { setOpen(false); setHits([]); setQ(''); }, [path]);
   useEffect(() => { if (q.length < 2) { setHits([]); return; } const x = setTimeout(() => { api(`search?q=${encodeURIComponent(q)}`).then((r) => setHits(r.items)).catch(() => undefined); }, 300); return () => clearTimeout(x); }, [q]);
-  if (loading || !me?.user) return <Loading />;
+  if (loading || !me?.user || (me.permissions.length > 0 && mine.loading && !mine.data)) return <Loading />;
   if (!me.permissions.length) return <div className="mx-auto max-w-lg p-8"><Notice kind="error">Your account has no staff access in this organisation.</Notice></div>;
-  const items = [...SPECIAL.filter((s) => can(s.perm)).map((s) => ({ href: s.href, title: s.title, group: s.group })), ...Object.entries(STAFF).filter(([, r]) => can(`${r.resource}:read`) && (!r.flag || flags.data?.[`module.${r.flag}`] !== false)).map(([href, r]) => ({ href, title: r.title, group: r.group }))];
+  const items = [...SPECIAL.filter((s) => can(s.perm)).map((s) => ({ href: s.href, title: s.title, group: s.group })), ...Object.entries(STAFF).filter(([, r]) => can(`${r.resource}:read`) && (!r.flag || flags.data?.[`module.${r.flag}`] !== false)).map(([href, r]) => ({ href, title: structure.entities[href]?.layout?.title ?? r.title, group: r.group })), ...structure.tables.map((t) => ({ href: `t/${t.key}`, title: t.title, group: t.group ?? 'Own tables' })), ...(structure.canManage ? [{ href: 'structure', title: 'Structure', group: 'Setup' }] : [])];
+  const groups = [...GROUPS.slice(0, -1), ...new Set(items.map((i) => i.group).filter((g) => !GROUPS.includes(g))), 'Setup'];
   const bySlug = (type: string) => (Object.entries(STAFF).find(([, r]) => r.path === type)?.[0] ?? type);
   return (
     <div className="mx-auto grid max-w-[1400px] gap-6 px-4 py-6 lg:grid-cols-[230px_1fr]">
@@ -52,11 +76,11 @@ export function StaffShell({ children }: { children: ReactNode }) {
           <input type="search" className="input mb-3" aria-label="Search records" placeholder="Search" value={q} onChange={(e) => setQ(e.target.value)} />
           {hits.length > 0 && <ul className="card mb-3 grid gap-1">{hits.map((h) => <li key={h.type + h.id}><Link className="underline" href={`/staff/${bySlug(h.type)}?open=${h.id}`}>{h.title}</Link></li>)}</ul>}
           <Link href="/staff" className="block rounded px-2 py-1 font-semibold hover:bg-brand-soft">Dashboard</Link>
-          {GROUPS.map((g) => { const xs = items.filter((i) => i.group === g); return xs.length ? <div key={g} className="mt-4"><p className="px-2 text-sm font-semibold text-muted">{g}</p><ul>{xs.map((i) => <li key={i.href}><Link href={`/staff/${i.href}`} aria-current={path === `/staff/${i.href}` ? 'page' : undefined} className="block rounded px-2 py-1 hover:bg-brand-soft aria-[current=page]:bg-brand-soft aria-[current=page]:font-semibold">{i.title}</Link></li>)}</ul></div> : null; })}
+          {groups.map((g) => { const xs = items.filter((i) => i.group === g); return xs.length ? <div key={g} className="mt-4"><p className="px-2 text-sm font-semibold text-muted">{g}</p><ul>{xs.map((i) => <li key={i.href}><Link href={`/staff/${i.href}`} aria-current={path === `/staff/${i.href}` ? 'page' : undefined} className="block rounded px-2 py-1 hover:bg-brand-soft aria-[current=page]:bg-brand-soft aria-[current=page]:font-semibold">{i.title}</Link></li>)}</ul></div> : null; })}
           {can('field:create') && <Link href="/field" className="btn btn-outline mt-4 w-full">Field app</Link>}
         </nav>
       </aside>
-      <div className="min-w-0">{children}</div>
+      <div className="min-w-0"><StructureCtx.Provider value={{ s: structure, reload: mine.reload }}>{children}</StructureCtx.Provider></div>
     </div>
   );
 }
@@ -65,12 +89,19 @@ const H1 = ({ children, side }: { children: ReactNode; side?: ReactNode }) => <d
 // ---------- generic list and form ----------
 const local = (iso?: string | null) => { if (!iso) return ''; const d = new Date(iso); return new Date(d.getTime() - d.getTimezoneOffset() * 60_000).toISOString().slice(0, 16); };
 function RefInput({ f, value, pipelineId, ...a }: { f: F; value: string; pipelineId?: string } & Record<string, any>) {
-  const { data } = useApi(`${f.ref!.path}?limit=100`);
+  const [q, setQ] = useState('');
+  const [term, setTerm] = useState('');
+  const [picked, setPicked] = useState(value);
+  const [many, setMany] = useState(false);
+  useEffect(() => { const x = setTimeout(() => setTerm(q), 300); return () => clearTimeout(x); }, [q]);
+  const { data } = useApi(`${f.ref!.path}?limit=100${term ? `&q=${encodeURIComponent(term)}` : ''}`);
+  useEffect(() => { if (data?.total > 100) setMany(true); }, [data]);
+  const name = (x: any) => f.ref!.label.split(' ').map((k) => x[k]).join(' ');
   const opts: [string, string][] = f.ref!.label === 'stages'
     ? (data?.items.find((p: any) => p.id === pipelineId)?.pipelineStages ?? []).map((s: any) => [s.id, s.name])
-    : (data?.items ?? []).map((x: any) => [x.id, f.ref!.label.split(' ').map((k) => x[k]).join(' ')]);
-  if (value && !opts.some(([id]) => id === value)) opts.push([value, 'Current value']);
-  return <select {...a} name={f.key} defaultValue={value} key={`${opts.length}${pipelineId ?? ''}`}><option value="">-</option>{opts.map(([id, l]) => <option key={id} value={id}>{l}</option>)}</select>;
+    : (data?.items ?? []).map((x: any) => [x.id, name(x)]);
+  if (picked && !opts.some(([id]) => id === picked)) opts.push([picked, 'Current choice']);
+  return <>{many && <input type="search" className="input mb-1" aria-label={`Search ${f.label}`} placeholder="Type to search" value={q} onChange={(e) => setQ(e.target.value)} />}<select {...a} name={f.key} value={opts.some(([id]) => id === picked) ? picked : ''} onChange={(e) => { setPicked(e.target.value); a.onChange?.(e); }}><option value="">-</option>{opts.map(([id, l]) => <option key={id} value={id}>{l}</option>)}</select></>;
 }
 function FileInput({ f, value, onChange, ...a }: { f: F; value: string | null; onChange: (id: string) => void } & Record<string, any>) {
   const [state, setState] = useState(value ? 'A file is attached' : '');
@@ -78,44 +109,51 @@ function FileInput({ f, value, onChange, ...a }: { f: F; value: string | null; o
 }
 function encode(fields: F[], form: HTMLFormElement, files: Record<string, string>, original: any): Record<string, unknown> {
   const fd = new FormData(form);
-  const out: Record<string, unknown> = {};
+  const body: Record<string, unknown> = {};
+  const custom: Record<string, unknown> = {};
   for (const f of fields) {
     if (original && f.createOnly) continue;
+    // The NGO's own fields travel separately, under their own keys.
+    const out = f.custom ? { set [f.key](v: unknown) { custom[f.custom!.key] = v; } } as Record<string, unknown> : body;
+    const had = f.custom ? original?.custom?.[f.custom.key] : original?.[f.key];
     if (f.type === 'image' || f.type === 'file') { if (files[f.key]) out[f.key] = files[f.key]; continue; }
     if (f.type === 'bool') { out[f.key] = fd.get(f.key) === 'on'; continue; }
     if (f.type === 'multi') { out[f.key] = fd.getAll(f.key); continue; }
     const raw = String(fd.get(f.key) ?? '').trim();
     if (f.type === 'tags') { out[f.key] = raw.split(',').map((s) => s.trim().replace(/^#/, '')).filter(Boolean); continue; }
-    if (raw === '') { if (original && original[f.key] && !f.required && f.type !== 'select') out[f.key] = null; continue; }
+    if (raw === '') { if (had !== undefined && had !== null && had !== '' && (f.custom || (!f.required && f.type !== 'select'))) out[f.key] = null; continue; }
     if (f.type === 'stages') { out[f.key] = raw.split('\n').filter(Boolean).map((l) => { const [name, p] = l.split(','); return { name: name.trim(), probability: Number(p ?? 0) }; }); continue; }
     if (f.type === 'money') { const m = toMinor(raw); if (m === null) throw new Error(`${f.label}: enter an amount`); out[f.key] = m; continue; }
     if (f.type === 'number') { out[f.key] = Number(raw); continue; }
-    if (f.type === 'date') { out[f.key] = `${raw}T00:00:00+05:30`; continue; }
+    if (f.type === 'date') { out[f.key] = f.custom ? raw : `${raw}T00:00:00+05:30`; continue; }
     if (f.type === 'datetime') { out[f.key] = new Date(raw).toISOString(); continue; }
     if (f.type === 'address') { out[f.key] = { line: raw }; continue; }
     out[f.key] = f.key === 'pan' ? raw.toUpperCase() : raw;
   }
-  return out;
+  return Object.keys(custom).length ? { ...body, custom } : body;
 }
+/** Choices to offer, plus the current value when it is no longer offered. */
+const optionsOf = (f: F, v: unknown): string[] => { const xs = f.choices ? f.choices.map((c) => c.value) : f.options ?? []; const now = Array.isArray(v) ? v : v ? [String(v)] : []; return f.choices ? [...xs, ...now.filter((x) => !xs.includes(x))] : xs; };
+const labelOf = (f: F, o: string) => (f.custom?.choices ?? f.choices)?.find((c) => c.value === o)?.label ?? (f.choices ? o : o.toLowerCase().replace(/_/g, ' '));
 function RecordForm({ r, row, onDone }: { r: R; row: any | null; onDone: (res: any) => void }) {
   const a = useAction();
   const [files, setFiles] = useState<Record<string, string>>({});
   const [pipelineId, setPipelineId] = useState<string | undefined>(row?.pipelineId);
   return (
-    <form onSubmit={(e) => { e.preventDefault(); const form = e.currentTarget; void a.run(async () => { const body = encode(r.fields, form, files, row); onDone(row ? await put(`${r.path}/${row.id}`, body) : await post(r.path, body)); }); }}>
+    <form onSubmit={(e) => { e.preventDefault(); const form = e.currentTarget; void a.run(async () => { const all = encode(r.fields, form, files, row); const body = r.own ? all.custom ?? {} : all; onDone(row ? await put(`${r.path}/${row.id}`, body) : await post(r.path, body)); }); }}>
       <Feedback action={a} />
       {r.fields.filter((f) => !(row && f.createOnly)).map((f) => {
-        const v = row?.[f.key];
+        const v = f.custom ? row?.custom?.[f.custom.key] : row?.[f.key];
         if (f.type === 'bool') return <Check key={f.key} name={f.key} label={f.label} defaultChecked={v ?? f.key === 'isActive'} />;
-        if (f.type === 'multi') return <fieldset key={f.key} className="mb-4"><legend className="font-semibold">{f.label}</legend><div className="flex flex-wrap gap-3">{f.options!.map((o) => <label key={o} className="flex items-center gap-2"><input type="checkbox" name={f.key} value={o} defaultChecked={v?.includes(o)} />{o.toLowerCase().replace(/_/g, ' ')}</label>)}</div></fieldset>;
+        if (f.type === 'multi') return <fieldset key={f.key} className="mb-4"><legend className="font-semibold">{f.label}</legend><div className="flex flex-wrap gap-3">{optionsOf(f, v).map((o) => <label key={o} className="flex items-center gap-2"><input type="checkbox" name={f.key} value={o} defaultChecked={v?.includes(o)} />{labelOf(f, o)}</label>)}</div></fieldset>;
         return (
-          <Field key={f.key} label={f.label} hint={f.hint} required={f.required} error={a.error?.field(f.key)}>{(p) => {
+          <Field key={f.key} label={f.label} hint={f.hint} required={f.required} error={a.error?.field(f.key) ?? (f.custom && r.own ? a.error?.field(f.custom.key) : undefined)}>{(p) => {
             if (f.type === 'ref') return <RefInput f={f} value={v ?? ''} pipelineId={pipelineId} {...p} onChange={f.key === 'pipelineId' ? (e: React.ChangeEvent<HTMLSelectElement>) => setPipelineId(e.target.value) : undefined} />;
             if (f.type === 'image' || f.type === 'file') return <FileInput f={f} value={v} {...p} required={false} onChange={(id) => setFiles((s) => ({ ...s, [f.key]: id }))} />;
-            if (f.type === 'select') return <select {...p} name={f.key} defaultValue={v ?? (f.required ? f.options![0] : '')}>{!f.required && !v && <option value="">-</option>}{f.options!.map((o) => <option key={o} value={o}>{o.toLowerCase().replace(/_/g, ' ')}</option>)}</select>;
+            if (f.type === 'select') return <select {...p} name={f.key} defaultValue={v ?? (f.required && !f.choices ? f.options![0] : '')}>{(f.choices || (!f.required && !v)) && <option value="">-</option>}{optionsOf(f, v).map((o) => <option key={o} value={o}>{labelOf(f, o)}</option>)}</select>;
             if (f.type === 'textarea' || f.type === 'stages') return <textarea {...p} name={f.key} rows={f.type === 'stages' ? 5 : 6} defaultValue={v ?? ''} />;
-            const def = f.type === 'money' ? (v !== undefined && v !== null ? String(v / 100) : '') : f.type === 'date' ? local(v).slice(0, 10) : f.type === 'datetime' ? local(v) : f.type === 'tags' ? (v ?? []).join(', ') : f.type === 'address' ? Object.values(v ?? {}).join(', ') : f.key === 'pan' ? '' : v ?? '';
-            const type = ({ email: 'email', number: 'number', date: 'date', datetime: 'datetime-local' } as Record<string, string>)[f.type ?? ''] ?? 'text';
+            const def = f.type === 'money' ? (v !== undefined && v !== null ? String(v / 100) : '') : f.type === 'date' ? (f.custom ? v ?? '' : local(v).slice(0, 10)) : f.type === 'datetime' ? local(v) : f.type === 'tags' ? (v ?? []).join(', ') : f.type === 'address' ? Object.values(v ?? {}).join(', ') : f.key === 'pan' ? '' : v ?? '';
+            const type = ({ email: 'email', number: 'number', date: 'date', datetime: 'datetime-local', phone: 'tel', url: 'url' } as Record<string, string>)[f.custom?.type ?? f.type ?? ''] ?? 'text';
             return <input {...p} name={f.key} type={type} step="any" inputMode={f.type === 'money' ? 'decimal' : undefined} defaultValue={def} />;
           }}</Field>
         );
@@ -125,16 +163,35 @@ function RecordForm({ r, row, onDone }: { r: R; row: any | null; onDone: (res: a
   );
 }
 export function Resource({ name }: { name: string }) {
-  const r = STAFF[name];
+  const { s } = useContext(StructureCtx);
+  const r = useMemo(() => withStructure(name, s), [name, s]);
+  return <Records r={r} name={name} />;
+}
+export function OwnTable({ table }: { table: string }) {
+  const { s } = useContext(StructureCtx);
+  const t = s.tables.find((x) => x.key === table);
+  const r = useMemo(() => (t ? tableScreen(t) : null), [t]);
+  if (!r) return <Notice kind="error">Page not found</Notice>;
+  const forms = s.forms.filter((f) => f.table === table);
+  return <>{<Records r={r} name={`t/${table}`} />}{forms.length > 0 && <p className="mt-4">Forms that add rows here: {forms.map((f) => <Link key={f.key} className="me-3 underline" href={`/forms/${f.key}`}>{f.title}</Link>)}</p>}</>;
+}
+export function Structure() {
+  const { s, reload } = useContext(StructureCtx);
+  if (!s.canManage) return <Notice kind="error">Only Super Admin can change the structure of this organisation.</Notice>;
+  return <><H1>Structure</H1><StructureEditor base="structure" onPublished={() => void reload()} /></>;
+}
+function Records({ r, name }: { r: R; name: string }) {
   const { can } = useSession();
   const [page, setPage] = useState(1);
   const [q, setQ] = useState('');
   const [term, setTerm] = useState('');
   const [filter, setFilter] = useState('');
+  const [own, setOwn] = useState<Record<string, string>>({});
   const [edit, setEdit] = useState<any | 'new' | null>(null);
   const [once, setOnce] = useState<string | null>(null);
   useEffect(() => { const x = setTimeout(() => { setTerm(q); setPage(1); }, 300); return () => clearTimeout(x); }, [q]);
-  const { data, error, loading, reload } = useApi(`${r.path}?page=${page}&limit=20${term ? `&q=${encodeURIComponent(term)}` : ''}${filter && r.filter ? `&${r.filter.key}=${filter}` : ''}`);
+  const ownQuery = Object.entries(own).filter(([, v]) => v).map(([k, v]) => `&cf_${k}=${encodeURIComponent(v)}`).join('');
+  const { data, error, loading, reload } = useApi(`${r.path}?page=${page}&limit=20${term ? `&q=${encodeURIComponent(term)}` : ''}${filter && r.filter ? `&${r.filter.key}=${filter}` : ''}${ownQuery}`);
   const a = useAction();
   useEffect(() => { const id = new URLSearchParams(window.location.search).get('open'); if (id && !r.noEdit) api(`${r.path}/${id}`).then(setEdit).catch(() => undefined); }, [r]);
   const actions = (row: any) => (
@@ -147,10 +204,10 @@ export function Resource({ name }: { name: string }) {
   );
   return (
     <>
-      <H1 side={<>{name === 'donors' && can('donors:export') && <button className="btn btn-outline" onClick={() => a.run(async () => { const x = await api('donor-tools/export'); saveText(x.filename, x.csv); })}>Export</button>}{name === 'donors' && can('donors:import') && <ImportDonors onDone={reload} />}{name === 'audit' && can('audit_logs:export') && <button className="btn btn-outline" onClick={() => a.run(async () => { const x = await api('audit-logs/export'); saveText(x.filename, x.csv); })}>Export</button>}{!r.noCreate && can(`${r.resource}:create`) && <button className="btn btn-primary" onClick={() => setEdit('new')}>Add</button>}</>}>{r.title}</H1>
-      <div className="mb-4 flex flex-wrap gap-3">{r.search && <input type="search" className="input max-w-xs" aria-label={`Search ${r.title}`} placeholder="Search" value={q} onChange={(e) => setQ(e.target.value)} />}{r.filter && <select className="input max-w-[220px]" aria-label="Filter" value={filter} onChange={(e) => { setFilter(e.target.value); setPage(1); }}><option value="">All</option>{r.filter.options.map((o) => <option key={o} value={o}>{o.toLowerCase().replace(/_/g, ' ')}</option>)}</select>}</div>
+      <H1 side={<>{name === 'donors' && can('donors:export') && <button className="btn btn-outline" onClick={() => a.run(async () => { const x = await api('donor-tools/export'); saveText(x.filename, x.csv); })}>Export</button>}{name === 'donors' && can('donors:import') && <ImportDonors onDone={reload} />}{name === 'audit' && can('audit_logs:export') && <button className="btn btn-outline" onClick={() => a.run(async () => { const x = await api('audit-logs/export'); saveText(x.filename, x.csv); })}>Export</button>}{r.exportPath && can('records:export') && <button className="btn btn-outline" onClick={() => a.run(async () => { const x = await api(`${r.exportPath}?_=1${term ? `&q=${encodeURIComponent(term)}` : ''}${ownQuery}`); saveText(x.filename, x.csv); })}>Export</button>}{!r.noCreate && can(`${r.resource}:create`) && <button className="btn btn-primary" onClick={() => setEdit('new')}>Add</button>}</>}>{r.title}</H1>
+      <div className="mb-4 flex flex-wrap gap-3">{r.search && <input type="search" className="input max-w-xs" aria-label={`Search ${r.title}`} placeholder="Search" value={q} onChange={(e) => setQ(e.target.value)} />}{r.filter && <select className="input max-w-[220px]" aria-label="Filter" value={filter} onChange={(e) => { setFilter(e.target.value); setPage(1); }}><option value="">All</option>{r.filter.options.map((o) => <option key={o} value={o}>{o.toLowerCase().replace(/_/g, ' ')}</option>)}</select>}{r.filters?.map((f) => { const set = (v: string) => { setOwn((o) => ({ ...o, [f.key]: v })); setPage(1); }; const opts = f.type === 'bool' ? [{ value: 'true', label: 'Yes' }, { value: 'false', label: 'No' }] : f.choices; return opts ? <select key={f.key} className="input max-w-[220px]" aria-label={f.label} value={own[f.key] ?? ''} onChange={(e) => set(e.target.value)}><option value="">{f.label}: all</option>{opts.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}</select> : <input key={f.key} type={f.type === 'date' ? 'date' : f.type === 'number' ? 'number' : 'search'} className="input max-w-[220px]" aria-label={f.label} placeholder={f.label} value={own[f.key] ?? ''} onChange={(e) => set(e.target.value)} />; })}</div>
       <Feedback action={a} />{once && <Notice kind="ok">Copy this now, it is shown only once: <code className="break-all">{once}</code></Notice>}
-      {error ? <Notice kind="error">{error.message}</Notice> : loading && !data ? <Loading /> : !data?.items.length ? <Empty>Nothing here yet.</Empty> : <Table caption={r.title} columns={r.columns.map(([key, label]) => ({ key, label, render: cell(key) }))} rows={data.items} actions={actions} />}
+      {error ? <Notice kind="error">{error.message}</Notice> : loading && !data ? <Loading /> : !data?.items.length ? <Empty>Nothing here yet.</Empty> : <Table caption={r.title} columns={r.columns.map(([key, label]) => { const f = key.startsWith('custom.') ? r.fields.find((x) => x.key === key && x.custom) : undefined; return { key, label, render: f ? (row: any) => ownCell(f, row, data.refs ?? {}) : cell(key) }; })} rows={data.items} actions={actions} />}
       {data?.total > 0 && <Pager page={data.page} limit={data.limit} total={data.total} onPage={setPage} />}
       <Dialog title={edit === 'new' ? `Add: ${r.title}` : `Edit: ${r.title}`} open={edit !== null} onClose={() => setEdit(null)}>{edit !== null && <RecordForm key={edit === 'new' ? 'new' : edit.id} r={r} row={edit === 'new' ? null : edit} onDone={(res) => { setEdit(null); setOnce(res?.secret ?? null); void reload(); }} />}</Dialog>
     </>
@@ -195,15 +252,19 @@ export function Donations() {
   const [refund, setRefund] = useState<any>(null);
   const [add, setAdd] = useState(false);
   const a = useAction();
+  const { s } = useContext(StructureCtx);
+  const own = s.entities.donations?.fields ?? [];
+  const [details, setDetails] = useState<any>(null);
   return (
     <>
       <H1 side={<>{can('donations:export') && <button className="btn btn-outline" onClick={() => a.run(async () => { const x = await api(`donations/export${status ? `?status=${status}` : ''}`); saveText(x.filename, x.csv); })}>Export</button>}{can('donations:create') && <button className="btn btn-primary" onClick={() => setAdd(true)}>Record offline gift</button>}</>}>Donations</H1>
       <div className="mb-4 flex flex-wrap gap-3"><input type="search" className="input max-w-xs" aria-label="Search donations" placeholder="Search" value={q} onChange={(e) => { setQ(e.target.value); setPage(1); }} /><select className="input max-w-[220px]" aria-label="Status" value={status} onChange={(e) => { setStatus(e.target.value); setPage(1); }}><option value="">All</option>{['COMPLETED', 'PENDING', 'FAILED', 'PARTIALLY_REFUNDED', 'REFUNDED'].map((s) => <option key={s} value={s}>{s.toLowerCase().replace(/_/g, ' ')}</option>)}</select></div>
       <Feedback action={a} />
       {loading && !data ? <Loading /> : !data?.items.length ? <Empty>Nothing here yet.</Empty> : <Table caption="Donations" rows={data.items} columns={[{ key: 'createdAt', label: 'Date', render: cell('createdAt') }, { key: 'donor', label: 'Donor', render: cell('donor.fullName') }, { key: 'amountMinor', label: 'Amount', render: cell('amountMinor') }, { key: 'campaign', label: 'Campaign', render: cell('campaign.title') }, { key: 'method', label: 'Method' }, { key: 'status', label: 'Status' }]}
-        actions={(d) => <span className="inline-flex gap-1">{d.receipts[0] && can('receipts:read') && <a className="btn btn-outline btn-sm" href={`/api/receipts/${d.receipts[0].id}/pdf`}>Receipt</a>}{can('refunds:create') && ['COMPLETED', 'PARTIALLY_REFUNDED'].includes(d.status) && d.method !== 'IN_KIND' && <button className="btn btn-danger btn-sm" onClick={() => setRefund(d)}>Refund</button>}</span>} />}
+        actions={(d) => <span className="inline-flex gap-1">{own.length > 0 && can('donations:update') && <button className="btn btn-outline btn-sm" onClick={() => a.run(async () => setDetails(await api(`donation-details/${d.id}`)))}>Details</button>}{d.receipts[0] && can('receipts:read') && <a className="btn btn-outline btn-sm" href={`/api/receipts/${d.receipts[0].id}/pdf`}>Receipt</a>}{can('refunds:create') && ['COMPLETED', 'PARTIALLY_REFUNDED'].includes(d.status) && d.method !== 'IN_KIND' && <button className="btn btn-danger btn-sm" onClick={() => setRefund(d)}>Refund</button>}</span>} />}
       {data?.total > 0 && <Pager {...data} onPage={setPage} />}
       <Dialog title="Refund" open={Boolean(refund)} onClose={() => setRefund(null)}>{refund && <form onSubmit={(e) => { e.preventDefault(); const v = values(e.currentTarget); void a.run(async () => { const m = toMinor(v.amount ?? ''); if (!m) throw new Error(); await post(`donations/${refund.id}/refunds`, { amountMinor: m, reason: v.reason }); setRefund(null); await reload(); }, 'Refund requested'); }}><Feedback action={a} /><TextField name="amount" label="Amount (rupees)" defaultValue={String((refund.amountMinor - refund.refundedMinor) / 100)} required inputMode="decimal" /><TextField name="reason" label="Reason" required minLength={5} /><button className="btn btn-danger" disabled={a.busy}>Refund</button></form>}</Dialog>
+      <Dialog title="Donation details" open={details !== null} onClose={() => setDetails(null)}>{details && <RecordForm r={{ title: 'Details', resource: 'donations', group: '', path: 'donation-details', columns: [], fields: own.map(ownField) }} row={details} onDone={() => setDetails(null)} />}</Dialog>
       <Dialog title="Record offline gift" open={add} onClose={() => setAdd(false)}><OfflineForm onDone={() => { setAdd(false); void reload(); }} /></Dialog>
     </>
   );
@@ -355,8 +416,9 @@ export function Gradebook({ id }: { id: string }) {
 }
 export function StaffPage({ path }: { path: string[] }) {
   const [a, id] = path;
-  const special: Record<string, () => ReactNode> = { donations: Donations, finance: Finance, monitoring: Monitoring, members: Members, roles: Roles, 'api-keys': ApiKeys, modules: Modules, settings: Settings, compliance: Compliance };
+  const special: Record<string, () => ReactNode> = { donations: Donations, finance: Finance, monitoring: Monitoring, members: Members, roles: Roles, 'api-keys': ApiKeys, modules: Modules, settings: Settings, compliance: Compliance, structure: Structure };
   if (id) { const V = ({ roster: Roster, 'event-desk': EventDesk, marking: Marking, gradebook: Gradebook } as Record<string, (p: { id: string }) => ReactNode>)[a]; if (V) return <V id={id} />; }
+  if (a === 't' && id) return <OwnTable key={id} table={id} />;
   const S = special[a];
   if (S && !id) return <S />;
   if (Object.hasOwn(STAFF, a) && !id) return <Resource key={a} name={a} />;

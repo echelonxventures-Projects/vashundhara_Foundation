@@ -31,6 +31,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Every route needs `@Public`, `@SelfService`, `@Can` or `@PlatformAdmin`. `@SelfService` handlers may only touch the signed-in user's own rows.
 - Permissions and built-in roles live only in `packages/shared/src/permissions.ts`.
 
+## NGO-built structure (fields, tables, forms, rules)
+
+- Definitions are data: `packages/shared/src/structure.ts` holds the types and rules, `apps/api/src/common/structure` the engine, `apps/api/src/modules/structure` the routes, `packages/ui/src/structure-editor.tsx` the editor.
+- Super Admin manages any NGO. An NGO Administrator only while `StructurePolicy.ngoAdminAllowed` is on. Never let an NGO route write that table.
+- Built-in record screens are listed once, in `packages/shared/src/records.ts`. Add to `EXTENDABLE` to let NGOs extend a record; money, login, audit and consent stay out.
+- Write custom values only through `StructureService` inside a transaction (it holds the publish lock), and keep them out of public responses.
+
 ## Other conventions
 
 - Money is BigInt minor units in the database and whole numbers in JSON.

@@ -8,6 +8,7 @@ import { AuthGuard, RateGuard } from './common/http/guards';
 import { JobsModule } from './common/jobs/jobs.module';
 import { PrismaModule } from './common/prisma/prisma.module';
 import { RedisModule } from './common/redis/redis.module';
+import { StructureCoreModule } from './common/structure/structure.service';
 import { ENV, Env, loadEnv } from './env';
 import { AuthModule } from './modules/auth/auth.module';
 import { ContentModule } from './modules/content/content.module';
@@ -22,6 +23,7 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 import { PlatformModule } from './modules/platform/platform.module';
 import { PrivacyModule } from './modules/privacy/privacy.module';
 import { ProgrammesModule } from './modules/programmes/programmes.module';
+import { StructureModule } from './modules/structure/structure.module';
 import { SystemModule } from './modules/system/system.module';
 
 @Global()
@@ -30,13 +32,13 @@ class CoreModule {}
 
 @Module({
   imports: [
-    CoreModule, PrismaModule, RedisModule, AuditModule, JobsModule,
+    CoreModule, PrismaModule, RedisModule, AuditModule, JobsModule, StructureCoreModule,
     JwtModule.registerAsync({
       global: true, inject: [ENV],
       useFactory: (env: Env) => ({ secret: env.JWT_SECRET, signOptions: { issuer: 'vf', audience: 'vf', algorithm: 'HS256' }, verifyOptions: { issuer: 'vf', audience: 'vf', algorithms: ['HS256'] } })
     }),
     NotificationsModule, AuthModule, FilesModule, MembersModule, SystemModule, FundraisingModule, FinanceModule, CrmModule,
-    ProgrammesModule, LearningModule, EngagementModule, ContentModule, PrivacyModule, PlatformModule
+    ProgrammesModule, LearningModule, EngagementModule, ContentModule, PrivacyModule, PlatformModule, StructureModule
   ],
   providers: [{ provide: APP_GUARD, useClass: RateGuard }, { provide: APP_GUARD, useClass: AuthGuard }, { provide: APP_FILTER, useClass: ErrorsFilter }]
 })

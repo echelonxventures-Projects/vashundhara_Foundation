@@ -11,6 +11,7 @@ import { getCtx, requireTenant, requireUser, runAsSystem, runAsTenant, TenantInf
 import { TenantResolver } from '../../common/http/context.middleware';
 import { ACCESS_COOKIE, REFRESH_COOKIE } from '../../common/http/guards';
 import { PrismaService } from '../../common/prisma/prisma.module';
+import { StructureService } from '../../common/structure/structure.service';
 import { NotificationsService } from '../notifications/notifications.module';
 
 const ACCESS_SEC = 15 * 60;
@@ -22,7 +23,7 @@ export class AuthService {
   private readonly cipher: FieldCipher;
   constructor(
     private readonly prisma: PrismaService, private readonly jwt: JwtService, private readonly audit: AuditService,
-    private readonly notify: NotificationsService, private readonly tenants: TenantResolver, @Inject(ENV) private readonly env: Env
+    private readonly notify: NotificationsService, private readonly tenants: TenantResolver, private readonly structure: StructureService, @Inject(ENV) private readonly env: Env
   ) {
     this.cipher = new FieldCipher(env.ENCRYPTION_KEY);
   }
@@ -72,6 +73,7 @@ export class AuthService {
       });
       const info: TenantInfo = { id: tenant.id, slug: tenant.slug, name: tenant.name, displayName: tenant.displayName, status: tenant.status, primaryDomain: null, defaultLocale: 'en', defaultCurrency: 'INR' };
       await this.audit.log('CREATE', 'tenant', tenant.id, undefined, { slug: tenant.slug }, { tenantId: tenant.id, userId: user.id });
+      await runAsTenant(info, () => this.structure.useDefault()).catch((e: Error) => console.error(JSON.stringify({ level: 'error', msg: 'default structure', tenant: info.slug, error: e.message })));
       await runAsTenant(info, () => this.sendVerification(user, info));
       return { ok: true, url: this.tenants.url(info) };
     });

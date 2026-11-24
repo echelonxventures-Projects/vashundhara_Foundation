@@ -1,12 +1,13 @@
 import { BadRequestException, Controller, Get, HttpCode, Module, NotFoundException, Param, Post, Put } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { DataRequestStatus, DataRequestType } from '@prisma/client';
+import { DataRequestStatus, DataRequestType, Prisma } from '@prisma/client';
 import { verifyPassword } from '@vashundhara-foundation/auth';
 import { z } from 'zod';
 import { AuditService } from '../../common/audit/audit.service';
 import { getCtx, requireTenant, requireUser } from '../../common/context/context';
 import { Can, PageQuery, Paging, RateLimit, SelfService, ZBody, ZQuery } from '../../common/http/decorators';
 import { PrismaService } from '../../common/prisma/prisma.module';
+import { StructureService } from '../../common/structure/structure.service';
 
 const Ask = z.object({ type: z.enum(DataRequestType), details: z.string().max(2000).optional(), password: z.string().max(200).optional() });
 const Handle = z.object({ status: z.enum(DataRequestStatus), resolution: z.string().min(5).max(2000) });
@@ -15,7 +16,7 @@ const Consent = z.object({ purpose: z.enum(['marketing', 'photos']), granted: z.
 @ApiTags('privacy')
 @Controller('privacy')
 export class PrivacyController {
-  constructor(private readonly prisma: PrismaService, private readonly audit: AuditService) {}
+  constructor(private readonly prisma: PrismaService, private readonly audit: AuditService, private readonly structure: StructureService) {}
 
   /** Everything this NGO holds about the signed-in person. */
   @Get('export') @SelfService() @RateLimit(5, 3600)
@@ -30,8 +31,10 @@ export class PrivacyController {
       this.prisma.student.findMany({ where: { userId: u.id }, omit: { notes: true }, include: { enrolments: true, submissions: true, attendance: true } }),
       this.prisma.consentRecord.findMany({ where: { OR: [{ userId: u.id }, { email: u.email }] } }), this.prisma.eventRegistration.findMany({ where: { email: u.email } }), this.prisma.feedback.findMany({ where: { userId: u.id } })
     ]);
+    const people = [...donors.map((x) => ({ entity: 'donors', id: x.id })), ...volunteer.map((x) => ({ entity: 'volunteers', id: x.id })), ...beneficiaries.map((x) => ({ entity: 'beneficiaries', id: x.id })), ...students.map((x) => ({ entity: 'students', id: x.id }))];
+    const more = await this.structure.personalExport(u, people);
     await this.audit.log('EXPORT', 'personalData', u.id);
-    return { generatedAt: new Date(), organisation: requireTenant().name, profile, donors, volunteer, beneficiaries, students, consents, events, feedback };
+    return { generatedAt: new Date(), organisation: requireTenant().name, profile, donors, volunteer, beneficiaries, students, consents, events, feedback, more };
   }
   @Get('requests/mine') @SelfService()
   async mine() { return { items: await this.prisma.dataRequest.findMany({ where: { userId: requireUser().id }, orderBy: { createdAt: 'desc' } }) }; }
@@ -79,9 +82,11 @@ export class PrivacyController {
     await this.prisma.$transaction(async (tx) => {
       const donors = await tx.donor.findMany({ where: { userId }, include: { _count: { select: { donations: true } } } });
       for (const d of donors) {
-        await tx.donor.update({ where: { id: d.id }, data: d._count.donations ? { userId: null, phone: null, notes: null, tags: [], marketingConsent: false } : { userId: null, fullName: gone, email: null, phone: null, address: undefined, panEnc: null, panLast4: null, notes: null, deletedAt: new Date() } });
+        await tx.donor.update({ where: { id: d.id }, data: d._count.donations ? { userId: null, phone: null, notes: null, tags: [], marketingConsent: false } : { userId: null, fullName: gone, email: null, phone: null, address: Prisma.DbNull, panEnc: null, panLast4: null, notes: null, deletedAt: new Date() } });
       }
       const when = new Date();
+      const people = [...donors.map((x) => ({ entity: 'donors', id: x.id })), ...(await Promise.all([['volunteers', tx.volunteer], ['beneficiaries', tx.beneficiary], ['students', tx.student]].map(async ([entity, m]: any) => (await m.findMany({ where: { userId }, select: { id: true } })).map((x: { id: string }) => ({ entity, id: x.id }))))).flat()];
+      if (u) await this.structure.erasePersonal(tx, u, people);
       for (const v of await tx.volunteer.findMany({ where: { userId } })) await tx.volunteer.update({ where: { id: v.id }, data: { userId: null, firstName: gone, lastName: '', email: `erased-${v.id}@invalid.local`, phone: null, mobile: null, whatsapp: null, dateOfBirth: null, gender: null, address: {}, emergencyContact: {}, occupation: null, employer: null, education: null, notes: null, documents: [], deletedAt: when } });
       await tx.beneficiary.updateMany({ where: { userId }, data: { userId: null, fullName: gone, guardianName: null, email: null, phone: null, dateOfBirth: null, address: {}, idLast4: null, need: null, notes: null, deletedAt: when } });
       await tx.student.updateMany({ where: { userId }, data: { userId: null, fullName: gone, email: null, phone: null, guardianName: null, guardianPhone: null, dateOfBirth: null, school: null, notes: null, deletedAt: when } });

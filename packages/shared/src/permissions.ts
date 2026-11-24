@@ -52,7 +52,11 @@ export const RESOURCES = {
   feedback: ['read', 'update'],
   social: [...crud, 'manage'],
   programmes: crud,
-  privacy: ['read', 'manage']
+  privacy: ['read', 'manage'],
+  /** Extra fields, tables, forms and rules. Also needs Super Admin to permit the NGO. */
+  structure: ['read', 'update'],
+  /** Rows in an NGO's own tables. A table can narrow this further by role. */
+  records: [...crud, 'export']
 } as const satisfies Record<string, readonly Action[]>;
 
 export type Resource = keyof typeof RESOURCES;
@@ -81,13 +85,13 @@ export interface RoleTemplate {
 export const ROLE_TEMPLATES: RoleTemplate[] = [
   { name: 'system_admin', displayName: 'System Administrator', scope: 'SYSTEM', priority: 100, permissions: ALL_PERMISSIONS },
   { name: 'tenant_admin', displayName: 'NGO Administrator', scope: 'TENANT', priority: 80, permissions: [...of(...TENANT_RESOURCES), 'tenants:read', 'tenants:update'] },
-  { name: 'manager', displayName: 'Manager', scope: 'TENANT', priority: 60, permissions: [...of('campaigns', 'donors', 'crm', 'content', 'messages', 'notifications', 'grants', 'files', 'events', 'students', 'courses', 'grading', 'library', 'feedback', 'social', 'programmes', ...PROGRAMME), ...readOf('donations', 'subscriptions', 'receipts', 'reports', 'members', 'settings', 'invoices'), 'donations:create'] },
-  { name: 'finance', displayName: 'Finance', scope: 'TENANT', priority: 55, permissions: [...of('donations', 'refunds', 'subscriptions', 'receipts', 'finance', 'reports', 'invoices', 'compliance'), ...readOf('donors', 'campaigns', 'grants', 'files', 'settings'), 'donors:update', 'files:create'] },
+  { name: 'manager', displayName: 'Manager', scope: 'TENANT', priority: 60, permissions: [...of('campaigns', 'donors', 'crm', 'content', 'messages', 'notifications', 'grants', 'files', 'events', 'students', 'courses', 'grading', 'library', 'feedback', 'social', 'programmes', 'records', ...PROGRAMME), ...readOf('donations', 'subscriptions', 'receipts', 'reports', 'members', 'settings', 'invoices'), 'donations:create'] },
+  { name: 'finance', displayName: 'Finance', scope: 'TENANT', priority: 55, permissions: [...of('donations', 'refunds', 'subscriptions', 'receipts', 'finance', 'reports', 'invoices', 'compliance'), ...readOf('donors', 'campaigns', 'grants', 'files', 'settings'), 'donors:update', 'files:create', 'records:read', 'records:create', 'records:update'] },
   { name: 'auditor', displayName: 'Auditor (read only)', scope: 'TENANT', priority: 50, permissions: [...readOf('donations', 'refunds', 'subscriptions', 'receipts', 'finance', 'reports', 'invoices', 'grants', 'campaigns', 'audit_logs', 'compliance'), 'finance:export', 'reports:export', 'audit_logs:export'] },
-  { name: 'field_worker', displayName: 'Field Worker', scope: 'TENANT', priority: 45, permissions: [...of('field', 'files'), ...readOf('beneficiaries', 'cases', 'aid'), 'beneficiaries:create', 'cases:update', 'aid:create'] },
-  { name: 'member', displayName: 'Staff Member', scope: 'TENANT', priority: 40, permissions: readOf('campaigns', 'donors', 'crm', 'volunteers', 'shifts', 'files', 'content', 'notifications') },
-  { name: 'teacher', displayName: 'Teacher', scope: 'TENANT', priority: 42, permissions: [...of('courses', 'grading', 'library', 'files'), ...readOf('students')] },
-  { name: 'content_creator', displayName: 'Content Creator', scope: 'TENANT', priority: 41, permissions: [...of('content', 'files'), 'social:create', 'social:read', 'social:update', 'campaigns:read', 'events:read', 'library:create', 'library:read', 'library:update'] },
+  { name: 'field_worker', displayName: 'Field Worker', scope: 'TENANT', priority: 45, permissions: [...of('field', 'files'), ...readOf('beneficiaries', 'cases', 'aid', 'records'), 'beneficiaries:create', 'cases:update', 'aid:create', 'records:create', 'records:update'] },
+  { name: 'member', displayName: 'Staff Member', scope: 'TENANT', priority: 40, permissions: readOf('campaigns', 'donors', 'crm', 'volunteers', 'shifts', 'files', 'content', 'notifications', 'records') },
+  { name: 'teacher', displayName: 'Teacher', scope: 'TENANT', priority: 42, permissions: [...of('courses', 'grading', 'library', 'files'), ...readOf('students', 'records'), 'records:create', 'records:update'] },
+  { name: 'content_creator', displayName: 'Content Creator', scope: 'TENANT', priority: 41, permissions: [...of('content', 'files'), 'records:read', 'records:create', 'records:update', 'social:create', 'social:read', 'social:update', 'campaigns:read', 'events:read', 'library:create', 'library:read', 'library:update'] },
   { name: 'student', displayName: 'Student', scope: 'TENANT', priority: 13, permissions: [] },
   { name: 'csr_partner', displayName: 'CSR Partner', scope: 'TENANT', priority: 20, permissions: [] },
   { name: 'volunteer', displayName: 'Volunteer', scope: 'TENANT', priority: 15, permissions: [] },

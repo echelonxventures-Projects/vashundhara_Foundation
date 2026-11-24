@@ -40,8 +40,10 @@ export function useAction() {
   return { busy, error, done, run };
 }
 
+// Written out in full: Tailwind drops class names it cannot find in the source.
+const NOTICE = { info: 'notice notice-info', error: 'notice notice-error', ok: 'notice notice-ok' };
 export const Notice = ({ kind = 'info', children }: { kind?: 'info' | 'error' | 'ok'; children: ReactNode }) => (
-  <div role={kind === 'error' ? 'alert' : 'status'} className={`notice notice-${kind}`}>{children}</div>
+  <div role={kind === 'error' ? 'alert' : 'status'} className={NOTICE[kind]}>{children}</div>
 );
 export const Feedback = ({ action }: { action: ReturnType<typeof useAction> }) => (
   <div aria-live="polite">

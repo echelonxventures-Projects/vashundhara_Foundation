@@ -1,8 +1,10 @@
 'use client';
-import { Feedback, Notice, post, useAction, useApi, api } from '@vashundhara-foundation/ui';
+import { ApiError, Feedback, Field, Loading, Notice, post, useAction, useApi, api } from '@vashundhara-foundation/ui';
+import { toMinor } from '@vashundhara-foundation/shared';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
-import { TextArea, TextField, values } from './forms';
+import { Link, usePathname } from '@/i18n/routing';
+import { Check, TextArea, TextField, values } from './forms';
 import { useSession } from './session';
 
 export function ContactForm() {
@@ -94,4 +96,47 @@ export function FragmentAction({ path, read, busyText, okText }: { path: string;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return state === 'busy' ? <p role="status">{busyText}</p> : <Notice kind={state === 'ok' ? 'ok' : 'error'}>{state === 'ok' ? okText : t('badLink')}</Notice>;
+}
+
+interface OwnField { key: string; label: string; type: string; hint?: string; required?: boolean; min?: number; max?: number; choices?: { value: string; label: string }[] }
+/** A form the NGO built for itself. */
+export function OwnForm({ formKey, org }: { formKey: string; org: string }) {
+  const t = useTranslations();
+  const path = usePathname();
+  const a = useAction();
+  const { data, error } = useApi<{ title: string; intro: string | null; success: string | null; consent: boolean; fields: OwnField[] }>(`public/forms/${formKey}`);
+  if (error) return error.status === 401 ? <><h1 className="mb-4 text-3xl font-bold">{t('nav.login')}</h1><Notice>{t('forms.signIn')}</Notice><Link className="btn btn-primary" href={`/login?next=${encodeURIComponent(path)}`}>{t('nav.login')}</Link></> : <><h1 className="mb-4 text-3xl font-bold">{t('common.notFound')}</h1><Notice kind="error">{error.message}</Notice></>;
+  if (!data) return <Loading label={t('common.loading')} />;
+  const read = (form: HTMLFormElement) => {
+    const fd = new FormData(form);
+    const out: Record<string, unknown> = {};
+    for (const f of data.fields) {
+      const raw = String(fd.get(f.key) ?? '').trim();
+      if (f.type === 'bool') out[f.key] = fd.get(f.key) === 'on';
+      else if (f.type === 'multi') { const xs = fd.getAll(f.key); if (xs.length) out[f.key] = xs; }
+      else if (raw === '') continue;
+      else if (f.type === 'money') { const m = toMinor(raw); if (m === null) throw new ApiError(422, { code: 'VALIDATION', message: f.label, details: [{ path: f.key, message: t('common.error') }] }); out[f.key] = m; }
+      else out[f.key] = f.type === 'number' ? Number(raw) : f.type === 'datetime' ? new Date(raw).toISOString() : raw;
+    }
+    return out;
+  };
+  return (
+    <>
+      <h1 className="mb-4 text-3xl font-bold">{data.title}</h1>
+      {a.done ? <Notice kind="ok">{data.success ?? t('forms.thanks')}</Notice> : <>
+        {data.intro && <p className="mb-6 whitespace-pre-wrap">{data.intro}</p>}
+        <form onSubmit={(e) => { e.preventDefault(); const form = e.currentTarget; void a.run(() => post(`public/forms/${formKey}`, { values: read(form), website: String(new FormData(form).get('website') ?? ''), ...(data.consent ? { consent: new FormData(form).get('consent') === 'on' } : {}) }), 'ok'); }}>
+          <Feedback action={a} />
+          {data.fields.map((f) => {
+            if (f.type === 'bool') return <Check key={f.key} name={f.key} label={f.label} hint={f.hint} />;
+            if (f.type === 'multi') return <fieldset key={f.key} className="mb-4"><legend className="font-semibold">{f.label}</legend>{f.hint && <p className="field-hint">{f.hint}</p>}<div className="flex flex-wrap gap-3">{f.choices?.map((c) => <label key={c.value} className="flex items-center gap-2"><input type="checkbox" name={f.key} value={c.value} />{c.label}</label>)}</div></fieldset>;
+            const type = ({ email: 'email', phone: 'tel', url: 'url', date: 'date', datetime: 'datetime-local', number: 'number' } as Record<string, string>)[f.type] ?? 'text';
+            return <Field key={f.key} label={f.label} hint={f.hint} required={f.required} error={a.error?.field(f.key)}>{(p) => f.type === 'select' ? <select {...p} name={f.key} defaultValue=""><option value="">{t('forms.choose')}</option>{f.choices?.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}</select> : f.type === 'textarea' ? <textarea {...p} name={f.key} rows={5} /> : <input {...p} name={f.key} type={type} step="any" inputMode={f.type === 'money' ? 'decimal' : undefined} autoComplete={f.type === 'email' ? 'email' : f.type === 'phone' ? 'tel' : undefined} />}</Field>;
+          })}
+          {data.consent && <Check name="consent" label={t('forms.consent', { org })} required />}
+          <div className="hidden" aria-hidden="true"><input name="website" tabIndex={-1} autoComplete="off" /></div>
+          <button className="btn btn-primary" disabled={a.busy}>{t('forms.send')}</button>
+        </form></>}
+    </>
+  );
 }

@@ -17,6 +17,9 @@ export const TEMPLATES: Record<string, Template> = {
   'assignment.graded': { subject: 'Marks for {{title}}', body: 'Hello {{name}},\n\nYour work on {{title}} has been marked: {{score}}.\n\n{{feedback}}' },
   'newsletter.confirm': { subject: 'Confirm your subscription', body: 'Please confirm you want updates from {{org}}:\n{{link}}' },
   'contact.received': { subject: 'New message from {{name}}', body: '{{name}} ({{email}}) wrote:\n\n{{message}}' },
+  'structure.submitted': { subject: 'Structure change to review: {{org}}', body: '{{name}} sent a structure change for {{org}} for review.\n\n{{note}}\n\nOpen the platform console, Structure, to approve it or send it back.' },
+  'structure.approved': { subject: 'Your structure change is live', body: 'Super Admin approved your structure change for {{org}}. It is live as version {{number}}.\n\n{{note}}' },
+  'structure.returned': { subject: 'Your structure change needs changes', body: 'Super Admin sent back your structure change for {{org}}:\n\n{{note}}\n\nChange it and send it again:\n{{link}}' },
   'report.ready': { subject: '{{report}} report for {{org}}', body: 'Your scheduled {{report}} report for {{org}} is ready. For privacy it is not attached. Sign in to download it:\n{{link}}' }
 };
 

@@ -99,6 +99,10 @@ model Tenant {
   programmes            Programme[]
   indicators            Indicator[]
   indicatorReadings     IndicatorReading[]
+  structurePolicy       StructurePolicy?
+  structureVersions     StructureVersion[]
+  customValues          CustomValue[]
+  customRecords         CustomRecord[]
 
   @@index([status])
   @@index([primaryDomain])
@@ -1145,6 +1149,7 @@ enum WebhookEvent {
   INVOICE_OVERDUE
   VOLUNTEER_REGISTERED
   WEBHOOK_TEST
+  RECORD_SAVED
 }
 
 enum WebhookStatus {
@@ -2487,4 +2492,101 @@ model IndicatorReading {
 
   @@index([tenantId, indicatorId, recordedAt])
   @@map("indicator_readings")
+}
+
+/// What Super Admin lets an NGO do with its own structure. Only the platform console writes this.
+model StructurePolicy {
+  id              String   @id @default(uuid())
+  tenantId        String   @unique
+  ngoAdminAllowed Boolean  @default(false)
+  /// Off: Super Admin reviews and approves every publish. On: the NGO Administrator publishes directly.
+  ngoAdminPublish Boolean  @default(false)
+  maxFields       Int      @default(150)
+  maxTables       Int      @default(20)
+  maxForms        Int      @default(20)
+  maxRules        Int      @default(20)
+  updatedAt       DateTime @updatedAt
+  tenant          Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@map("structure_policies")
+}
+
+/// One NGO's fields, layout, tables, forms and rules. At most one DRAFT and one PUBLISHED per NGO.
+model StructureVersion {
+  id          String          @id @default(uuid())
+  tenantId    String
+  number      Int?
+  status      StructureStatus @default(DRAFT)
+  definition  Json
+  rev         Int             @default(1)
+  note        String?
+  createdById String?
+  /// Set while a draft waits for Super Admin. Kept on the published version as the record of who asked.
+  submittedAt   DateTime?
+  submittedById String?
+  submitNote    String?
+  /// Why Super Admin sent the draft back.
+  reviewNote    String?
+  publishedAt DateTime?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  tenant      Tenant          @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, number])
+  @@index([tenantId, status])
+  @@map("structure_versions")
+}
+
+enum StructureStatus {
+  DRAFT
+  PUBLISHED
+  SUPERSEDED
+}
+
+/// Extra field values on built-in records. Kept apart so public pages can never show them by accident.
+model CustomValue {
+  id        String   @id @default(uuid())
+  tenantId  String
+  entity    String
+  recordId  String
+  data      Json     @default("{}")
+  updatedAt DateTime @updatedAt
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, entity, recordId])
+  @@index([data(ops: JsonbPathOps)], type: Gin)
+  @@map("custom_values")
+}
+
+/// A row in one of an NGO's own tables.
+model CustomRecord {
+  id          String    @id @default(uuid())
+  tenantId    String
+  tableKey    String
+  title       String
+  data        Json      @default("{}")
+  source      String    @default("STAFF")
+  createdById String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+  tenant      Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, tableKey, createdAt])
+  @@index([data(ops: JsonbPathOps)], type: Gin)
+  @@map("custom_records")
+}
+
+/// A reusable structure owned by the platform.
+model StructureTemplate {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  definition  Json
+  isDefault   Boolean  @default(false)
+  createdById String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("structure_templates")
 }
