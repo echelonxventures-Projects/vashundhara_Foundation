@@ -6,27 +6,26 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "build:api": "turbo run build --filter=api",
-    "build:web": "turbo run build --filter=web",
-    "build:admin": "turbo run build --filter=admin",
+    "build:api": "turbo run build --filter=@vashundhara-foundation/api",
+    "build:web": "turbo run build --filter=@vashundhara-foundation/web",
+    "build:admin": "turbo run build --filter=@vashundhara-foundation/admin",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,json,md,yml,yaml}\"",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
     "test:e2e": "turbo run test:e2e",
-    "test:coverage": "turbo run test:coverage",
-    "db:generate": "turbo run db:generate --filter=database",
-    "db:migrate": "turbo run db:migrate --filter=database",
-    "db:migrate:create": "turbo run db:migrate:create --filter=database",
-    "db:migrate:deploy": "turbo run db:migrate:deploy --filter=database",
-    "db:seed": "turbo run db:seed --filter=database",
-    "db:studio": "turbo run db:studio --filter=database",
-    "db:reset": "turbo run db:reset --filter=database",
-    "generate:module": "turbo run generate:module --filter=api",
-    "generate:crud": "turbo run generate:crud --filter=api",
-    "depcheck:circular": "turbo run depcheck:circular",
-    "analyze:web": "turbo run analyze:web --filter=web",
-    "prepare": "husky install"
+    "db:generate": "pnpm --filter @vashundhara-foundation/database db:generate",
+    "db:migrate": "pnpm --filter @vashundhara-foundation/database db:migrate",
+    "db:migrate:create": "pnpm --filter @vashundhara-foundation/database db:migrate:create",
+    "db:migrate:deploy": "pnpm --filter @vashundhara-foundation/database db:migrate:deploy",
+    "db:seed": "pnpm --filter @vashundhara-foundation/database db:seed",
+    "db:studio": "pnpm --filter @vashundhara-foundation/database db:studio",
+    "db:reset": "pnpm --filter @vashundhara-foundation/database db:reset",
+    "generate:module": "tsx tooling/generators/module.ts",
+    "prepare": "husky",
+    "format:check": "prettier --check \"**/*.{ts,tsx,json,md,yml,yaml}\"",
+    "import:wordpress": "tsx tooling/scripts/wpress-import.ts",
+    "db:create-admin": "pnpm --filter @vashundhara-foundation/database db:create-admin"
   },
   "devDependencies": {
     "@turbo/gen": "^2.0.0",
@@ -34,10 +33,28 @@
     "husky": "^9.0.11",
     "prettier": "^3.2.5",
     "turbo": "^2.0.0",
-    "typescript": "^5.4.5"
+    "typescript": "~5.9.0",
+    "tsx": "^4.20.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0"
   },
   "packageManager": "pnpm@9.1.0",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "postcss": "^8.5.33",
+      "js-yaml": "^4.3.2",
+      "lodash": "^4.18.0"
+    },
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma",
+      "esbuild",
+      "@swc/core",
+      "sharp"
+    ]
   }
 }

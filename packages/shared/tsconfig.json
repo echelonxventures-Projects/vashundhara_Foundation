@@ -3,13 +3,17 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "jsx": "react-jsx",
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true
+    "lib": [
+      "ES2022",
+      "DOM"
+    ]
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"],
-  "references": []
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts"
+  ]
 }

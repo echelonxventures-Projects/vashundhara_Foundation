@@ -1,14 +1,18 @@
-/**
- * Prisma Module for Vashundhara Foundation API
- */
+import { Global, Module, OnApplicationShutdown } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
+import { tenantScope } from './tenant-scope';
 
-import { Global, Module } from '@nestjs/common';
-
-import { PrismaService } from './prisma.service';
+/** Injection token and type. The value is the tenant-scoped client. */
+export abstract class PrismaService extends PrismaClient {}
 
 @Global()
 @Module({
-  providers: [PrismaService],
+  providers: [{ provide: PrismaService, useFactory: () => new PrismaClient({ errorFormat: 'minimal' }).$extends(tenantScope) }],
   exports: [PrismaService]
 })
-export class PrismaModule {}
+export class PrismaModule implements OnApplicationShutdown {
+  constructor(private readonly prisma: PrismaService) {}
+  async onApplicationShutdown() {
+    await this.prisma.$disconnect();
+  }
+}

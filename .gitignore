@@ -54,3 +54,7 @@ docker-compose.override.yml
 *.wpress
 *.orig
 *.rej
+# Generated
+packages/database/src/generated/
+test-results/
+playwright-report/

@@ -1,25 +1,20 @@
 {
   "name": "@vashundhara-foundation/i18n",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
-  "main": "src/index.ts",
-  "types": "src/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc -p tsconfig.json",
     "lint": "eslint src --ext .ts",
-    "typecheck": "tsc --noEmit",
-    "extract": "ts-node scripts/extract-translations.ts",
-    "compile": "ts-node scripts/compile-translations.ts",
-    "build": "tsc"
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run"
   },
-  "dependencies": {
-    "next-intl": "^3.12.0",
-    "i18next": "^23.10.0",
-    "i18next-fs-backend": "^2.3.1"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@types/node": "^20.12.0",
-    "eslint": "^8.57.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "@types/node": "^22.10.0",
+    "typescript": "~5.9.0",
+    "vitest": "^3.2.0",
+    "eslint": "^8.57.0"
   }
 }
